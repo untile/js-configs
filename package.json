@@ -1,0 +1,50 @@
+{
+  "name": "js-configs",
+  "private": true,
+  "description": "Code convention tools.",
+  "homepage": "https://github.com/untile/js-configs#readme",
+  "bugs": {
+    "url": "https://github.com/untile/js-configs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/untile/js-configs.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Untile",
+    "email": "hello@untile.pt",
+    "url": "https://untile.pt"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "pre-commit": "lint-staged",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "package.json": [
+      "sort-package-json"
+    ],
+    "yarn.lock": [
+      "yarn-deduplicate"
+    ]
+  },
+  "devDependencies": {
+    "@uphold/github-changelog-generator": "uphold/github-changelog-generator#feature/package-name",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
+    "sort-package-json": "^2.4.1",
+    "yarn-deduplicate": "^6.0.1"
+  },
+  "engines": {
+    "node": ">=14.18",
+    "npm": "please-use-yarn",
+    "yarn": ">=1.22.0"
+  },
+  "validate-branch-name": {
+    "pattern": "^master{1}$|^(bugfix|dependabot|enhancement|feature|hotfix|release|support)/.+$",
+    "errorMsg": "Only the following prefixes are allowed: bugfix|dependabot|enhancement|feature|hotfix|release|support"
+  }
+}
