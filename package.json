@@ -20,8 +20,11 @@
     "packages/*"
   ],
   "scripts": {
+    "lint": "yarn workspaces run lint",
     "pre-commit": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release:eslint-config": "yarn workspace @untile/eslint-config release",
+    "test": "yarn workspaces run test"
   },
   "lint-staged": {
     "package.json": [
