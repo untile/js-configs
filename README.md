@@ -25,6 +25,18 @@ This project uses [yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/wor
 yarn
 ```
 
+### Run lint
+
+```sh
+yarn lint
+```
+
+### Run full test suite
+
+```sh
+yarn test
+```
+
 ### Release
 
 Be sure to have configured `GITHUB_TOKEN` in your globals.
