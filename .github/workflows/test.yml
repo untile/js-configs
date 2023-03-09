@@ -16,7 +16,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Setup node
         uses: actions/setup-node@v2
@@ -37,3 +39,8 @@ jobs:
 
       - name: Tests
         run: yarn test
+
+      - name: Lint commits
+        uses: wagoid/commitlint-github-action@v5
+        with: 
+          configFile: .commitlintrc.js
