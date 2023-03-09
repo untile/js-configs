@@ -23,6 +23,7 @@
     "lint": "yarn workspaces run lint",
     "pre-commit": "lint-staged",
     "prepare": "husky install",
+    "release:commitlint-config": "yarn workspace @untile/commitlint-config release",
     "release:eslint-config": "yarn workspace @untile/eslint-config release",
     "test": "yarn workspaces run test"
   },
