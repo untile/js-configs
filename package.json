@@ -26,6 +26,7 @@
     "release:commitlint-config": "yarn workspace @untile/commitlint-config release",
     "release:eslint-config": "yarn workspace @untile/eslint-config release",
     "release:eslint-config-react": "yarn workspace @untile/eslint-config-react release",
+    "release:stylelint-config-react": "yarn workspace @untile/stylelint-config-react release",
     "test": "yarn workspaces run test"
   },
   "lint-staged": {
