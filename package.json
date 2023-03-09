@@ -25,6 +25,7 @@
     "prepare": "husky install",
     "release:commitlint-config": "yarn workspace @untile/commitlint-config release",
     "release:eslint-config": "yarn workspace @untile/eslint-config release",
+    "release:eslint-config-react": "yarn workspace @untile/eslint-config-react release",
     "test": "yarn workspaces run test"
   },
   "lint-staged": {
