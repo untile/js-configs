@@ -1,0 +1,53 @@
+{
+  "name": "@untile/commitlint-config",
+  "version": "0.0.0",
+  "description": "Untile-flavored commitlint config",
+  "keywords": [
+    "config",
+    "commit",
+    "commitlint",
+    "lint"
+  ],
+  "homepage": "https://github.com/untile/js-configs/packages/commitlint-config/#readme",
+  "bugs": {
+    "url": "https://github.com/untile/js-configs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/untile/js-configs.git"
+  },
+  "license": "MIT",
+  "main": "src",
+  "scripts": {
+    "lint": "eslint .",
+    "release": "../../bin/release.sh commitlint-config",
+    "test": "jest",
+    "test:watch": "jest --watch --notify"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ],
+    "package.json": [
+      "sort-package-json"
+    ],
+    "yarn.lock": [
+      "yarn-deduplicate"
+    ]
+  },
+  "dependencies": {
+    "@commitlint/config-conventional": "^17.4.4",
+    "commitlint-plugin-function-rules": "^1.7.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/lint": "^17.4.4",
+    "@commitlint/load": "^17.4.4",
+    "@untile/eslint-config": "*",
+    "eslint": "^8.35.0",
+    "jest": "^29.5.0"
+  },
+  "engines": {
+    "node": ">=14.18"
+  }
+}
