@@ -2,13 +2,13 @@
 
 Untile-flavored ESLint config react. Extends `@untile/eslint-config`.
 
-[![npm version](https://img.shields.io/npm/v/@untile/eslint-config-react.svg?style=flat-square)](https://www.npmjs.com/package/@untile/eslint-config-react)
+[![npm version](https://img.shields.io/npm/v/@untile/eslint-config-typescript-react.svg?style=flat-square)](https://www.npmjs.com/package/@untile/eslint-config-typescript-react)
 [![licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
 
 ## Installation
 
 ```sh
-$ npm install eslint @untile/eslint-config-react --save-dev
+$ npm install eslint @untile/eslint-config-typescript-react --save-dev
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ $ npm install eslint @untile/eslint-config-react --save-dev
 Create an `.eslintrc.js` file with the following:
 
 ```js
-extends: ['@untile/eslint-config-react']
+extends: ['@untile/eslint-config-typescript-react']
 ```
 
 Add the following `script` to your `package.json`:
