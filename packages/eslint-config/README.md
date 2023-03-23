@@ -3,7 +3,7 @@
 Untile-flavored ESLint config.
 
 [![npm version](https://img.shields.io/npm/v/@untile/eslint-config.svg?style=flat-square)](https://www.npmjs.com/package/@untile/eslint-config)
-[![licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
 
 ## Installation
 

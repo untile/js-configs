@@ -3,7 +3,7 @@
 Untile-flavored stylelint config react.
 
 [![npm version](https://img.shields.io/npm/v/@untile/stylelint-config-react.svg?style=flat-square)](https://www.npmjs.com/package/@untile/stylelint-config-react)
-[![licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
 
 ## Installation
 

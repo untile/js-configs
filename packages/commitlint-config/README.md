@@ -3,7 +3,7 @@
 Untile-flavored commitlint config.
 
 [![npm version](https://img.shields.io/npm/v/@untile/commitlint-config.svg?style=flat-square)](https://www.npmjs.com/package/@untile/commitlint-config)
-[![licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
 
 ## Installation
 
@@ -29,5 +29,5 @@ module.exports = {
 - Commit body should be in sentence-case.
 
 **NOTE**
-Follow the [commitlint.js.org](https://commitlint.js.org/#/guides-local-setup?id=install-husky) 
+Follow the [commitlint.js.org](https://commitlint.js.org/#/guides-local-setup?id=install-husky)
 guide to see how to finish the configuration, using for example husky.
