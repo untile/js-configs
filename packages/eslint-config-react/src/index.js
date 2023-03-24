@@ -3,7 +3,11 @@
  */
 
 module.exports = {
-  extends: ['@untile/eslint-config', 'plugin:react/recommended'],
+  extends: [
+    '@untile/eslint-config',
+    'plugin:react/recommended',
+    'prettier'
+  ],
   parser: '@babel/eslint-parser',
   parserOptions: {
     babelOptions: {
