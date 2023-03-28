@@ -29,6 +29,7 @@
     "release:eslint-config-typescript-react": "yarn workspace @untile/eslint-config-typescript-react release",
     "release:prettier-config": "yarn workspace @untile/prettier-config release",
     "release:stylelint-config-react": "yarn workspace @untile/stylelint-config-react release",
+    "release:stylelint-config-react-native": "yarn workspace @untile/stylelint-config-react-native release",
     "release:typescript-eslint-config-react-native": "yarn workspace @untile/eslint-config-typescript-react-native release",
     "test": "yarn workspaces run test"
   },
