@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-  extends: ['@untile/stylelint-config-react', 'stylelint-config-prettier'],
+  extends: ['@untile/stylelint-config-react'],
   plugins: ['stylelint-react-native'],
   rules: {
     'max-empty-lines': 1,

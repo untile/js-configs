@@ -39,7 +39,6 @@
   "dependencies": {
     "@untile/eslint-config-typescript-react": "*",
     "@untile/stylelint-config-react": "*",
-    "stylelint-config-prettier": "^9.0.5",
     "stylelint-react-native": "^2.6.0"
   },
   "devDependencies": {
