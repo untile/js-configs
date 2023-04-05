@@ -41,8 +41,11 @@
       "yarn-deduplicate"
     ]
   },
+  "resolutions": {
+    "json5": "^2.2.1"
+  },
   "devDependencies": {
-    "@uphold/github-changelog-generator": "uphold/github-changelog-generator#feature/package-name",
+    "@untile/github-changelog-generator": "^1.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.2",
     "sort-package-json": "^2.4.1",

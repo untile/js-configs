@@ -19,7 +19,7 @@
   "main": "src",
   "scripts": {
     "lint": "eslint . --ignore-pattern 'test/fixtures/*'",
-    "release": "../../bin/release.sh prettier-config",
+    "release": "../../bin/release.sh @untile/prettier-config",
     "test": "jest",
     "test:watch": "jest --watch --notify"
   },
