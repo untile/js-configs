@@ -20,7 +20,7 @@
   "main": "src",
   "scripts": {
     "lint": "eslint .",
-    "release": "../../bin/release.sh commitlint-config",
+    "release": "../../bin/release.sh @untile/commitlint-config",
     "test": "jest",
     "test:watch": "jest --watch --notify"
   },

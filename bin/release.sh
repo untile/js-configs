@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 
 release() {
+  local tag_prefix=$(echo "${1}" | sed 's/^@[^/]*\///')
+
   # Install dependencies.
   yarn
 
@@ -11,19 +13,19 @@ release() {
   local version=`grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g'`
 
   # Generate changelog.
-  github-changelog-generator -f ${version} -o untile -p ${1} -r js-configs > CHANGELOG.md
+  github-changelog-generator --future-release ${version} --package-name ${1}
 
   # Add modified files.
   git add .
 
   # Get package name.
-  local packageName=$(tr '[:lower:]' '[:upper:]' <<< ${1:0:1})${1:1}
+  local packageName=$(tr '[:lower:]' '[:upper:]' <<< ${tag_prefix:0:tag_prefix})${tag_prefix:tag_prefix}
 
   # Commit release with new version.
-  git commit -m "Release ${packageName} ${version}"
+  git commit -m "Release ${packageName} v${version}"
 
   # Create tag.
-  git tag ${1}/${version}
+  git tag ${tag_prefix}/v${version}
 }
 
 release $1 $2

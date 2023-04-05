@@ -21,7 +21,7 @@
   "main": "src",
   "scripts": {
     "lint": "eslint . --ignore-pattern 'test/fixtures/*'",
-    "release": "../../bin/release.sh eslint-config",
+    "release": "../../bin/release.sh @untile/eslint-config-react",
     "test": "jest",
     "test:watch": "jest --watch --notify"
   },
