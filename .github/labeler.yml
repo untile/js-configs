@@ -1,0 +1,33 @@
+# Auto-generated labeler.yml
+
+# Label for package prettier-config.
+prettier-config:
+  - packages/prettier-config/**/*
+
+# Label for package commitlint-config.
+commitlint-config:
+  - packages/commitlint-config/**/*
+
+# Label for package eslint-config-react.
+eslint-config-react:
+  - packages/eslint-config-react/**/*
+
+# Label for package stylelint-config-react-native.
+stylelint-config-react-native:
+  - packages/stylelint-config-react-native/**/*
+
+# Label for package eslint-config-typescript-react-native.
+eslint-config-typescript-react-native:
+  - packages/eslint-config-typescript-react-native/**/*
+
+# Label for package eslint-config.
+eslint-config:
+  - packages/eslint-config/**/*
+
+# Label for package stylelint-config-react.
+stylelint-config-react:
+  - packages/stylelint-config-react/**/*
+
+# Label for package eslint-config-typescript-react.
+eslint-config-typescript-react:
+  - packages/eslint-config-typescript-react/**/*
