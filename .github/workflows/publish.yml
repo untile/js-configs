@@ -31,9 +31,6 @@ jobs:
           node-version: '14.18.0'
           registry-url: https://registry.npmjs.com
 
-      - name: Install module dependencies
-        run: yarn bootstrap:${{ steps.split.outputs._0 }}
-
       - name: Publish
         run: npm publish packages/${{ steps.split.outputs._0 }} --access public
         env:
