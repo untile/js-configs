@@ -37,7 +37,7 @@
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/parser": "^7.21.3",
-    "@untile/eslint-config-react": "*",
+    "@untile/eslint-config": "^1.0.0",
     "eslint": "^8.35.0",
     "jest": "^29.5.0",
     "prettier": "^2.8.7",
