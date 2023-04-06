@@ -37,9 +37,29 @@ yarn lint
 yarn test
 ```
 
-### Release
+## Adding new packages
 
-Be sure to have configured `GITHUB_TOKEN` in your globals.
+To ensure that every part of the monorepo infrastructure works as intended, every package must be located within the `./packages/<new-package-name>` folder.
+
+### Release setup
+
+After creating a package, add a release script to the `./packages/<new-package-name>/package.json` file, and another one to the main `./package.json` file with:
+
+```json
+  "release:<new-package-name>": "yarn workspace @untile/<new-package-name> release",
+```
+
+### Changelog setup
+When creating new packages, keep in mind that the **auto labeler** must have the new package added in `.github/labeler`, so that it can label its pull requests accordingly and they are included in the correct `CHANGELOG.md`. To add new packages to auto labeler run:
+
+```sh
+sh bin/auto-labeler.sh
+```
+
+## Release & Publish
+
+Make sure that you have configured `GITHUB_TOKEN` in your globals.
+This will also publish your packages that have changes to [NPM](https://www.npmjs.com/~untile).
 
 ```sh
 yarn release:[<package-name>] [<new version> | major | minor | patch]
