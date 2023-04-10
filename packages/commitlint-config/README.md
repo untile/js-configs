@@ -1,9 +1,26 @@
-# commitlint-config-untile
+<p align="center">
+  <br><img width="250" src="https://untile.pt/logo.png" /><br>
+</p>
 
-Untile-flavored commitlint config.
+<h1 align="center">
+  @untile/commitlint-config
+</h1>
 
-[![npm version](https://img.shields.io/npm/v/@untile/commitlint-config.svg?style=flat-square)](https://www.npmjs.com/package/@untile/commitlint-config)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/untile/js-configs/blob/main/LICENSE)
+<h4 align="center">
+  Untile-flavored commitlint config.
+</h4>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@untile/commitlint-config">
+    <img src="https://img.shields.io/npm/v/@untile/commitlint-config.svg?style=for-the-badge" alt="NPM version" />
+  </a>
+  <a href="https://github.com/untile/js-configs/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="Untile js-config is released under the MIT license." />
+  </a>
+  <a href="https://twitter.com/intent/follow?screen_name=untiledigital">
+    <img src="https://img.shields.io/twitter/follow/untiledigital.svg?label=Follow%20@untiledigital&style=for-the-badge" alt="Follow @untiledigital" />
+  </a>
+</p>
 
 ## Installation
 
