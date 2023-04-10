@@ -31,19 +31,19 @@ jobs:
       
       - name: Get changelog entries
         id: changelog_reader
-        uses: mindsers/changelog-reader-action@v1
+        uses: mindsers/changelog-reader-action@v2
         with:
-          version: ${{ steps.split.outputs._0 }} ${{ steps.split.outputs._1 }}
+          validation_level: warn
+          version: ${{ steps.split.outputs._1 }}
           path: ./packages/${{ steps.split.outputs._0 }}/CHANGELOG.md
 
       - name: Create release
         id: create_release
-        uses: actions/create-release@v1
+        uses: ncipollo/release-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: ${{ steps.changelog_reader.outputs.log_entry }}
+          body: ${{ steps.changelog_reader.outputs.changes }}
           draft: false
           prerelease: false
+          tag: ${{ github.ref }}
