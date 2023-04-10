@@ -11,30 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get version from tag
-        id: tag_name
-        run: |
-          echo ::set-output name=current_version::${GITHUB_REF_NAME}
-        shell: bash
-
-      - name: Get package and version name
-        uses: jungwinter/split@v2
-        id: split
-        with: 
-          msg: ${{steps.tag_name.outputs.current_version}}
-          separator: '/'
-
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      
-      - name: Get changelog entries
-        id: changelog_reader
-        uses: mindsers/changelog-reader-action@v1
+
+      - name: Get version from tag
+        id: tag_name
+        run: |
+          PUSHED_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+          IFS="/" read -ra TAG_PARTS <<< "$PUSHED_TAG"
+          PACKAGE_NAME="${TAG_PARTS[0]}"
+          echo "package_name=$PACKAGE_NAME" >> "$GITHUB_OUTPUT"
+
+      - name: Parse Changelog
+        id: changelog
+        uses: ocavue/changelog-parser-action@v1
         with:
-          version: ${{ steps.split.outputs._0 }} ${{ steps.split.outputs._1 }}
-          path: ./packages/${{ steps.split.outputs._0 }}/CHANGELOG.md
+          removeMarkdown: false
+          filePath: "./packages/${{ steps.tag_name.outputs.package_name }}/CHANGELOG.md"
 
       - name: Create release
         id: create_release
@@ -43,7 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: ${{ steps.changelog_reader.outputs.log_entry }}
+          body: ${{ steps.changelog.outputs.latestBody }}
           draft: false
           prerelease: false
