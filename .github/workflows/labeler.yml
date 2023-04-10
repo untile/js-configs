@@ -1,14 +1,12 @@
 name: Pull Request Labeler
 
 on:
-  pull_request_target:
-    types:
-      - synchronize
+  pull_request_target
 
 jobs:
   triage:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     permissions:
       contents: read
       pull-requests: write
