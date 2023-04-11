@@ -1,6 +1,6 @@
 {
   "name": "@untile/eslint-config-react",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Untile-flavored ESLint config react",
   "keywords": [
     "config",
