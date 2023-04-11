@@ -8,7 +8,7 @@
     "commitlint",
     "lint"
   ],
-  "homepage": "https://github.com/untile/js-configs/packages/commitlint-config/#readme",
+  "homepage": "https://github.com/untile/js-configs/tree/master/packages/commitlint-config/#readme",
   "bugs": {
     "url": "https://github.com/untile/js-configs/issues"
   },

@@ -7,7 +7,7 @@
     "prettier",
     "lint"
   ],
-  "homepage": "https://github.com/untile/js-configs/packages/prettier-config/#readme",
+  "homepage": "https://github.com/untile/js-configs/tree/master/packages/prettier-config/#readme",
   "bugs": {
     "url": "https://github.com/untile/js-configs/issues"
   },
