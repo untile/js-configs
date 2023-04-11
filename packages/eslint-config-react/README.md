@@ -11,8 +11,8 @@
 </h4>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/@untile/eslint-config-react.svg">
-    <img src="https://img.shields.io/npm/v/@untile/eslint-config-react.svg.svg?style=for-the-badge" alt="NPM version" />
+  <a href="https://www.npmjs.com/package/@untile/eslint-config-react">
+    <img src="https://img.shields.io/npm/v/@untile/eslint-config-react.svg?style=for-the-badge" alt="NPM version" />
   </a>
   <a href="https://github.com/untile/js-configs/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="Untile js-config is released under the MIT license." />
