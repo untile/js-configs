@@ -9,7 +9,7 @@
     "react",
     "typescript"
   ],
-  "homepage": "https://github.com/untile/js-configs/packages/eslint-config-typescript-react/#readme",
+  "homepage": "https://github.com/untile/js-configs/tree/master/packages/eslint-config-typescript-react/#readme",
   "bugs": {
     "url": "https://github.com/untile/js-configs/issues"
   },

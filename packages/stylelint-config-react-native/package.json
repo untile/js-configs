@@ -9,7 +9,7 @@
     "stylelint",
     "untile"
   ],
-  "homepage": "https://github.com/untile/js-configs/packages/stylelint-config-react-native/#readme",
+  "homepage": "https://github.com/untile/js-configs/tree/master/packages/stylelint-config-react-native/#readme",
   "bugs": {
     "url": "https://github.com/untile/js-configs/issues"
   },
