@@ -36,6 +36,11 @@
       "yarn-deduplicate"
     ]
   },
+  "resolutions": {
+    "json5": "^2.2.1",
+    "minimatch": "^3.0.5",
+    "moment": "^2.29.4"
+  },
   "dependencies": {
     "@stylelint/postcss-css-in-js": "^0.38.0",
     "postcss": "^8.4.21",
