@@ -45,11 +45,11 @@
     "commitlint-plugin-function-rules": "^1.7.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.4",
+    "@commitlint/cli": "^17.5.1",
     "@commitlint/lint": "^17.4.4",
-    "@commitlint/load": "^17.4.4",
+    "@commitlint/load": "^17.5.0",
     "@untile/eslint-config": "^1.0.0",
-    "eslint": "^8.35.0",
+    "eslint": "^8.38.0",
     "jest": "^29.5.0"
   },
   "engines": {
