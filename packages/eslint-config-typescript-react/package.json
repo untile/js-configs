@@ -39,7 +39,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
-    "@untile/eslint-config-react": "*",
+    "@untile/eslint-config-react": "^1.0.1",
     "eslint-plugin-typescript-sort-keys": "^2.3.0"
   },
   "devDependencies": {
