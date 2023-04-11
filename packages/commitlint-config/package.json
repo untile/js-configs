@@ -35,6 +35,11 @@
       "yarn-deduplicate"
     ]
   },
+  "resolutions": {
+    "decode-uri-component": "^0.2.1",
+    "json5": "^2.2.1",
+    "moment": "^2.29.4"
+  },
   "dependencies": {
     "@commitlint/config-conventional": "^17.4.4",
     "commitlint-plugin-function-rules": "^1.7.1"
