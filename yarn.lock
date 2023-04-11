@@ -1865,10 +1865,10 @@
     "@typescript-eslint/types" "5.58.0"
     eslint-visitor-keys "^3.3.0"
 
-"@untile/github-changelog-generator@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@untile/github-changelog-generator/-/github-changelog-generator-1.0.2.tgz#ea0761fa08141d11c7b2bc1e2ab002fe62c99c24"
-  integrity sha512-/0v+yXnHMyykeyLh7eiWDw/V/9neM5m0E0Hf70Jk20b1eqzY+0TKsKtuJbYInbA+KhEg+tg6tGwnqZLsrPqkbQ==
+"@untile/github-changelog-generator@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@untile/github-changelog-generator/-/github-changelog-generator-1.0.3.tgz#33bbc9efc03816d983d3afaa322a22e36c26f7c4"
+  integrity sha512-WMhVJMc6w84lDmZql9aY0xIzAqDKuK1IsF40Pc9+ShBi9+CF05cdYvkVKQcnwOPB0piubtqCqT+0O4YPag1+jg==
   dependencies:
     "@octokit/graphql" "^5.0.5"
     execa "4.1.0"
