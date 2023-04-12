@@ -24,11 +24,19 @@
 
 ## Installation
 
+With `npm`:
+
 ```sh
-$ npm install stylelint @untile/stylelint-config-react-native --save-dev
+npm install stylelint @untile/stylelint-config-react-native --save-dev
 ```
 
-## Usage
+Or using `yarn`:
+
+```sh
+yarn add stylelint @untile/stylelint-config-react-native -D
+```
+
+## Setup
 
 Create an `.stylelintrc` file with the following:
 
@@ -38,12 +46,14 @@ Create an `.stylelintrc` file with the following:
 }
 ```
 
+## Usage
+
 Add the following `script` to your `package.json`:
 
 ```json
 {
   "scripts": {
-    "lint:styles": "stylelint './src/**/*.js'",
+    "lint:styles": "stylelint './src/**/*.js'"
   }
 }
 ```
@@ -51,7 +61,7 @@ Add the following `script` to your `package.json`:
 and run the linter with:
 
 ```sh
-$ yarn lint:styles
+yarn lint:styles
 ```
 
 ## Extending the config

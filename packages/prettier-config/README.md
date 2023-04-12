@@ -24,11 +24,19 @@
 
 ## Installation
 
+With `npm`:
+
 ```sh
-$ yarn add -d prettier @untile/prettier-config
+npm install prettier @untile/prettier-config --save-dev
 ```
 
-## Usage
+Or using `yarn`:
+
+```sh
+yarn add prettier @untile/prettier-config -D
+```
+
+## Setup
 
 Add the following code to your `package.json` file:
 

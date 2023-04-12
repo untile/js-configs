@@ -12,29 +12,48 @@
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@untile/eslint-config-typescript-react-native">
-    <img src="https://img.shields.io/npm/v/@untile/eslint-config-typescript-react-native.svg?style=for-the-badge" alt="NPM version" />
+    <img
+      src="https://img.shields.io/npm/v/@untile/eslint-config-typescript-react-native.svg?style=for-the-badge"
+      alt="NPM version"
+    />
   </a>
   <a href="https://github.com/untile/js-configs/blob/main/LICENSE">
-    <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="Untile js-config is released under the MIT license." />
+    <img
+      src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge"
+      alt="Untile js-config is released under the MIT license."
+    />
   </a>
   <a href="https://twitter.com/intent/follow?screen_name=untiledigital">
-    <img src="https://img.shields.io/twitter/follow/untiledigital.svg?label=Follow%20@untiledigital&style=for-the-badge" alt="Follow @untiledigital" />
+    <img
+      src="https://img.shields.io/twitter/follow/untiledigital.svg?label=Follow%20@untiledigital&style=for-the-badge"
+      alt="Follow @untiledigital"
+    />
   </a>
 </p>
 
 ## Installation
 
+With `npm`:
+
 ```sh
-$ npm install eslint @untile/eslint-config-typescript-react-native --save-dev
+npm install eslint @untile/eslint-config-typescript-react-native --save-dev
 ```
 
-## Usage
+Or using `yarn`:
+
+```sh
+yarn add eslint @untile/eslint-config-typescript-react-native -D
+```
+
+## Setup
 
 Create an `.eslintrc.js` file with the following:
 
 ```js
 extends: ['@untile/eslint-config-typescript-react-native']
 ```
+
+## Usage
 
 Add the following `script` to your `package.json`:
 
@@ -49,5 +68,5 @@ Add the following `script` to your `package.json`:
 and run the linter with:
 
 ```sh
-$ yarn lint
+yarn lint
 ```
