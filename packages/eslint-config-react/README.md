@@ -24,17 +24,27 @@
 
 ## Installation
 
+With `npm`:
+
 ```sh
-$ npm install eslint @untile/eslint-config-react --save-dev
+npm install eslint @untile/eslint-config-react --save-dev
 ```
 
-## Usage
+Or using `yarn`:
+
+```sh
+yarn add eslint @untile/eslint-config-react -D
+```
+
+## Setup
 
 Create an `.eslintrc.js` file with the following:
 
 ```js
 extends: ['@untile/eslint-config-react']
 ```
+
+## Usage
 
 Add the following `script` to your `package.json`:
 
@@ -49,5 +59,5 @@ Add the following `script` to your `package.json`:
 and run the linter with:
 
 ```sh
-$ yarn lint
+yarn lint
 ```

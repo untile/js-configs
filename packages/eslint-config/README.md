@@ -24,17 +24,27 @@
 
 ## Installation
 
+With `npm`:
+
 ```sh
-$ yarn add eslint @untile/eslint-config --dev
+npm install eslint @untile/eslint-config --save-dev
 ```
 
-## Usage
+Or using `yarn`:
+
+```sh
+yarn add eslint @untile/eslint-config -D
+```
+
+## Setup
 
 Create an `.eslintrc.js` file with the following:
 
 ```js
 extends: ['@untile/eslint-config']
 ```
+
+## Usage
 
 Add the following `script` to your `package.json`:
 
@@ -49,5 +59,5 @@ Add the following `script` to your `package.json`:
 and run the linter with:
 
 ```sh
-$ yarn lint
+yarn lint
 ```
