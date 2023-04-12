@@ -24,17 +24,25 @@
 
 ## Installation
 
+With `npm`:
+
 ```sh
-$ yarn add @commitlint/cli @untile/commitlint-config-untile --dev
+npm install @commitlint/cli @untile/commitlint-config --save-dev
 ```
 
-## Usage
+Or using `yarn`:
+
+```sh
+yarn add @commitlint/cli @untile/commitlint-config -D
+```
+
+## Setup
 
 Create an `.commitlintrc.js` file with the following:
 
 ```js
 module.exports = {
-  extends: ['@untile/commitlint-config-untile']
+  extends: ["@untile/commitlint-config"],
 };
 ```
 
