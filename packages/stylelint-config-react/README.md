@@ -7,7 +7,7 @@
 </h1>
 
 <h4 align="center">
-  Untile-flavored stylelint config react.
+  Untile-flavored stylelint config react and styled-components.
 </h4>
 
 <p align="center">
