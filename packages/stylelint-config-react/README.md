@@ -27,13 +27,19 @@
 With `npm`:
 
 ```sh
-npm install stylelint @untile/stylelint-config-react --save-dev
+npm install @untile/stylelint-config-react --save-dev
 ```
 
 Or using `yarn`:
 
 ```sh
 yarn add stylelint @untile/stylelint-config-react -D
+```
+
+You can install the peer dependencies manually or use this command to add them to you `package.json`:
+
+```sh
+npx install-peerdeps --dev @untile/stylelint-config-react
 ```
 
 ## Setup
