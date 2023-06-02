@@ -31,3 +31,7 @@ stylelint-config-react:
 # Label for package eslint-config-typescript-react.
 eslint-config-typescript-react:
   - packages/eslint-config-typescript-react/**/*
+
+# Label for package eslint-config-typescript.
+eslint-config-typescript:
+  - packages/eslint-config-typescript/**/*

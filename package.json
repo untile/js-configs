@@ -26,6 +26,7 @@
     "release:commitlint-config": "yarn workspace @untile/commitlint-config release",
     "release:eslint-config": "yarn workspace @untile/eslint-config release",
     "release:eslint-config-react": "yarn workspace @untile/eslint-config-react release",
+    "release:eslint-config-typescript": "yarn workspace @untile/eslint-config-typescript release",
     "release:eslint-config-typescript-react": "yarn workspace @untile/eslint-config-typescript-react release",
     "release:eslint-config-typescript-react-native": "yarn workspace @untile/eslint-config-typescript-react-native release",
     "release:prettier-config": "yarn workspace @untile/prettier-config release",
