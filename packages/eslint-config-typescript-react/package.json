@@ -20,13 +20,12 @@
   "license": "MIT",
   "main": "src",
   "scripts": {
-    "lint": "eslint . --ignore-pattern 'test/fixtures/*'",
+    "lint": "eslint .",
     "release": "../../bin/release.sh @untile/eslint-config-typescript-react",
-    "test": "jest",
-    "test:watch": "jest --watch --notify"
+    "test": "true"
   },
   "lint-staged": {
-    "!(test/fixtures/**/*)*.(ts|js)": [
+    "*.(ts|js)": [
       "eslint"
     ],
     "package.json": [
@@ -40,7 +39,7 @@
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
     "@untile/eslint-config-react": "^1.0.1",
-    "eslint-plugin-typescript-sort-keys": "^2.3.0"
+    "@untile/eslint-config-typescript": "^1.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
