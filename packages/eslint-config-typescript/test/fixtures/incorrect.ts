@@ -14,11 +14,16 @@ noop(foobiz);
 
 const foobiz = '';
 
+// `@typescript-eslint/no-explicit-any`.
+const bar: any = '';
+
+noop(bar);
+
 // `typescript-sort-keys/interface`.
 export interface FOO {
-  a: any;
-  c: any;
-  b: any;
+  a: unknown;
+  c: unknown;
+  b: unknown;
 }
 
 // Force this TS source to be a module.

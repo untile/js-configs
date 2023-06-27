@@ -13,9 +13,9 @@ noop({ bar: 'bar', foo: 'foo' });
 
 // `typescript-sort-keys/interface`.
 export interface FOOBAR {
-  a: any;
-  b: any;
-  c: any;
+  a: unknown;
+  b: unknown;
+  c: unknown;
 }
 
 // `@typescript-eslint/no-use-before-define`.
