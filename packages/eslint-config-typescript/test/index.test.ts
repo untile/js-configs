@@ -32,6 +32,7 @@ describe('@untile/eslint-config-typescript', () => {
       '@typescript-eslint/no-unused-vars',
       '@typescript-eslint/comma-dangle',
       '@typescript-eslint/no-use-before-define',
+      '@typescript-eslint/no-explicit-any',
       'typescript-sort-keys/interface'
     ]);
   });
