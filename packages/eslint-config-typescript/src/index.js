@@ -20,7 +20,10 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     '@typescript-eslint/indent': 0,
-    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-eslint/no-explicit-any': ['error', {
+      fixToUnknown: true,
+      ignoreRestArgs: false
+    }],
     '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-use-before-define': ['error'],
     'comma-dangle': 0,
