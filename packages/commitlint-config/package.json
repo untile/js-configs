@@ -56,6 +56,6 @@
     "@commitlint/cli": "^17"
   },
   "engines": {
-    "node": ">=14.18"
+    "node": ">=16"
   }
 }
