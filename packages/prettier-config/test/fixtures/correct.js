@@ -9,9 +9,9 @@ export const bracketSpacing = { foo: 'bar', baz: 'qux' };
 // jsxSingleQuote: true
 export const jsxSingleQuote = <div className='example'>Hello, World!</div>;
 
-// printWidth: 80
+// printWidth: 120
 export const printWidth =
-  'This is a very long line of text that will exceed the print width of 80 characters and will be wrapped by Prettier.';
+  'This is a very long line of text that will exceed the print width of 120 characters and will be wrapped by Prettier. This is a very long line of text that will exceed the print width of 120 characters and will be wrapped by Prettier.';
 
 // quoteProps: 'as-needed'
 export const quoteProps = {
