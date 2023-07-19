@@ -34,7 +34,8 @@ describe('@untile/stylelint-config', () => {
     expect(warnings.map(({ rule }) => rule)).toMatchObject([
       'react-native/css-property-no-unknown',
       'react-native/font-weight-no-ignored-values',
-      'react-native/font-weight-no-ignored-values'
+      'react-native/font-weight-no-ignored-values',
+      'declaration-block-no-duplicate-properties'
     ]);
   });
 });

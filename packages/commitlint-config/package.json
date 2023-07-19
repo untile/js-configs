@@ -41,16 +41,19 @@
     "moment": "^2.29.4"
   },
   "dependencies": {
-    "@commitlint/config-conventional": "^17.4.4",
-    "commitlint-plugin-function-rules": "^1.7.1"
+    "@commitlint/config-conventional": "^17.6.7",
+    "commitlint-plugin-function-rules": "^2.0.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.5.1",
-    "@commitlint/lint": "^17.4.4",
-    "@commitlint/load": "^17.5.0",
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/lint": "^17.6.7",
+    "@commitlint/load": "^17.6.7",
     "@untile/eslint-config": "^1.0.3",
-    "eslint": "^8.38.0",
-    "jest": "^29.5.0"
+    "eslint": "^8.45.0",
+    "jest": "^29.6.1"
+  },
+  "peerDependencies": {
+    "@commitlint/cli": "^17.6.7"
   },
   "engines": {
     "node": ">=16"
