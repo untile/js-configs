@@ -6,7 +6,6 @@ const ReactNativeCssPropertyNoUnknown = styled.View`
 // `react-native/font-weight-no-ignored-values`.
 const ReactNativeFontWeightNoIgnoredValues = styled.View`
   font-weight: 400;
-  font-weight: 700;
   font-weight: bold;
   font-weight: normal;
 `;
