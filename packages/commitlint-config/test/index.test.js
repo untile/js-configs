@@ -32,15 +32,19 @@ describe('commitlint-config-untile', () => {
       });
     });
 
-    it('should validate correctly if the subject starts with `wip`', () => {
+    it('should ignore commit wip', () => {
       return lint('wip').then(result => {
         expect(result.valid).toBe(true);
       });
     });
 
-    it('should validate correctly if the subject starts with `fixup`', () => {
-      return lint('fixup! Add foobar').then(result => {
-        expect(result.valid).toBe(true);
+    it('should ignore interactive rebase', () => {
+      const keywords = ['drop', 'fixup', 'pick', 'reword', 'squash'];
+
+      keywords.forEach(keyword => {
+        return lint(`${keyword} Add foobar`).then(result => {
+          expect(result.valid).toBe(true);
+        });
       });
     });
 

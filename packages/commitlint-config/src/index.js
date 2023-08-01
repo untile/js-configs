@@ -18,7 +18,11 @@ module.exports = {
   extends: ['@commitlint/config-conventional'],
   ignores: [
     message => message.includes('wip', 0, 2),
-    message => message.includes('fixup', 0, 4)
+    message => {
+      return ['drop', 'fixup', 'pick', 'reword', 'squash'].some(keyword => {
+        return message.includes(keyword);
+      });
+    }
   ],
   plugins: ['commitlint-plugin-function-rules'],
   rules: {
