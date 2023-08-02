@@ -1,12 +1,19 @@
 
 /**
+ * Verbs.
+ */
+
+const verbs = ['Add', 'Bump', 'Fix', 'Improve', 'Release', 'Remove', 'Update'];
+const verbsList = verbs.join('|');
+
+/**
  * Regexes.
  */
 
 const regexes = {
   atleastTwoWords: /(\w.+\s).+/,
-  base: /^(Add|Bump|Fix|Improve|Release|Remove|Update) \S+(?: \S+)*$/,
-  startWith: /^(Add|Bump|Fix|Improve|Release|Remove|Update) .+$/,
+  base: new RegExp(`^(${verbsList}) \\S+(?: \\S+)*$`),
+  startWith: new RegExp(`^(${verbsList}) .+$`),
   whitespace: /^\S+(?: \S+)*$/
 };
 
@@ -30,7 +37,7 @@ module.exports = {
     'body-full-stop': [0],
     'function-rules/type-enum': [2, 'always', parsed => {
       if (!parsed.header.match(regexes.startWith)) {
-        return [false, 'The commit must start with: Add|Bump|Fix|Improve|Release|Remove|Update'];
+        return [false, `The commit must start with: ${verbsList}`];
       }
 
       if (!parsed.header.match(regexes.atleastTwoWords)) {
