@@ -60,7 +60,7 @@ describe('commitlint-config-untile', () => {
   });
 
   describe('incorrect', () => {
-    it('should fail if subject not start with (Add|Bump|Fix|Improve|Release|Remove|Update)', () => {
+    it('should fail when the subject does not start with a whitelisted verb', () => {
       return lint('Foo bar').then(result => {
         expect(result.valid).toBe(false);
         expect(result.errors[0].name).toEqual('function-rules/type-enum');
