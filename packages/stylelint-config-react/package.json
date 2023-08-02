@@ -52,7 +52,7 @@
     "@untile/eslint-config": "^1.0.3",
     "babel-jest": "^29.6.1",
     "babel-plugin-module-resolver": "^5.0.0",
-    "eslint": "^8.45.0",
+    "eslint": "^8.46.0",
     "jest": "^29.6.1",
     "postcss": "^8.4.26",
     "postcss-styled-syntax": "^0.4.0",
