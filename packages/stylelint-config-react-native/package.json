@@ -43,7 +43,7 @@
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",
-    "@untile/eslint-config": "^1.0.3",
+    "@untile/eslint-config": "^2.0.0",
     "babel-jest": "^29.6.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.46.0",
