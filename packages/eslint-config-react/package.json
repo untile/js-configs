@@ -39,7 +39,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.22.9",
     "@babel/preset-react": "^7.22.5",
-    "@untile/eslint-config": "^1.0.3",
+    "@untile/eslint-config": "^2.0.0",
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-react-hooks": "^4.6.0",

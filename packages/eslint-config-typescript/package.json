@@ -38,7 +38,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
-    "@untile/eslint-config": "^1.0.3",
+    "@untile/eslint-config": "^2.0.0",
     "eslint-config-prettier": "^8.9.0",
     "eslint-plugin-sort-class-members": "^1.18.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
