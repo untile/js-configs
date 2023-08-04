@@ -1,5 +1,8 @@
 # Changelog
 
+## [commitlint-config 2.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/2.0.0) (2023-08-04)
+- Update untile/eslint-config to v2.0.0 [\#57](https://github.com/untile/js-configs/pull/57) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
 ## [commitlint-config 1.0.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/1.0.1) (2023-04-11)
 - Update @untile/eslint-config dependency to v1.0.3 [\#35](https://github.com/untile/js-configs/pull/35) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update @untile/eslint-config to v1.0.2 [\#33](https://github.com/untile/js-configs/pull/33) ([flaviocastro](https://github.com/flaviocastro))
