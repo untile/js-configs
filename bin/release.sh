@@ -13,7 +13,7 @@ release() {
   local version=`grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g'`
 
   # Generate changelog.
-  github-changelog-generator --future-release ${version} --package-name ${1}
+  github-changelog-generator --future-release ${version} --package-name ${1} --rebuild
 
   # Add modified files.
   git add .
