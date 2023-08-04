@@ -1,7 +1,12 @@
 # Changelog
 
-## [commitlint-config 2.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/2.0.0) (2023-08-04)
+## [commitlint-config/v2.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/v2.0.0) (2023-08-04)
 - Update untile/eslint-config to v2.0.0 [\#57](https://github.com/untile/js-configs/pull/57) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update eslint and typescript minor dependencies [\#55](https://github.com/untile/js-configs/pull/55) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update commitlint verbs whitelist [\#54](https://github.com/untile/js-configs/pull/54) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Add commitlint interactive rebase check [\#53](https://github.com/untile/js-configs/pull/53) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Bump node version to 16 and bump dependencies [\#50](https://github.com/untile/js-configs/pull/50) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Fix Commitlint README.md install instructions [\#40](https://github.com/untile/js-configs/pull/40) ([flaviocastro](https://github.com/flaviocastro))
 
 ## [commitlint-config 1.0.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/1.0.1) (2023-04-11)
 - Update @untile/eslint-config dependency to v1.0.3 [\#35](https://github.com/untile/js-configs/pull/35) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
