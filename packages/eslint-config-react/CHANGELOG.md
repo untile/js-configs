@@ -1,6 +1,13 @@
 # Changelog
 
-## [eslint-config-react 1.0.1](https://github.com/untile/js-configs/releases/tag/eslint-config-react/1.0.1) (2023-04-11)
+## [eslint-config-react 2.0.0](https://github.com/untile/js-configs/releases/tag/eslint-config-react/2.0.0) (2023-08-04)
+- Update untile/eslint-config to v2.0.0 [\#57](https://github.com/untile/js-configs/pull/57) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update eslint and typescript minor dependencies [\#55](https://github.com/untile/js-configs/pull/55) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Bump prettier to version 3 and printWidth to 120 [\#51](https://github.com/untile/js-configs/pull/51) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Bump node version to 16 and bump dependencies [\#50](https://github.com/untile/js-configs/pull/50) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Fix Commitlint README.md install instructions [\#40](https://github.com/untile/js-configs/pull/40) ([flaviocastro](https://github.com/flaviocastro))
+
+## [eslint-config-react/v1.0.1](https://github.com/untile/js-configs/releases/tag/eslint-config-react/v1.0.1) (2023-04-11)
 - Update @untile/eslint-config dependency to v1.0.3 [\#35](https://github.com/untile/js-configs/pull/35) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update outdated dependencies [\#31](https://github.com/untile/js-configs/pull/31) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update Readme.md badges and add Untile logo [\#30](https://github.com/untile/js-configs/pull/30) ([flaviocastro](https://github.com/flaviocastro))
