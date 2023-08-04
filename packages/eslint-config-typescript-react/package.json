@@ -1,6 +1,6 @@
 {
   "name": "@untile/eslint-config-typescript-react",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Untile-flavored ESLint config typescript react",
   "keywords": [
     "config",
