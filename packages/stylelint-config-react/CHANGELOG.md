@@ -1,6 +1,12 @@
 # Changelog
 
-## [stylelint-config-react 1.0.2](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/1.0.2) (2023-04-13)
+## [stylelint-config-react 2.0.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/2.0.0) (2023-08-04)
+- Update untile/eslint-config to v2.0.0 [\#57](https://github.com/untile/js-configs/pull/57) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update eslint and typescript minor dependencies [\#55](https://github.com/untile/js-configs/pull/55) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Bump node version to 16 and bump dependencies [\#50](https://github.com/untile/js-configs/pull/50) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update README.md with peer deps install step [\#41](https://github.com/untile/js-configs/pull/41) ([flaviocastro](https://github.com/flaviocastro))
+
+## [stylelint-config-react/v1.0.2](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/v1.0.2) (2023-04-13)
 - Fix stylelint customSyntax processor [\#39](https://github.com/untile/js-configs/pull/39) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Fix Commitlint README.md install instructions [\#40](https://github.com/untile/js-configs/pull/40) ([flaviocastro](https://github.com/flaviocastro))
 
