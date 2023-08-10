@@ -230,7 +230,6 @@ module.exports = {
     strict: 'off',
     'switch-case/newline-between-switch-case': ['error', 'always', { fallthrough: 'never' }],
     'template-curly-spacing': 'error',
-    'valid-jsdoc': 'error',
     'vars-on-top': 'error',
     'wrap-iife': ['error', 'inside'],
     yoda: 'error'
