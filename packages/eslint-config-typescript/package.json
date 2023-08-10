@@ -30,9 +30,6 @@
     ],
     "package.json": [
       "sort-package-json"
-    ],
-    "yarn.lock": [
-      "yarn-deduplicate"
     ]
   },
   "dependencies": {
