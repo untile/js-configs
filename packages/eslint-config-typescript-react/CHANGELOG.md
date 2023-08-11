@@ -1,6 +1,10 @@
 # Changelog
 
-## [eslint-config-typescript-react 2.0.0](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react/2.0.0) (2023-08-04)
+## [eslint-config-typescript-react 2.0.1](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react/2.0.1) (2023-08-11)
+- Update untile dependencies to v2.0.1 [\#69](https://github.com/untile/js-configs/pull/69) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Remove yarn-deduplicate in packages [\#64](https://github.com/untile/js-configs/pull/64) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [eslint-config-typescript-react/v2.0.0](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react/v2.0.0) (2023-08-04)
 - Update untile dependencies to v2.0.0 [\#60](https://github.com/untile/js-configs/pull/60) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update eslint and typescript minor dependencies [\#55](https://github.com/untile/js-configs/pull/55) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update typescript react and react-native packages [\#44](https://github.com/untile/js-configs/pull/44) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
