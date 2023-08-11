@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "@untile/eslint-config-typescript-react": "^2.0.0",
+    "@untile/eslint-config-typescript-react": "^2.0.1",
     "eslint-plugin-react-native": "^4.0.0"
   },
   "devDependencies": {
