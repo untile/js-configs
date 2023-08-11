@@ -34,7 +34,7 @@
     ]
   },
   "dependencies": {
-    "@untile/stylelint-config-react": "^2.0.0",
+    "@untile/stylelint-config-react": "^2.0.1",
     "stylelint-react-native": "^2.6.0"
   },
   "devDependencies": {
