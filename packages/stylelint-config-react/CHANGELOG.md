@@ -1,6 +1,10 @@
 # Changelog
 
-## [stylelint-config-react 2.0.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/2.0.0) (2023-08-04)
+## [stylelint-config-react 2.0.1](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/2.0.1) (2023-08-11)
+- Update @untile/eslint-config to v2.0.1 [\#68](https://github.com/untile/js-configs/pull/68) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Remove yarn-deduplicate in packages [\#64](https://github.com/untile/js-configs/pull/64) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [stylelint-config-react/v2.0.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/v2.0.0) (2023-08-04)
 - Update untile/eslint-config to v2.0.0 [\#57](https://github.com/untile/js-configs/pull/57) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update eslint and typescript minor dependencies [\#55](https://github.com/untile/js-configs/pull/55) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Bump node version to 16 and bump dependencies [\#50](https://github.com/untile/js-configs/pull/50) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
