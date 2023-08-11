@@ -46,7 +46,7 @@
     "json5": "^2.2.1"
   },
   "devDependencies": {
-    "@untile/github-changelog-generator": "^2.0.0",
+    "@untile/github-changelog-generator": "^2.0.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "sort-package-json": "^2.5.1",
