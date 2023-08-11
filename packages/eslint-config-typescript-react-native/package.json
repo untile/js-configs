@@ -1,6 +1,6 @@
 {
   "name": "@untile/eslint-config-typescript-react-native",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Untile-flavored Typescript ESLint react-native config",
   "keywords": [
     "config",
