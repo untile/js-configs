@@ -1,6 +1,11 @@
 # Changelog
 
-## [stylelint-config-react-native 2.0.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react-native/2.0.0) (2023-08-04)
+## [stylelint-config-react-native 2.0.1](https://github.com/untile/js-configs/releases/tag/stylelint-config-react-native/2.0.1) (2023-08-11)
+- Update stylelint-config-react to v2.0.1 [\#70](https://github.com/untile/js-configs/pull/70) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update @untile/eslint-config to v2.0.1 [\#68](https://github.com/untile/js-configs/pull/68) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Remove yarn-deduplicate in packages [\#64](https://github.com/untile/js-configs/pull/64) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [stylelint-config-react-native/v2.0.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react-native/v2.0.0) (2023-08-04)
 - Update @untile/stylelint-config-react to v2.0.0 [\#59](https://github.com/untile/js-configs/pull/59) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update untile/eslint-config to v2.0.0 [\#57](https://github.com/untile/js-configs/pull/57) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update eslint and typescript minor dependencies [\#55](https://github.com/untile/js-configs/pull/55) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
