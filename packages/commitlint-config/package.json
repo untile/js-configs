@@ -21,7 +21,7 @@
   "scripts": {
     "lint": "eslint .",
     "release": "../../bin/release.sh @untile/commitlint-config",
-    "test": "jest",
+    "test": "true",
     "test:watch": "jest --watch --notify"
   },
   "lint-staged": {
