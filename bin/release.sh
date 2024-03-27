@@ -10,7 +10,7 @@ release() {
   yarn version --no-git-tag-version --new-version ${2:-patch}
 
   # Get the new version number.
-  local version=`grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g'`
+  local version=`grep -m1 "\"version\"" package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g'`
 
   # Generate changelog.
   github-changelog-generator --future-release ${version} --package-name ${1} --rebuild
