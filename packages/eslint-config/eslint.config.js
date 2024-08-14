@@ -1,0 +1,193 @@
+import { fixupPluginRules } from '@eslint/compat';
+import newWithError from 'eslint-plugin-new-with-error';
+import nodePlugin from 'eslint-plugin-n';
+import sortDestructureKeys from 'eslint-plugin-sort-destructure-keys';
+import sortImportsEs6Autofix from 'eslint-plugin-sort-imports-es6-autofix';
+import sqlTemplate from 'eslint-plugin-sql-template';
+import stylistic from '@stylistic/eslint-plugin';
+import switchCase from 'eslint-plugin-switch-case';
+import vitest from 'eslint-plugin-vitest';
+
+export default [
+  {
+    files: ['**/*.js', '**/test/fixtures/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module'
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: true
+    },
+    plugins: {
+      '@stylistic': stylistic,
+      'new-with-error': newWithError,
+      nodePlugin,
+      'sort-destructure-keys': fixupPluginRules(sortDestructureKeys),
+      'sort-imports-es6-autofix': fixupPluginRules(sortImportsEs6Autofix),
+      'sql-template': fixupPluginRules(sqlTemplate),
+      'switch-case': switchCase,
+      vitest
+    },
+    rules: {
+      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+      '@stylistic/comma-dangle': 'error',
+      '@stylistic/comma-spacing': 'error',
+      '@stylistic/comma-style': 'error',
+      '@stylistic/computed-property-spacing': 'error',
+      '@stylistic/dot-location': ['error', 'property'],
+      '@stylistic/eol-last': 'error',
+      '@stylistic/func-call-spacing': 'error',
+      '@stylistic/generator-star-spacing': ['error', 'before'],
+      '@stylistic/indent': ['error', 2, { SwitchCase: 1 }],
+      '@stylistic/jsx-quotes': ['error', 'prefer-single'],
+      '@stylistic/key-spacing': 'error',
+      '@stylistic/keyword-spacing': 'error',
+      '@stylistic/linebreak-style': 'error',
+      '@stylistic/lines-around-comment': ['error', {
+        afterBlockComment: true,
+        beforeBlockComment: true
+      }],
+      '@stylistic/new-parens': 'error',
+      '@stylistic/no-confusing-arrow': 'error',
+      '@stylistic/no-extra-parens': ['error', 'all', { ignoreJSX: 'all' }],
+      '@stylistic/no-floating-decimal': 'error',
+      '@stylistic/no-multi-spaces': 'error',
+      '@stylistic/no-multiple-empty-lines': ['error', { max: 1 }],
+      '@stylistic/no-trailing-spaces': 'error',
+      '@stylistic/object-curly-spacing': ['error', 'always'],
+      '@stylistic/one-var-declaration-per-line': ['error', 'always'],
+      '@stylistic/operator-linebreak': ['error', 'none'],
+      '@stylistic/padded-blocks': ['error', { blocks: 'never', classes: 'always', switches: 'never' }],
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'any', next: ['const', 'let', 'var'], prev: ['const', 'let', 'var'] },
+        { blankLine: 'always', next: '*', prev: [
+          'multiline-expression',
+          'multiline-block-like',
+          'multiline-const',
+          'multiline-let'
+        ] },
+        { blankLine: 'always', next: [
+          'block-like',
+          'multiline-block-like'
+        ], prev: '*' }
+      ],
+      '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/quotes': ['error', 'single', { allowTemplateLiterals: true }],
+      '@stylistic/semi': 'error',
+      '@stylistic/semi-spacing': 'error',
+      '@stylistic/space-before-blocks': 'error',
+      '@stylistic/space-before-function-paren': ['error', { anonymous: 'never', named: 'never' }],
+      '@stylistic/space-in-parens': 'error',
+      '@stylistic/space-infix-ops': 'error',
+      '@stylistic/space-unary-ops': 'error',
+      '@stylistic/spaced-comment': 'error',
+      '@stylistic/template-curly-spacing': 'error',
+      '@stylistic/wrap-iife': ['error', 'inside'],
+      'accessor-pairs': 'error',
+      'array-bracket-spacing': 'error',
+      'arrow-parens': ['error', 'as-needed'],
+      'arrow-spacing': 'error',
+      'block-scoped-var': 'error',
+      'capitalized-comments': ['error', 'always', { ignoreConsecutiveComments: true }],
+      'consistent-this': ['error', 'self'],
+      curly: 'error',
+      'default-case': 'error',
+      'dot-notation': 'error',
+      eqeqeq: ['error', 'smart'],
+      'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
+      'id-length': ['error', { exceptions: ['_', 'e', 'i'] }],
+      'id-match': ['error', '^_$|^[a-zA-Z][a-zA-Z0-9]*$|^[A-Z][_A-Z0-9]+[A-Z0-9]$', { onlyDeclarations: true, properties: true }],
+      'max-depth': 'error',
+      'max-params': ['error', 4],
+      'new-cap': 'error',
+      'new-with-error/new-with-error': 'error',
+      'no-alert': 'error',
+      'no-array-constructor': 'error',
+      'no-bitwise': 'error',
+      'no-caller': 'error',
+      'no-class-assign': 'error',
+      'no-cond-assign': ['error', 'always'],
+      'no-console': 'error',
+      'no-const-assign': 'error',
+      'no-constant-condition': 'error',
+      'no-div-regex': 'error',
+      'no-dupe-class-members': 'error',
+      'no-duplicate-imports': 'error',
+      'no-else-return': 'error',
+      'no-empty': 'error',
+      'no-eq-null': 'error',
+      'no-eval': 'error',
+      'no-extend-native': 'error',
+      'no-extra-bind': 'error',
+      'no-global-assign': 'error',
+      'no-implied-eval': 'error',
+      'no-inline-comments': 'error',
+      'no-iterator': 'error',
+      'no-labels': 'error',
+      'no-lone-blocks': 'error',
+      'no-lonely-if': 'error',
+      'no-loop-func': 'error',
+      'no-multi-str': 'error',
+      'no-nested-ternary': 'error',
+      'no-new': 'error',
+      'no-new-func': 'error',
+      'no-new-wrappers': 'error',
+      'no-object-constructor': 'error',
+      'no-octal-escape': 'error',
+      'no-proto': 'error',
+      'no-restricted-imports': ['error', {
+        message: 'Please import individual modules from \'lodash/*\' instead.',
+        name: 'lodash'
+      }],
+      'no-return-assign': 'error',
+      'no-script-url': 'error',
+      'no-self-compare': 'error',
+      'no-sequences': 'error',
+      'no-shadow-restricted-names': 'error',
+      'no-this-before-super': 'error',
+      'no-throw-literal': 'error',
+      'no-undef': 'error',
+      'no-undef-init': 'error',
+      'no-underscore-dangle': 'error',
+      'no-unexpected-multiline': 'error',
+      'no-unneeded-ternary': 'error',
+      'no-unused-expressions': 'error',
+      'no-unused-vars': 'error',
+      'no-use-before-define': 'error',
+      'no-useless-call': 'error',
+      'no-useless-concat': 'error',
+      'no-var': 'error',
+      'no-void': 'error',
+      'no-with': 'error',
+      'nodePlugin/no-mixed-requires': 'error',
+      'nodePlugin/no-new-require': 'error',
+      'nodePlugin/no-path-concat': 'error',
+      'nodePlugin/no-process-exit': 'error',
+      'object-shorthand': 'error',
+      'one-var': ['error', 'never'],
+      'operator-assignment': 'error',
+      'prefer-arrow-callback': 'error',
+      'prefer-const': 'error',
+      'prefer-spread': 'error',
+      'prefer-template': 'error',
+      radix: 'error',
+      'require-await': 'error',
+      'require-yield': 'error',
+      'sort-destructure-keys/sort-destructure-keys': ['error', { caseSensitive: true }],
+      'sort-imports-es6-autofix/sort-imports-es6': [
+        2,
+        {
+          ignoreCase: false,
+          ignoreMemberSort: false,
+          memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
+        }
+      ],
+      'sort-keys': ['error', 'asc', { natural: true }],
+      'sql-template/no-unsafe-query': 'error',
+      'switch-case/newline-between-switch-case': ['error', 'always', { fallthrough: 'never' }],
+      'vars-on-top': 'error',
+      yoda: 'error'
+    }
+  }
+];
