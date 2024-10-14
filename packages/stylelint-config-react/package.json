@@ -61,6 +61,6 @@
     "stylelint": ">=15.10"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
   }
 }
