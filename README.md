@@ -19,6 +19,10 @@
 
 This project uses [yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) to manage multiple packages.
 
+- Node.js 20 or higher
+- Yarn 4.5.x
+- Corepack enabled (run `corepack enable` if you haven't already)
+
 ### Install dependencies
 
 ```sh
@@ -50,6 +54,7 @@ After creating a package, add a release script to the `./packages/<new-package-n
 ```
 
 ### Changelog setup
+
 When creating new packages, keep in mind that the **auto labeler** must have the new package added in `.github/labeler`, so that it can label its pull requests accordingly and they are included in the correct `CHANGELOG.md`. To add new packages to auto labeler run:
 
 ```sh
