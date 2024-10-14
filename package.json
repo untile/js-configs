@@ -20,26 +20,23 @@
     "packages/*"
   ],
   "scripts": {
-    "lint": "yarn workspaces run lint",
-    "pre-commit": "lint-staged",
-    "prepare": "husky install",
-    "release:commitlint-config": "yarn workspace @untile/commitlint-config release",
-    "release:eslint-config": "yarn workspace @untile/eslint-config release",
-    "release:eslint-config-react": "yarn workspace @untile/eslint-config-react release",
-    "release:eslint-config-typescript": "yarn workspace @untile/eslint-config-typescript release",
-    "release:eslint-config-typescript-react": "yarn workspace @untile/eslint-config-typescript-react release",
-    "release:eslint-config-typescript-react-native": "yarn workspace @untile/eslint-config-typescript-react-native release",
-    "release:prettier-config": "yarn workspace @untile/prettier-config release",
-    "release:stylelint-config-react": "yarn workspace @untile/stylelint-config-react release",
-    "release:stylelint-config-react-native": "yarn workspace @untile/stylelint-config-react-native release",
-    "test": "yarn workspaces run test"
+    "lint": "yarn workspaces foreach --since run lint",
+    "pre-commit": "yarn lint-staged",
+    "prepare": "husky",
+    "release:commitlint-config": "yarn workspace @untile/commitlint-config run release",
+    "release:eslint-config": "yarn workspace @untile/eslint-config run release",
+    "release:eslint-config-react": "yarn workspace @untile/eslint-config-react run release",
+    "release:eslint-config-typescript": "yarn workspace @untile/eslint-config-typescript run release",
+    "release:eslint-config-typescript-react": "yarn workspace @untile/eslint-config-typescript-react run release",
+    "release:eslint-config-typescript-react-native": "yarn workspace @untile/eslint-config-typescript-react-native run release",
+    "release:prettier-config": "yarn workspace @untile/prettier-config run release",
+    "release:stylelint-config-react": "yarn workspace @untile/stylelint-config-react run release",
+    "release:stylelint-config-react-native": "yarn workspace @untile/stylelint-config-react-native run release",
+    "test": "yarn workspaces foreach --since run test"
   },
   "lint-staged": {
     "package.json": [
       "sort-package-json"
-    ],
-    "yarn.lock": [
-      "yarn-deduplicate"
     ]
   },
   "resolutions": {
@@ -47,15 +44,16 @@
   },
   "devDependencies": {
     "@untile/github-changelog-generator": "^2.0.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.3",
-    "sort-package-json": "^2.5.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "sort-package-json": "^2.10.1",
     "yarn-deduplicate": "^6.0.2"
   },
+  "packageManager": "yarn@4.5.0",
   "engines": {
-    "node": ">=16",
+    "node": ">=20",
     "npm": "please-use-yarn",
-    "yarn": ">=1.22.0"
+    "yarn": ">=4.5.0"
   },
   "validate-branch-name": {
     "pattern": "^master{1}$|^(bugfix|dependabot|enhancement|feature|hotfix|release|support)/.+$",
