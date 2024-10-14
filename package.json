@@ -20,7 +20,7 @@
     "packages/*"
   ],
   "scripts": {
-    "postinstall": "husky",
+    "postinstall": "husky install",
     "lint": "yarn workspaces foreach --since run lint",
     "pre-commit": "yarn lint-staged",
     "prepare": "husky",
@@ -33,7 +33,8 @@
     "release:prettier-config": "yarn workspace @untile/prettier-config run release",
     "release:stylelint-config-react": "yarn workspace @untile/stylelint-config-react run release",
     "release:stylelint-config-react-native": "yarn workspace @untile/stylelint-config-react-native run release",
-    "test": "yarn workspaces foreach --since run test"
+    "test": "yarn workspaces foreach --since run test",
+    "validate-branch-name": "validate-branch-name"
   },
   "lint-staged": {
     "package.json": [
@@ -55,9 +56,5 @@
     "node": ">=20",
     "npm": "please-use-yarn",
     "yarn": ">=4.5.0"
-  },
-  "validate-branch-name": {
-    "pattern": "^master{1}$|^(bugfix|dependabot|enhancement|feature|hotfix|release|support)/.+$",
-    "errorMsg": "Only the following prefixes are allowed: bugfix|dependabot|enhancement|feature|hotfix|release|support"
   }
 }

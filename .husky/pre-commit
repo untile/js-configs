@@ -1,1 +1,1 @@
-yarn pre-commit && npx validate-branch-name
+yarn pre-commit && yarn validate-branch-name
