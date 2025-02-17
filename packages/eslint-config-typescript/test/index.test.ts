@@ -1,11 +1,14 @@
 'use strict';
 
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 /**
  * Module dependencies.
  */
 
 const { ESLint } = require('eslint');
 const path = require('path');
+const config = require('../src');
 
 /**
  * Tests for `@untile/eslint-config-typescript`.
@@ -13,8 +16,9 @@ const path = require('path');
 
 describe('@untile/eslint-config-typescript', () => {
   const linter = new ESLint({
-    overrideConfigFile: path.join(__dirname, '..', 'src', 'index.js')
-  });
+      overrideConfig: config,
+      overrideConfigFile: true
+    });
 
   it('should not generate any violation for correct code', async () => {
     const source = path.join(__dirname, 'fixtures', 'correct.ts');
@@ -30,10 +34,10 @@ describe('@untile/eslint-config-typescript', () => {
 
     expect(violations).toEqual([
       '@typescript-eslint/no-unused-vars',
-      '@typescript-eslint/comma-dangle',
       '@typescript-eslint/no-use-before-define',
       '@typescript-eslint/no-explicit-any',
-      'typescript-sort-keys/interface'
+      "@typescript-eslint/consistent-type-definitions",
+      "perfectionist/sort-interfaces"
     ]);
   });
 });

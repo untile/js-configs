@@ -8,11 +8,8 @@ const foo = '';
 
 noop(foo);
 
-// `@typescript-eslint/comma-dangle`.
-noop({ bar: 'bar', foo: 'foo' });
-
 // `typescript-sort-keys/interface`.
-export interface FOOBAR {
+export type FOOBAR = {
   a: unknown;
   b: unknown;
   c: unknown;
