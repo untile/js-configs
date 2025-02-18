@@ -1,4 +1,3 @@
-
 /**
  * Verbs.
  */
@@ -18,7 +17,7 @@ const regexes = {
 };
 
 /**
- * Export commitlint config.
+ * Export `@untile/commitlint-config` configuration preset.
  */
 
 module.exports = {

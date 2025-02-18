@@ -22,6 +22,10 @@
   </a>
 </p>
 
+## Requirements
+
+- Node.js >= 20
+
 ## Installation
 
 With `npm`:

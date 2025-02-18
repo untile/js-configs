@@ -1,4 +1,3 @@
-
 /**
  * Export commitlint config.
  */

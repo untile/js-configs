@@ -6,13 +6,11 @@ function noop() {
 // `@typescript-eslint/no-unused-vars`.
 const foo = '';
 
+// @ts-expect-error just a test
 noop(foo);
 
-// `@typescript-eslint/comma-dangle`.
-noop({ bar: 'bar', foo: 'foo' });
-
 // `typescript-sort-keys/interface`.
-export interface FOOBAR {
+export type FOOBAR = {
   a: unknown;
   b: unknown;
   c: unknown;
@@ -22,6 +20,7 @@ export interface FOOBAR {
 type FooBiz = string;
 const foobiz: FooBiz = '';
 
+// @ts-expect-error just a test
 noop(foobiz);
 
 // @typescript-eslint/explicit-module-boundary-types

@@ -22,6 +22,12 @@
   </a>
 </p>
 
+## Requirements
+
+- Node.js >= 20
+- ESLint >= 9
+- TypeScript >= 4.9.0
+
 ## Installation
 
 With `npm`:
@@ -38,10 +44,12 @@ yarn add eslint @untile/eslint-config-typescript -D
 
 ## Setup
 
-Create an `.eslintrc.js` file with the following:
+Create an `eslint.config.js` file with the following:
 
 ```js
-extends: ['@untile/eslint-config-typescript']
+const eslintUntileConfigTypescript = require('@untile/eslint-config-typescript');
+
+module.exports = eslintUntileConfigTypescript;
 ```
 
 ## Usage

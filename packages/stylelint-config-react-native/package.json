@@ -22,30 +22,22 @@
   "scripts": {
     "lint": "eslint . --ignore-pattern 'test/fixtures/*'",
     "release": "../../bin/release.sh @untile/stylelint-config-react-native",
-    "test": "jest",
+    "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --runInBand",
     "test:watch": "jest --watch --notify"
   },
   "lint-staged": {
-    "!(test/fixtures/**/*)*.js": [
-      "eslint"
-    ],
-    "package.json": [
-      "sort-package-json"
-    ]
+    "package.json": "sort-package-json"
   },
   "dependencies": {
     "@untile/stylelint-config-react": "^2.0.1",
-    "stylelint-react-native": "^2.6.0"
+    "stylelint-react-native": "^2.7.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
-    "@untile/eslint-config": "^2.0.1",
-    "babel-jest": "^29.6.1",
-    "babel-plugin-module-resolver": "^5.0.0",
-    "eslint": "^8.46.0",
-    "jest": "^29.6.1",
-    "stylelint": "^15.10.2"
+    "@untile/eslint-config": "2.0.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.20.1",
+    "jest": "^29.7.0",
+    "stylelint": "^16.14.1"
   },
   "engines": {
     "node": ">=20"

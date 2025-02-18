@@ -1,21 +1,19 @@
-
 /**
  * Module dependencies.
  */
 
-import config from '../src';
-import fs from 'fs';
-import stylelint from 'stylelint';
+const config = require('../src/index.js');
+const stylelint = require('stylelint');
 
 /**
- * `@untile/stylelint-config` tests.
+ * `Test suite.
  */
 
 describe('@untile/stylelint-config', () => {
   it('correct', async () => {
     const result = await stylelint.lint({
-      code: fs.readFileSync('./test/fixtures/correct.js', 'utf-8'), // eslint-disable-line no-sync
-      config
+      config,
+      files: './test/fixtures/correct.js'
     });
 
     expect(result.errored).toBeFalsy();
@@ -24,8 +22,8 @@ describe('@untile/stylelint-config', () => {
 
   it('incorrect', async () => {
     const result = await stylelint.lint({
-      code: fs.readFileSync('./test/fixtures/incorrect.js', 'utf-8'), // eslint-disable-line no-sync
-      config
+      config,
+      files: './test/fixtures/incorrect.js'
     });
 
     const warnings = JSON.parse(result?.output)[0].warnings;

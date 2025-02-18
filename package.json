@@ -20,6 +20,7 @@
     "packages/*"
   ],
   "scripts": {
+    "codegen:w3c-css-props": "node scripts/codegen-w3c-css-props.js",
     "lint": "yarn workspaces foreach --since run lint",
     "pre-commit": "yarn lint-staged",
     "prepare": "husky",
@@ -44,9 +45,9 @@
   },
   "devDependencies": {
     "@untile/github-changelog-generator": "^2.0.1",
-    "husky": "^9.1.6",
-    "lint-staged": "^15.2.10",
-    "sort-package-json": "^2.10.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "sort-package-json": "^2.14.0",
     "yarn-deduplicate": "^6.0.2"
   },
   "packageManager": "yarn@4.5.0",

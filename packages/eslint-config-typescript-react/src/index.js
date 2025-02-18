@@ -1,16 +1,17 @@
 /**
- * Export `eslint-config-typescript-react` shared configuration preset.
+ * Module dependencies.
  */
 
-module.exports = {
-  extends: [
-    '@untile/eslint-config-react',
-    '@untile/eslint-config-typescript'
-  ],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    }
-  }
-};
+const eslintConfigPrettier = require('eslint-config-prettier');
+const eslintConfigReact = require('@untile/eslint-config-react');
+const eslintConfigTypescript = require('@untile/eslint-config-typescript');
+
+/**
+ * Export `@untile/eslint-config-typescript-react` configuration preset.
+ */
+
+module.exports = [
+  ...eslintConfigReact,
+  ...eslintConfigTypescript,
+  eslintConfigPrettier
+];

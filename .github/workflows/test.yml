@@ -40,6 +40,6 @@ jobs:
         run: yarn test
 
       - name: Lint commits
-        uses: wagoid/commitlint-github-action@v5
+        uses: wagoid/commitlint-github-action@v6
         with:
-          configFile: .commitlintrc.js
+          configFile: .commitlintrc.cjs

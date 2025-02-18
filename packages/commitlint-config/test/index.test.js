@@ -1,112 +1,112 @@
-
 /**
  * Module dependencies.
  */
 
-const commitlint = require('@commitlint/lint');
-const config = require('../src');
-const load = require('@commitlint/load');
+const config = require('../src/index.js');
 
 /**
- * Lint.
+ * Test suite.
  */
 
-const lint = async message => {
-  const preparedConfig = await load.default(config);
+describe('@untile/commitlint-config-untile', () => {
+  let linter;
 
-  return commitlint.default(message, preparedConfig.rules, {
-    parserOpts: preparedConfig.parserPreset.parserOpts,
-    ...preparedConfig
+  beforeAll(async () => {
+    const { default: lint } = await import('@commitlint/lint');
+    const { default: load } = await import('@commitlint/load');
+
+    linter = async message => {
+      const preparedConfig = await load(config);
+
+      return lint(message, preparedConfig.rules, {
+        parserOpts: preparedConfig.parserPreset?.parserOpts,
+        ...preparedConfig
+      });
+    };
   });
-};
 
-/**
-  * `commitlint-config-untile` tests.
-  */
-
-describe('commitlint-config-untile', () => {
   describe('correct', () => {
-    it('should validate correctly if the subject complies with the rules', () => {
-      return lint('Add foobar').then(result => {
-        expect(result.valid).toBe(true);
-      });
+    it('should validate correctly if the subject complies with the rules', async () => {
+      const result = await linter('Add foobar');
+
+      expect(result.valid).toBe(true);
     });
 
-    it('should ignore commit wip', () => {
-      return lint('wip').then(result => {
-        expect(result.valid).toBe(true);
-      });
+    it('should ignore commit wip', async () => {
+      const result = await linter('wip');
+
+      expect(result.valid).toBe(true);
     });
 
-    it('should ignore interactive rebase', () => {
+    it('should ignore interactive rebase', async () => {
       const keywords = ['drop', 'fixup', 'pick', 'reword', 'squash'];
 
-      keywords.forEach(keyword => {
-        return lint(`${keyword} Add foobar`).then(result => {
-          expect(result.valid).toBe(true);
-        });
-      });
+      for (const keyword of keywords) {
+        const result = await linter(`${keyword} Add foobar`);
+
+        expect(result.valid).toBe(true);
+      }
     });
 
-    it('should validate correctly against a subject with body', () => {
+    it('should validate correctly against a subject with body', async () => {
       const message = `Add foobar
     This commit also adds foobar.
     `;
 
-      return lint(message).then(result => {
-        expect(result.valid).toBe(true);
-      });
+      const result = await linter(message);
+
+      expect(result.valid).toBe(true);
     });
   });
 
   describe('incorrect', () => {
-    it('should fail when the subject does not start with a whitelisted verb', () => {
-      return lint('Foo bar').then(result => {
-        expect(result.valid).toBe(false);
-        expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      });
+    it('should fail when the subject does not start with a whitelisted verb', async () => {
+      const result = await linter('Foo bar');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors[0].name).toEqual('function-rules/type-enum');
     });
 
-    it('should fail if subject is not sentence case', () => {
-      return lint('add foobar').then(result => {
-        expect(result.valid).toBe(false);
-        expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      });
+    it('should fail if subject is not sentence case', async () => {
+      const result = await linter('add foobar');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors[0].name).toEqual('function-rules/type-enum');
     });
 
-    it('should fail if subject exceeds 52 chars', () => {
-      return lint('Add lorem ipsum is simply dummy text of the printing a').then(result => {
-        expect(result.valid).toBe(false);
-        expect(result.errors[0].name).toEqual('header-max-length');
-      });
+    it('should fail if subject exceeds 52 chars', async () => {
+      const result = await linter('Add lorem ipsum is simply dummy text of the printing a');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors[0].name).toEqual('header-max-length');
     });
 
-    it('should fail if subject has only one word', () => {
-      return lint('Add').then(result => {
-        expect(result.valid).toBe(false);
-        expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      });
+    it('should fail if subject has only one word', async () => {
+      const result = await linter('Add');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors[0].name).toEqual('function-rules/type-enum');
     });
 
-    it('should fail if subject has an whitespace in the end', () => {
-      return lint('Add foo ').then(result => {
-        expect(result.valid).toBe(false);
-        expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      });
+    it('should fail if subject has an whitespace in the end', async () => {
+      const result = await linter('Add foo ');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors[0].name).toEqual('header-trim');
     });
 
-    it('should fail if subject has more than one whitespace between words', () => {
-      return lint('Add  foo').then(result => {
-        expect(result.valid).toBe(false);
-        expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      });
+    it('should fail if subject has more than one whitespace between words', async () => {
+      const result = await linter('Add  foo');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors[0].name).toEqual('function-rules/type-enum');
     });
 
-    it('should fail if subject has a full-stop', () => {
-      return lint('Add foo.').then(result => {
-        expect(result.valid).toBe(false);
-        expect(result.errors[0].name).toEqual('subject-full-stop');
-      });
+    it('should fail if subject has a full-stop', async () => {
+      const result = await linter('Add foo.');
+
+      expect(result.valid).toBe(false);
+      expect(result.errors[0].name).toEqual('subject-full-stop');
     });
   });
 });
