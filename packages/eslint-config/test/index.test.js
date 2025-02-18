@@ -6,17 +6,23 @@
 
 const { ESLint } = require('eslint');
 const path = require('path');
+const config = require('../src/index.js');
 
 /**
- * Tests for `@untile/eslint-config`.
+ * Test suite.
  */
 
 describe('@untile/eslint-config', () => {
-  const linter = new ESLint({
-    overrideConfigFile: path.join(__dirname, '..', 'src', 'index.js')
+  let linter;
+
+  beforeAll(() => {
+    linter = new ESLint({
+      overrideConfig: config,
+      overrideConfigFile: true
+    });
   });
 
-  it('should not generate any violation for correct code', async () => {
+  it('should not generate any violations for all rules', async () => {
     const source = path.join(__dirname, 'fixtures', 'correct.js');
     const results = await linter.lintFiles([source]);
 
@@ -29,45 +35,55 @@ describe('@untile/eslint-config', () => {
     const violations = results[0].messages.map(violation => violation.ruleId);
 
     expect(violations).toEqual([
-      'consistent-this',
-      'id-match',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-disabled-tests',
-      'jest/no-focused-tests',
-      'mocha/no-exclusive-tests',
-      'jest/no-focused-tests',
-      'mocha/no-exclusive-tests',
-      'jest/no-focused-tests',
-      'mocha/no-exclusive-tests',
-      'jest/no-focused-tests',
-      'jest/no-focused-tests',
-      'jest/no-identical-title',
-      'no-new',
-      'new-cap',
-      'no-class-assign',
-      'no-console',
-      'no-const-assign',
-      'no-constant-condition',
-      'no-dupe-class-members',
-      'no-empty',
-      'no-labels',
-      'no-labels',
-      'no-multi-str',
-      'no-this-before-super',
-      'no-undef',
-      'no-underscore-dangle',
+      'import/no-anonymous-default-export',
+      'new-with-error/new-with-error',
+      'sort-destructure-keys/sort-destructure-keys',
+      'sort-imports-es6-autofix/sort-imports-es6',
+      'sort-imports-es6-autofix/sort-imports-es6',
+      'switch-case/no-case-curly',
+      'switch-case/newline-between-switch-case',
+      'switch-case/no-case-curly',
       'no-unused-vars',
-      'no-restricted-imports',
-      'sort-imports-es6/sort-imports-es6',
+      'padded-blocks',
+      'padded-blocks',
+      'no-unused-vars',
+      'prefer-template',
+      'quotes',
+      'quotes',
+      'no-unused-vars',
+      'object-curly-spacing',
+      'comma-spacing',
       'sort-keys',
-      'sql-template/no-unsafe-query'
+      'object-curly-spacing',
+      'require-await',
+      'no-unused-vars',
+      'newline-before-return',
+      'no-relative-import-paths/no-relative-import-paths',
+      'no-unused-vars',
+      'import/no-unresolved',
+      'n/no-missing-import',
+      'no-console',
+      'no-unused-vars',
+      'no-unused-vars',
+      'space-before-blocks',
+      'no-restricted-imports',
+      'no-unused-vars',
+      'import/no-unresolved',
+      'n/no-missing-import',
+      'no-unused-vars',
+      'quotes',
+      'keyword-spacing',
+      'no-unused-vars',
+      'no-throw-literal',
+      'no-unused-vars',
+      'no-constant-condition',
+      'semi',
+      'no-unused-vars',
+      'array-bracket-spacing',
+      'comma-spacing',
+      'comma-spacing',
+      'array-bracket-spacing',
+      'eol-last'
     ]);
   });
 });

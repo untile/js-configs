@@ -1,13 +1,12 @@
-
 /**
  * Module dependencies.
  */
 
-import config from '../src';
-import stylelint from 'stylelint';
+const config = require('../src/index.js');
+const stylelint = require('stylelint');
 
 /**
- * `@untile/stylelint-config` tests.
+ * Test suite.
  */
 
 describe('@untile/stylelint-config', () => {

@@ -1,4 +1,3 @@
-
 /**
  * Normalized css properties.
  *
@@ -10,15 +9,12 @@ const cssProperties = require('./w3c-css-properties.json');
 const w3cList = [...new Set(cssProperties.map(({ property }) => property))];
 
 /**
- * Export configuration preset.
+ * Export `@untile/stylelint-config-react` configuration preset.
  */
 
 module.exports = {
   customSyntax: 'postcss-styled-syntax',
-  extends: [
-    'stylelint-config-recommended',
-    'stylelint-config-styled-components'
-  ],
+  extends: ['stylelint-config-standard'],
   plugins: ['stylelint-order'],
   rules: {
     'alpha-value-notation': 'number',

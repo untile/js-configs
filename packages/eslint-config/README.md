@@ -22,6 +22,11 @@
   </a>
 </p>
 
+## Requirements
+
+- Node.js >= 20
+- ESLint >= 9
+
 ## Installation
 
 With `npm`:
@@ -38,10 +43,12 @@ yarn add eslint @untile/eslint-config -D
 
 ## Setup
 
-Create an `.eslintrc.js` file with the following:
+Create an `eslint.config.js` file with the following:
 
 ```js
-extends: ['@untile/eslint-config']
+const eslintUntileConfig = require('@untile/eslint-config');
+
+module.exports = eslintUntileConfig;
 ```
 
 ## Usage

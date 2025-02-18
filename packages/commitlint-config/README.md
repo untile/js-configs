@@ -22,6 +22,10 @@
   </a>
 </p>
 
+## Requirements
+
+- Node.js >= 20
+
 ## Installation
 
 With `npm`:
@@ -38,11 +42,11 @@ yarn add @commitlint/cli @untile/commitlint-config -D
 
 ## Setup
 
-Create an `.commitlintrc.js` file with the following:
+Create an `.commitlintrc.cjs` file with the following:
 
 ```js
 module.exports = {
-  extends: ["@untile/commitlint-config"],
+  extends: ['@untile/commitlint-config']
 };
 ```
 

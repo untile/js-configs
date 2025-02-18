@@ -6,14 +6,20 @@
 
 const { ESLint } = require('eslint');
 const path = require('path');
+const config = require('../src/index.js');
 
 /**
- * Tests for `@untile/eslint-config-react`.
+ * Test suite.
  */
 
 describe('@untile/eslint-config-react', () => {
-  const linter = new ESLint({
-    overrideConfigFile: path.join(__dirname, '..', 'src', 'index.js')
+  let linter;
+
+  beforeAll(() => {
+    linter = new ESLint({
+      overrideConfig: config,
+      overrideConfigFile: true
+    });
   });
 
   it('should not generate any violation for correct code', async () => {

@@ -6,14 +6,20 @@
 
 const { ESLint } = require('eslint');
 const path = require('path');
+const config = require('../src');
 
 /**
- * Tests for `@untile/eslint-config-typescript`.
+ * Test suite.
  */
 
 describe('@untile/eslint-config-typescript', () => {
-  const linter = new ESLint({
-    overrideConfigFile: path.join(__dirname, '..', 'src', 'index.js')
+  let linter;
+
+  beforeAll(() => {
+    linter = new ESLint({
+      overrideConfig: config,
+      overrideConfigFile: true
+    });
   });
 
   it('should not generate any violation for correct code', async () => {
@@ -30,10 +36,10 @@ describe('@untile/eslint-config-typescript', () => {
 
     expect(violations).toEqual([
       '@typescript-eslint/no-unused-vars',
-      '@typescript-eslint/comma-dangle',
       '@typescript-eslint/no-use-before-define',
       '@typescript-eslint/no-explicit-any',
-      'typescript-sort-keys/interface'
+      '@typescript-eslint/consistent-type-definitions',
+      'perfectionist/sort-interfaces'
     ]);
   });
 });

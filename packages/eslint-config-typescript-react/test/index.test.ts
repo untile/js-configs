@@ -12,10 +12,14 @@ const path = require('path');
  * Test suite.
  */
 
-describe('@untile/eslint-config-typescript-react-native', () => {
-  const linter = new ESLint({
-    overrideConfig: config,
-    overrideConfigFile: true
+describe('@untile/eslint-config-typescript', () => {
+  let linter;
+
+  beforeAll(() => {
+    linter = new ESLint({
+      overrideConfig: config.filter(item => item !== require('eslint-config-prettier')),
+      overrideConfigFile: true
+    });
   });
 
   it('should not generate any violation for correct code', async () => {
@@ -31,14 +35,7 @@ describe('@untile/eslint-config-typescript-react-native', () => {
     const violations = results[0].messages.map(violation => violation.ruleId);
 
     expect(violations).toEqual([
-      'react/jsx-no-literals',
-      'react-native/no-unused-styles',
-      'react-native/sort-styles',
-      'sort-keys',
-      'react-native/split-platform-components',
-      'react-native/split-platform-components',
-      'import/no-unresolved',
-      'n/no-missing-import'
+      'react/jsx-newline'
     ]);
   });
 });

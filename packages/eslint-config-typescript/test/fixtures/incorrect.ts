@@ -6,9 +6,6 @@ function noop() {
 // `@typescript-eslint/no-unused-vars`.
 const foo = '';
 
-// `@typescript-eslint/comma-dangle`.
-noop({ bar: 'bar', foo: '', });
-
 // `@typescript-eslint/no-use-before-define`.
 noop(foobiz);
 
@@ -19,7 +16,7 @@ const bar: any = '';
 
 noop(bar);
 
-// `typescript-sort-keys/interface`.
+// `perfectionist/sort-interfaces`.
 export interface FOO {
   a: unknown;
   c: unknown;
