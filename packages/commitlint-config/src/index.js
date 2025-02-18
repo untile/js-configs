@@ -2,7 +2,22 @@
  * Verbs.
  */
 
-const verbs = ['Add', 'Bump', 'Fix', 'Improve', 'Release', 'Remove', 'Update'];
+const verbs = [
+  'Add',
+  'Bump',
+  'Disable',
+  'Enable',
+  'Fix',
+  'Improve',
+  'Migrate',
+  'Move',
+  'Release',
+  'Remove',
+  'Replace',
+  'Revert',
+  'Update'
+];
+
 const verbsList = verbs.join('|');
 
 /**
@@ -12,6 +27,8 @@ const verbsList = verbs.join('|');
 const regexes = {
   atleastTwoWords: /(\w.+\s).+/,
   base: new RegExp(`^(${verbsList}) \\S+(?: \\S+)*$`),
+  dependabot: /^Bump .+? from \S+ to \S+(?:\s+in the .+)?$/,
+  noQuotes: /^[^'"`]+$/,
   startWith: new RegExp(`^(${verbsList}) .+$`),
   whitespace: /^\S+(?: \S+)*$/
 };
@@ -23,11 +40,18 @@ const regexes = {
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   ignores: [
-    message => message.includes('wip', 0, 2),
+    message => /^fixup! /i.test(message),
+    message => /^squash! /i.test(message),
+    message => message.toLowerCase().startsWith('wip'),
     message => {
-      return ['drop', 'fixup', 'pick', 'reword', 'squash'].some(keyword => {
-        return message.includes(keyword);
-      });
+      return ['drop', 'pick', 'reword'].some(keyword =>
+        message.toLowerCase().startsWith(keyword)
+      );
+    },
+    message => {
+      const firstLine = message.split('\n')[0];
+
+      return regexes.dependabot.test(firstLine);
     }
   ],
   plugins: ['commitlint-plugin-function-rules'],
@@ -45,6 +69,10 @@ module.exports = {
 
       if (!parsed.header.match(regexes.whitespace)) {
         return [false, 'The commit must have a single whitespace between words'];
+      }
+
+      if (!parsed.header.match(regexes.noQuotes)) {
+        return [false, 'The commit message must not contain quotes or backticks'];
       }
 
       if (parsed.header.match(regexes.base)) {
