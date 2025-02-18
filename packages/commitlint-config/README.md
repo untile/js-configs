@@ -52,7 +52,7 @@ module.exports = {
 
 ## Rules
 
-- Commit header should start to: **Add|Bump|Fix|Improve|Release|Remove|Update**.
+- Commit header should start to: **Add|Bump|Disable|Enable|Fix|Improve|Migrate|Move|Release|Remove|Replace|Revert|Update**.
 - Commit header must not be longer than **52** characters.
 - Commit header must have **more than 1 word**.
 - Commit body should be in sentence-case.
