@@ -4,7 +4,6 @@
 
 const verbs = [
   'Add',
-  'Bump',
   'Disable',
   'Enable',
   'Fix',
@@ -27,7 +26,6 @@ const verbsList = verbs.join('|');
 const regexes = {
   atleastTwoWords: /(\w.+\s).+/,
   base: new RegExp(`^(${verbsList}) \\S+(?: \\S+)*$`),
-  dependabot: /^Bump .+? from \S+ to \S+(?:\s+in the .+)?$/,
   noQuotes: /^[^'"`]+$/,
   startWith: new RegExp(`^(${verbsList}) .+$`),
   whitespace: /^\S+(?: \S+)*$/
@@ -48,11 +46,8 @@ module.exports = {
         message.toLowerCase().startsWith(keyword)
       );
     },
-    message => {
-      const firstLine = message.split('\n')[0];
-
-      return regexes.dependabot.test(firstLine);
-    }
+    // Dependabot check.
+    message => message.split('\n')[0].startsWith('Bump ')
   ],
   plugins: ['commitlint-plugin-function-rules'],
   rules: {
