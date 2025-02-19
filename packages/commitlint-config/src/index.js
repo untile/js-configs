@@ -27,7 +27,7 @@ const verbsList = verbs.join('|');
 const regexes = {
   atleastTwoWords: /(\w.+\s).+/,
   base: new RegExp(`^(${verbsList}) \\S+(?: \\S+)*$`),
-  dependabot: /^Bump .+ from .+ to .+$/,
+  dependabot: /^Bump .+? from \S+ to \S+(?:\s+in the .+)?$/,
   noQuotes: /^[^'"`]+$/,
   startWith: new RegExp(`^(${verbsList}) .+$`),
   whitespace: /^\S+(?: \S+)*$/

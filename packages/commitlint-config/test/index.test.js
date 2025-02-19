@@ -56,7 +56,9 @@ describe('@untile/commitlint-config-untile', () => {
 
     it('should ignore dependabot commits', async () => {
       const dependabotCommits = [
-        'Bump @babel/core from 7.22.5 to 7.22.6',
+        'Bump @babel/traverse from 7.22.10 to 7.23.2',
+        'Bump @babel/traverse from 7.22.10 to 7.26.9 in the npm_and_yarn group',
+        'Bump @babel/traverse from 7.22.10 to 7.26.9 in the dependencies',
         'Bump eslint from 8.43.0 to 8.44.0',
         'Bump @types/react from 18.0.0 to 18.0.1',
         'Bump prettier from 2.8.8 to 3.0.0'
