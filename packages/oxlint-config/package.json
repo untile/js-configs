@@ -1,0 +1,42 @@
+{
+  "name": "@untile/oxlint-config",
+  "version": "0.0.0",
+  "description": "Untile-flavored Oxlint config",
+  "keywords": [
+    "config",
+    "oxlint",
+    "lint"
+  ],
+  "homepage": "https://github.com/untile/js-configs/tree/master/packages/oxlint-config/#readme",
+  "bugs": {
+    "url": "https://github.com/untile/js-configs/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/untile/js-configs.git"
+  },
+  "license": "MIT",
+  "main": "src",
+  "scripts": {
+    "lint": "eslint . --ignore-pattern 'test/fixtures/*'",
+    "release": "../../bin/release.sh @untile/onxlint-config",
+    "test": "jest",
+    "test:watch": "jest --watch --notify"
+  },
+  "lint-staged": {
+    "package.json": "sort-package-json"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "@untile/eslint-config-typescript-react": "^3.0.0",
+    "eslint": "^9.20.1",
+    "jest": "^29.7.0",
+    "oxlint": "^0.15.11",
+    "react": "^19.0.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
