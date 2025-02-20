@@ -1,6 +1,12 @@
 # Changelog
 
-## [commitlint-config 2.0.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/2.0.1) (2023-08-11)
+## [commitlint-config 3.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/3.0.0) (2025-02-20)
+- Fix commitlint dependabot rule [\#85](https://github.com/untile/js-configs/pull/85) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update commitlint rules to prevent quotes messages [\#81](https://github.com/untile/js-configs/pull/81) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Bump eslint-config to v9 [\#79](https://github.com/untile/js-configs/pull/79) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Bump node to version 20 and yarn to 4.5.0 [\#78](https://github.com/untile/js-configs/pull/78) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [commitlint-config/v2.0.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/v2.0.1) (2023-08-11)
 - Update @untile/eslint-config to v2.0.1 [\#68](https://github.com/untile/js-configs/pull/68) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update dependencies [\#66](https://github.com/untile/js-configs/pull/66) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Remove yarn-deduplicate in packages [\#64](https://github.com/untile/js-configs/pull/64) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
