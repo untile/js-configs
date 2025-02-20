@@ -32,6 +32,7 @@ jobs:
           registry-url: https://registry.npmjs.com
 
       - name: Publish
-        run: npm publish packages/${{ steps.split.outputs._0 }} --access public
+        working-directory: packages/${{ steps.split.outputs._0 }}
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
