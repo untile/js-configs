@@ -1889,7 +1889,7 @@ __metadata:
   dependencies:
     "@eslint/compat": "npm:^1.2.6"
     "@types/jest": "npm:^29.5.14"
-    "@untile/eslint-config-typescript-react": "npm:^2.0.1"
+    "@untile/eslint-config-typescript-react": "npm:^3.0.0"
     cross-env: "npm:^7.0.3"
     eslint: "npm:^9.20.1"
     eslint-plugin-react-native: "npm:^5.0.0"
@@ -1904,7 +1904,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@untile/eslint-config-typescript-react@npm:^2.0.1, @untile/eslint-config-typescript-react@workspace:packages/eslint-config-typescript-react":
+"@untile/eslint-config-typescript-react@npm:^3.0.0, @untile/eslint-config-typescript-react@workspace:packages/eslint-config-typescript-react":
   version: 0.0.0-use.local
   resolution: "@untile/eslint-config-typescript-react@workspace:packages/eslint-config-typescript-react"
   dependencies:
