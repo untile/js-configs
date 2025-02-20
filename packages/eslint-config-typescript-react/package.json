@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@untile/eslint-config-react": "^3.0.0",
-    "@untile/eslint-config-typescript": "^2.0.1",
+    "@untile/eslint-config-typescript": "^3.0.0",
     "eslint-config-prettier": "^10.0.1"
   },
   "devDependencies": {
