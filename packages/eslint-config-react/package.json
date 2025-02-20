@@ -32,7 +32,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.26.8",
     "@babel/preset-react": "^7.26.3",
-    "@untile/eslint-config": "^2.0.1",
+    "@untile/eslint-config": "^3.0.0",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.1.0"
   },
