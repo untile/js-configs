@@ -7,7 +7,7 @@ release() {
   yarn
 
   # Bump version.
-  yarn version --no-git-tag-version --new-version ${2:-patch}
+  yarn version ${2:-patch}
 
   # Get the new version number.
   local version=`grep -m1 "\"version\"" package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g'`
