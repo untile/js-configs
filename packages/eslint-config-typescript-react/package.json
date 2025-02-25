@@ -20,7 +20,7 @@
   "license": "MIT",
   "main": "src",
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint . --ignore-pattern 'test/fixtures/*'",
     "release": "../../bin/release.sh @untile/eslint-config-typescript-react",
     "test": "jest",
     "test:watch": "jest --watch --notify"
@@ -31,8 +31,7 @@
   },
   "dependencies": {
     "@untile/eslint-config-react": "^3.0.0",
-    "@untile/eslint-config-typescript": "^3.0.0",
-    "eslint-config-prettier": "^10.0.1"
+    "@untile/eslint-config-typescript": "^3.0.0"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
