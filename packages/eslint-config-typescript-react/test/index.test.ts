@@ -17,7 +17,7 @@ describe('@untile/eslint-config-typescript', () => {
 
   beforeAll(() => {
     linter = new ESLint({
-      overrideConfig: config.filter(item => item !== require('eslint-config-prettier')),
+      overrideConfig: config,
       overrideConfigFile: true
     });
   });
