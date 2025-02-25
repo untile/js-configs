@@ -1862,7 +1862,7 @@ __metadata:
     eslint: "npm:^9.20.1"
     jest: "npm:^29.7.0"
   peerDependencies:
-    "@commitlint/cli": ^17.6.7
+    "@commitlint/cli": ^19
   languageName: unknown
   linkType: soft
 
@@ -1900,7 +1900,7 @@ __metadata:
     typescript-eslint: "npm:^8.24.1"
   peerDependencies:
     eslint: 9
-    typescript: ">=4.9.0 || >=5.0.0"
+    typescript: ">=5.0.0"
   languageName: unknown
   linkType: soft
 
@@ -1919,7 +1919,7 @@ __metadata:
     typescript: "npm:^5.7.3"
   peerDependencies:
     eslint: 9
-    typescript: ">=4.9.0 || >=5.0.0"
+    typescript: ">=5.0.0"
   languageName: unknown
   linkType: soft
 
@@ -1937,7 +1937,7 @@ __metadata:
     typescript-eslint: "npm:^8.24.1"
   peerDependencies:
     eslint: 9
-    typescript: ">=4.9.0 || >=5.0.0"
+    typescript: ">=5.0.0"
   languageName: unknown
   linkType: soft
 

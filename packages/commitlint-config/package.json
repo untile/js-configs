@@ -47,7 +47,7 @@
     "jest": "^29.7.0"
   },
   "peerDependencies": {
-    "@commitlint/cli": "^17.6.7"
+    "@commitlint/cli": "^19"
   },
   "engines": {
     "node": ">=20"
