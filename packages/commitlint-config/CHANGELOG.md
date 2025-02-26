@@ -1,6 +1,9 @@
 # Changelog
 
-## [commitlint-config 3.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/3.0.0) (2025-02-20)
+## [commitlint-config 3.0.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/3.0.1) (2025-02-26)
+- Fix peer dependencies [\#90](https://github.com/untile/js-configs/pull/90) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [commitlint-config/v3.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/v3.0.0) (2025-02-20)
 - Fix commitlint dependabot rule [\#85](https://github.com/untile/js-configs/pull/85) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update commitlint rules to prevent quotes messages [\#81](https://github.com/untile/js-configs/pull/81) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Bump eslint-config to v9 [\#79](https://github.com/untile/js-configs/pull/79) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
