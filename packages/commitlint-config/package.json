@@ -1,6 +1,6 @@
 {
   "name": "@untile/commitlint-config",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Untile-flavored commitlint config",
   "keywords": [
     "config",
