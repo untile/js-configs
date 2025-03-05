@@ -1,6 +1,9 @@
 # Changelog
 
-## [eslint-config-typescript-react 3.0.1](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react/3.0.1) (2025-02-26)
+## [eslint-config-typescript-react 3.1.0](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react/3.1.0) (2025-03-05)
+- Update perfectionist to use recommended rules [\#95](https://github.com/untile/js-configs/pull/95) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [eslint-config-typescript-react/v3.0.1](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react/v3.0.1) (2025-02-26)
 - Remove eslint-config-prettier [\#93](https://github.com/untile/js-configs/pull/93) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Fix peer dependencies [\#90](https://github.com/untile/js-configs/pull/90) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 
