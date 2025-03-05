@@ -1910,7 +1910,7 @@ __metadata:
   dependencies:
     "@types/jest": "npm:^29.5.14"
     "@untile/eslint-config-react": "npm:^3.1.0"
-    "@untile/eslint-config-typescript": "npm:^3.0.1"
+    "@untile/eslint-config-typescript": "npm:^3.1.0"
     eslint: "npm:^9.20.1"
     jest: "npm:^29.7.0"
     react: "npm:^19.0.0"
@@ -1922,7 +1922,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@untile/eslint-config-typescript@npm:^3.0.1, @untile/eslint-config-typescript@workspace:packages/eslint-config-typescript":
+"@untile/eslint-config-typescript@npm:^3.1.0, @untile/eslint-config-typescript@workspace:packages/eslint-config-typescript":
   version: 0.0.0-use.local
   resolution: "@untile/eslint-config-typescript@workspace:packages/eslint-config-typescript"
   dependencies:
