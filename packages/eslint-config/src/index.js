@@ -100,6 +100,13 @@ module.exports = [
       'max-depth': ['error', 4],
       'max-nested-callbacks': ['error', 3],
       'max-params': ['error', 4],
+      'n/no-missing-import': [
+        'error',
+        {
+          ignoreTypeImport: true,
+          tryExtensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+        }
+      ],
       'n/no-unpublished-import': 'off',
       'n/no-unpublished-require': 'off',
       'new-cap': ['error', { capIsNew: true, newIsCap: true }],
