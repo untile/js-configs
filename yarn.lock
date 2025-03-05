@@ -1856,7 +1856,7 @@ __metadata:
     "@commitlint/config-conventional": "npm:^19.7.1"
     "@commitlint/lint": "npm:^19.7.1"
     "@commitlint/load": "npm:^19.6.1"
-    "@untile/eslint-config": "npm:^3.0.0"
+    "@untile/eslint-config": "npm:^3.1.0"
     commitlint-plugin-function-rules: "npm:^4.0.1"
     cross-env: "npm:^7.0.3"
     eslint: "npm:^9.20.1"
@@ -1872,7 +1872,7 @@ __metadata:
   dependencies:
     "@babel/eslint-parser": "npm:^7.26.8"
     "@babel/preset-react": "npm:^7.26.3"
-    "@untile/eslint-config": "npm:^3.0.0"
+    "@untile/eslint-config": "npm:^3.1.0"
     eslint: "npm:^9.20.1"
     eslint-plugin-react: "npm:^7.37.4"
     eslint-plugin-react-hooks: "npm:^5.1.0"
@@ -1927,7 +1927,7 @@ __metadata:
   resolution: "@untile/eslint-config-typescript@workspace:packages/eslint-config-typescript"
   dependencies:
     "@types/jest": "npm:^29.5.14"
-    "@untile/eslint-config": "npm:^3.0.0"
+    "@untile/eslint-config": "npm:^3.1.0"
     eslint: "npm:^9.20.1"
     jest: "npm:^29.7.0"
     ts-jest: "npm:^29.2.5"
@@ -1939,7 +1939,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@untile/eslint-config@npm:3.0.0, @untile/eslint-config@npm:^3.0.0, @untile/eslint-config@workspace:packages/eslint-config":
+"@untile/eslint-config@npm:3.1.0, @untile/eslint-config@npm:^3.1.0, @untile/eslint-config@workspace:packages/eslint-config":
   version: 0.0.0-use.local
   resolution: "@untile/eslint-config@workspace:packages/eslint-config"
   dependencies:
@@ -1990,7 +1990,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@untile/stylelint-config-react-native@workspace:packages/stylelint-config-react-native"
   dependencies:
-    "@untile/eslint-config": "npm:3.0.0"
+    "@untile/eslint-config": "npm:3.1.0"
     "@untile/stylelint-config-react": "npm:^3.0.0"
     cross-env: "npm:^7.0.3"
     eslint: "npm:^9.20.1"
@@ -2004,7 +2004,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@untile/stylelint-config-react@workspace:packages/stylelint-config-react"
   dependencies:
-    "@untile/eslint-config": "npm:^3.0.0"
+    "@untile/eslint-config": "npm:^3.1.0"
     cross-env: "npm:^7.0.3"
     eslint: "npm:^9.20.1"
     jest: "npm:^29.7.0"
