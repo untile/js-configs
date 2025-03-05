@@ -2,10 +2,10 @@
  * Module dependencies.
  */
 
+const fs = require('node:fs');
+const path = require('node:path');
 const { check } = require('prettier');
 const config = require('../src/index.js');
-const fs = require('fs');
-const path = require('path');
 
 /**
  * Test suite.

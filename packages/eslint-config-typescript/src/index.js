@@ -3,7 +3,6 @@
  */
 
 const eslintConfigUntile = require('@untile/eslint-config');
-const eslintPluginPerfectionist = require('eslint-plugin-perfectionist');
 const tseslint = require('typescript-eslint');
 
 /**
@@ -15,10 +14,10 @@ module.exports = tseslint.config(
   tseslint.configs.recommended,
   {
     plugins: {
-      '@typescript-eslint': tseslint.plugin,
-      perfectionist: eslintPluginPerfectionist
+      '@typescript-eslint': tseslint.plugin
     },
     rules: {
+      '@typescript-eslint/adjacent-overload-signatures': 'off',
       '@typescript-eslint/array-type': ['error', { default: 'array-simple', readonly: 'array-simple' }],
       '@typescript-eslint/ban-ts-comment': ['error', {
         'ts-check': true,
@@ -28,8 +27,8 @@ module.exports = tseslint.config(
       }],
       '@typescript-eslint/consistent-indexed-object-style': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
-      '@typescript-eslint/explicit-member-accessibility': 0,
-      '@typescript-eslint/explicit-module-boundary-types': 0,
+      '@typescript-eslint/explicit-member-accessibility': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': ['error', {
         fixToUnknown: true,
         ignoreRestArgs: false
@@ -41,11 +40,7 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-use-before-define': 'error',
       'new-cap': ['error', { capIsNewExceptions: ['BigNumber'] }],
       'no-unused-vars': 0,
-      'no-use-before-define': 0,
-      'perfectionist/sort-enums': 'error',
-      'perfectionist/sort-interfaces': 'error',
-      'perfectionist/sort-object-types': 'error',
-      'perfectionist/sort-union-types': 'error'
+      'no-use-before-define': 0
     }
   }
 );

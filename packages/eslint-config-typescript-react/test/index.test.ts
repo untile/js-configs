@@ -1,12 +1,10 @@
-'use strict';
-
 /**
  * Module dependencies.
  */
 
 const { ESLint } = require('eslint');
+const path = require('node:path');
 const config = require('../src');
-const path = require('path');
 
 /**
  * Test suite.

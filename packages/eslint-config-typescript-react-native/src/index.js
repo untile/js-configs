@@ -22,7 +22,7 @@ module.exports = tseslint.config(
     },
     plugins: {
       'react-native': fixupPluginRules({
-        rules: eslintPluginReactNative.rules,
+        rules: eslintPluginReactNative.rules
       })
     },
     rules: {
@@ -33,11 +33,11 @@ module.exports = tseslint.config(
           name: 'styled-components'
         }
       ],
-      'react/jsx-no-undef': 0,
-      'react/react-in-jsx-scope': 0,
       'react-native/no-raw-text': 'off',
       'react-native/no-unused-styles': 'error',
-      'react-native/split-platform-components': 'error'
+      'react-native/split-platform-components': 'error',
+      'react/jsx-no-undef': 0,
+      'react/react-in-jsx-scope': 0
     }
   }
 );

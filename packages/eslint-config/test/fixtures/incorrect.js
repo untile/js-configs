@@ -9,12 +9,21 @@ throw Error('This is an error');
 // Unordered destructuring
 const sortedDestructureKeys = {
   age: 30,
-  name: 'John',
-  role: 'developer'
+  role: 'developer',
+  name: 'John'
 };
 
 const { name, age, role } = sortedDestructureKeys;
 noop(name, age, role);
+
+const sortedDestructureKeysWithScopes = {
+  role: 'developer',
+  'user/age': 30,
+  'user-location/city': 'New York',
+  user: 'Jonh'
+};
+
+noop(sortedDestructureKeysWithScopes);
 
 // Unordered imports
 import { bar, foo } from 'eslint';
