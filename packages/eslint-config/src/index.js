@@ -3,14 +3,12 @@
  */
 
 const importPlugin = require('eslint-plugin-import');
+const nodePlugin = require('eslint-plugin-n');
 const newWithErrorPlugin = require('eslint-plugin-new-with-error');
 const noRelativeImportPathsPlugin = require('eslint-plugin-no-relative-import-paths');
-const nodePlugin = require('eslint-plugin-n');
+const perfectionistPlugin = require('eslint-plugin-perfectionist');
 const promisePlugin = require('eslint-plugin-promise');
 const securityPlugin = require('eslint-plugin-security');
-const sortClassMembersPlugin = require('eslint-plugin-sort-class-members');
-const sortDestructureKeysPlugin = require('eslint-plugin-sort-destructure-keys');
-const sortImportsPlugin = require('@youre/eslint-plugin-sort-imports-es6-autofix');
 const switchCasePlugin = require('eslint-plugin-switch-case');
 
 /**
@@ -21,7 +19,7 @@ module.exports = [
   importPlugin.flatConfigs.recommended,
   nodePlugin.configs['flat/recommended-script'],
   promisePlugin.configs['flat/recommended'],
-  sortClassMembersPlugin.configs['flat/recommended'],
+  perfectionistPlugin.configs['recommended-natural'],
   {
     languageOptions: {
       ecmaVersion: 2022,
@@ -43,9 +41,7 @@ module.exports = [
     plugins: {
       'new-with-error': newWithErrorPlugin,
       'no-relative-import-paths': noRelativeImportPathsPlugin,
-      'security': securityPlugin,
-      'sort-destructure-keys': sortDestructureKeysPlugin,
-      'sort-imports-es6-autofix': sortImportsPlugin,
+      security: securityPlugin,
       'switch-case': switchCasePlugin
     },
     rules: {
@@ -56,7 +52,11 @@ module.exports = [
       'block-spacing': 'off',
       'brace-style': ['error', '1tbs', { allowSingleLine: true }],
       camelcase: 'off',
-      'capitalized-comments': ['error', 'always', { ignoreConsecutiveComments: true }],
+      'capitalized-comments': [
+        'error',
+        'always',
+        { ignoreConsecutiveComments: true }
+      ],
       'comma-dangle': 'error',
       'comma-spacing': 'error',
       'comma-style': 'error',
@@ -74,11 +74,18 @@ module.exports = [
       'func-names': 'off',
       'func-style': ['error', 'declaration', { allowArrowFunctions: true }],
       'generator-star-spacing': ['error', 'before'],
-      'id-length': ['error', { exceptions: ['_', 'e', 'i', 'r', 't', 'x', 'y', 'z'] }],
-      'id-match': ['error', '^_$|^[a-zA-Z][a-zA-Z0-9]*$|^[A-Z][_A-Z0-9]+[A-Z0-9]$', {
-        onlyDeclarations: true,
-        properties: true
-      }],
+      'id-length': [
+        'error',
+        { exceptions: ['_', 'e', 'i', 'r', 't', 'x', 'y', 'z'] }
+      ],
+      'id-match': [
+        'error',
+        '^_$|^[a-zA-Z][a-zA-Z0-9]*$|^[A-Z][_A-Z0-9]+[A-Z0-9]$',
+        {
+          onlyDeclarations: true,
+          properties: true
+        }
+      ],
       'import/no-anonymous-default-export': [
         'error',
         {
@@ -92,6 +99,7 @@ module.exports = [
           allowObject: true
         }
       ],
+      'import/order': 'off',
       indent: ['error', 2, { SwitchCase: 1 }],
       'key-spacing': 'error',
       'keyword-spacing': 'error',
@@ -158,11 +166,17 @@ module.exports = [
       'no-process-exit': 'error',
       'no-proto': 'error',
       'no-prototype-builtins': 'error',
-      'no-relative-import-paths/no-relative-import-paths': ['error', { 'allowSameFolder': true }],
-      'no-restricted-imports': ['error', {
-        message: 'Please import individual modules from \'lodash/*\' instead.',
-        name: 'lodash'
-      }],
+      'no-relative-import-paths/no-relative-import-paths': [
+        'error',
+        { allowSameFolder: true }
+      ],
+      'no-restricted-imports': [
+        'error',
+        {
+          message: 'Please import individual modules from "lodash/*" instead.',
+          name: 'lodash'
+        }
+      ],
       'no-return-assign': 'error',
       'no-script-url': 'error',
       'no-self-compare': 'error',
@@ -193,21 +207,37 @@ module.exports = [
       'one-var': ['error', 'never'],
       'operator-assignment': ['error', 'always'],
       'operator-linebreak': 'error',
-      'padded-blocks': ['error', { blocks: 'never', classes: 'always', switches: 'never' }],
+      'padded-blocks': [
+        'error',
+        { blocks: 'never', classes: 'always', switches: 'never' }
+      ],
       'padding-line-between-statements': [
         'error',
-        { blankLine: 'any', next: ['const', 'let', 'var'], prev: ['const', 'let', 'var'] },
-        { blankLine: 'always', next: '*', prev: [
-          'multiline-expression',
-          'multiline-block-like',
-          'multiline-const',
-          'multiline-let'
-        ] },
-        { blankLine: 'always', next: [
-          'block-like',
-          'multiline-block-like'
-        ], prev: '*' }
+        {
+          blankLine: 'any',
+          next: ['const', 'let', 'var'],
+          prev: ['const', 'let', 'var']
+        },
+        {
+          blankLine: 'always',
+          next: '*',
+          prev: [
+            'multiline-expression',
+            'multiline-block-like',
+            'multiline-const',
+            'multiline-let'
+          ]
+        },
+        {
+          blankLine: 'always',
+          next: ['block-like', 'multiline-block-like'],
+          prev: '*'
+        }
       ],
+      'perfectionist/sort-imports': ['error', {
+        newlinesBetween: 'never',
+        type: 'natural'
+      }],
       'prefer-arrow-callback': 'error',
       'prefer-const': 'error',
       'prefer-rest-params': 'error',
@@ -219,15 +249,13 @@ module.exports = [
       'require-yield': 'error',
       semi: 'error',
       'semi-spacing': 'error',
-      'sort-destructure-keys/sort-destructure-keys': 2,
-      'sort-imports-es6-autofix/sort-imports-es6': [2, {
-        ignoreCase: false,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single']
-      }],
-      'sort-keys': ['error', 'asc', { natural: true }],
+      'sort-imports': 'off',
+      'sort-keys': 'off',
       'space-before-blocks': 'error',
-      'space-before-function-paren': ['error', { anonymous: 'never', named: 'never' }],
+      'space-before-function-paren': [
+        'error',
+        { anonymous: 'never', named: 'never' }
+      ],
       'space-in-parens': 'error',
       'space-infix-ops': 'error',
       'space-unary-ops': 'error',

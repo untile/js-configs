@@ -1,11 +1,9 @@
-'use strict';
-
 /**
  * Module dependencies.
  */
 
 const { ESLint } = require('eslint');
-const path = require('path');
+const path = require('node:path');
 const config = require('../src/index.js');
 
 /**
@@ -37,9 +35,12 @@ describe('@untile/eslint-config', () => {
     expect(violations).toEqual([
       'import/no-anonymous-default-export',
       'new-with-error/new-with-error',
-      'sort-destructure-keys/sort-destructure-keys',
-      'sort-imports-es6-autofix/sort-imports-es6',
-      'sort-imports-es6-autofix/sort-imports-es6',
+      'perfectionist/sort-objects',
+      'perfectionist/sort-objects',
+      'perfectionist/sort-objects',
+      'perfectionist/sort-objects',
+      'import/no-unresolved',
+      'n/no-missing-import',
       'switch-case/no-case-curly',
       'switch-case/newline-between-switch-case',
       'switch-case/no-case-curly',
@@ -53,7 +54,7 @@ describe('@untile/eslint-config', () => {
       'no-unused-vars',
       'object-curly-spacing',
       'comma-spacing',
-      'sort-keys',
+      'perfectionist/sort-objects',
       'object-curly-spacing',
       'require-await',
       'no-unused-vars',

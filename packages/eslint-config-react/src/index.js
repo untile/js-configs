@@ -32,6 +32,8 @@ module.exports = [
     },
     rules: {
       'jsx-quotes': ['error', 'prefer-single'],
+      'react-hooks/exhaustive-deps': 'error',
+      'react-hooks/rules-of-hooks': 'error',
       'react/jsx-boolean-value': 'error',
       'react/jsx-closing-bracket-location': ['error', 'line-aligned'],
       'react/jsx-curly-brace-presence': ['error', {
@@ -45,7 +47,7 @@ module.exports = [
       'react/jsx-max-props-per-line': 'error',
       'react/jsx-newline': ['error', { prevent: false }],
       'react/jsx-no-literals': 'error',
-      'react/jsx-sort-props': 'error',
+      'react/jsx-sort-props': 0,
       'react/jsx-tag-spacing': ['error', {
         afterOpening: 'never',
         beforeClosing: 'never',
@@ -58,9 +60,7 @@ module.exports = [
       'react/prefer-stateless-function': 'error',
       'react/prop-types': 0,
       'react/self-closing-comp': 'error',
-      'react/sort-prop-types': 'error',
-      'react-hooks/exhaustive-deps': 'error',
-      'react-hooks/rules-of-hooks': 'error'
+      'react/sort-prop-types': 'error'
     },
     settings: {
       react: {

@@ -1,12 +1,10 @@
-'use strict';
-
 /**
  * Module dependencies.
  */
 
 const { ESLint } = require('eslint');
+const path = require('node:path');
 const config = require('../src');
-const path = require('path');
 
 /**
  * Test suite.
@@ -34,7 +32,7 @@ describe('@untile/eslint-config-typescript-react-native', () => {
       'react/jsx-no-literals',
       'react-native/no-unused-styles',
       'react-native/sort-styles',
-      'sort-keys',
+      'perfectionist/sort-objects',
       'react-native/split-platform-components',
       'react-native/split-platform-components',
       'import/no-unresolved',

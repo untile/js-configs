@@ -30,15 +30,13 @@
   "dependencies": {
     "@babel/core": "^7.26.9",
     "@babel/eslint-parser": "^7.26.8",
-    "@youre/eslint-plugin-sort-imports-es6-autofix": "^0.7.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-n": "^17.15.1",
     "eslint-plugin-new-with-error": "^5.0.0",
     "eslint-plugin-no-relative-import-paths": "^1.6.1",
+    "eslint-plugin-perfectionist": "^4.9.0",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-security": "^3.0.1",
-    "eslint-plugin-sort-class-members": "^1.21.0",
-    "eslint-plugin-sort-destructure-keys": "^2.0.0",
     "eslint-plugin-switch-case": "^3.0.1"
   },
   "devDependencies": {

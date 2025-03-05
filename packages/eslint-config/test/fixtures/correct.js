@@ -15,12 +15,20 @@ const sortedDestructureKeys = {
 const { age, name, role } = sortedDestructureKeys;
 noop(age, name, role);
 
+const sortedDestructureKeysWithScopes = {
+  role: 'developer',
+  user: 'Jonh',
+  'user-location/city': 'New York',
+  'user/age': 30
+};
+
+noop(sortedDestructureKeysWithScopes);
+
 // Imports ordering
-import '@youre/eslint-plugin-sort-imports-es6-autofix';
-import * as namespace from 'eslint-plugin-promise';
-import { alpha, beta } from 'eslint-plugin-import';
 import { bar, foo } from 'eslint';
-import defaultExport from 'path';
+import { alpha, beta } from 'eslint-plugin-import';
+import * as namespace from 'eslint-plugin-promise';
+import defaultExport from 'node:path';
 
 noop(foo, bar, alpha, beta, defaultExport, namespace);
 

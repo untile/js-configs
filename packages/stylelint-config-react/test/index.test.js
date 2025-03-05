@@ -2,8 +2,8 @@
  * Module dependencies.
  */
 
-const config = require('../src/index.js');
 const stylelint = require('stylelint');
+const config = require('../src/index.js');
 
 /**
  * Test suite.
