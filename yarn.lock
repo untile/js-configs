@@ -1866,7 +1866,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@untile/eslint-config-react@npm:^3.0.0, @untile/eslint-config-react@workspace:packages/eslint-config-react":
+"@untile/eslint-config-react@npm:^3.1.0, @untile/eslint-config-react@workspace:packages/eslint-config-react":
   version: 0.0.0-use.local
   resolution: "@untile/eslint-config-react@workspace:packages/eslint-config-react"
   dependencies:
@@ -1909,7 +1909,7 @@ __metadata:
   resolution: "@untile/eslint-config-typescript-react@workspace:packages/eslint-config-typescript-react"
   dependencies:
     "@types/jest": "npm:^29.5.14"
-    "@untile/eslint-config-react": "npm:^3.0.0"
+    "@untile/eslint-config-react": "npm:^3.1.0"
     "@untile/eslint-config-typescript": "npm:^3.0.1"
     eslint: "npm:^9.20.1"
     jest: "npm:^29.7.0"
