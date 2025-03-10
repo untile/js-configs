@@ -241,6 +241,9 @@ module.exports = [
           prev: '*'
         }
       ],
+      'perfectionist/sort-imports': ['error', {
+        newlinesBetween: 'ignore'
+      }],
       'perfectionist/sort-modules': 'off',
       'prefer-arrow-callback': 'error',
       'prefer-const': 'error',
