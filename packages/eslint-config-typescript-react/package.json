@@ -30,7 +30,7 @@
     "package.json": "sort-package-json"
   },
   "dependencies": {
-    "@untile/eslint-config-react": "^3.1.0",
+    "@untile/eslint-config-react": "^3.1.1",
     "@untile/eslint-config-typescript": "^3.1.0",
     "typescript-eslint": "^8.26.0"
   },
