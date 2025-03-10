@@ -1,6 +1,9 @@
 # Changelog
 
-## [commitlint-config 3.1.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/3.1.0) (2025-03-05)
+## [commitlint-config 3.1.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/3.1.1) (2025-03-10)
+- Update dependencies [\#97](https://github.com/untile/js-configs/pull/97) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [commitlint-config/v3.1.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/v3.1.0) (2025-03-05)
 
 ## [commitlint-config/v3.0.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/v3.0.1) (2025-02-26)
 - Fix peer dependencies [\#90](https://github.com/untile/js-configs/pull/90) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
