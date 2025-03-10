@@ -31,10 +31,12 @@
   },
   "dependencies": {
     "@untile/eslint-config-react": "^3.1.0",
-    "@untile/eslint-config-typescript": "^3.1.0"
+    "@untile/eslint-config-typescript": "^3.1.0",
+    "typescript-eslint": "^8.24.1"
   },
   "devDependencies": {
     "@types/jest": "^29.5.14",
+    "@types/react": "^19.0.10",
     "eslint": "^9.20.1",
     "jest": "^29.7.0",
     "react": "^19.0.0",

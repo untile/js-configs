@@ -41,6 +41,11 @@ module.exports = tseslint.config(
       'new-cap': ['error', { capIsNewExceptions: ['BigNumber'] }],
       'no-unused-vars': 0,
       'no-use-before-define': 0
+    },
+    settings: {
+      'import/resolver': {
+        typescript: true
+      }
     }
   }
 );

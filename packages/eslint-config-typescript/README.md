@@ -33,7 +33,7 @@
 With `npm`:
 
 ```sh
-npm install eslint @untile/eslint-config-typescript --save-dev
+npm install eslint typescript-eslint @untile/eslint-config-typescript --save-dev
 ```
 
 Or using `yarn`:
@@ -48,8 +48,9 @@ Create an `eslint.config.js` file with the following:
 
 ```js
 const eslintUntileConfigTypescript = require('@untile/eslint-config-typescript');
+const tseslint = require('typescript-eslint');
 
-module.exports = eslintUntileConfigTypescript;
+module.exports = tseslint.config(eslintUntileConfigTypescript);
 ```
 
 ## Usage

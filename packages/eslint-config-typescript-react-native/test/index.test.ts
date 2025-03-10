@@ -4,7 +4,6 @@
 
 const { ESLint } = require('eslint');
 const path = require('node:path');
-const config = require('../src');
 
 /**
  * Test suite.
@@ -12,8 +11,16 @@ const config = require('../src');
 
 describe('@untile/eslint-config-typescript-react-native', () => {
   const linter = new ESLint({
-    overrideConfig: config,
+    overrideConfig: require('../src'),
     overrideConfigFile: true
+  });
+
+  beforeAll(() => {
+    jest.spyOn(console, 'warn').mockImplementation(jest.fn());
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
   });
 
   it('should not generate any violation for correct code', async () => {
@@ -35,8 +42,7 @@ describe('@untile/eslint-config-typescript-react-native', () => {
       'perfectionist/sort-objects',
       'react-native/split-platform-components',
       'react-native/split-platform-components',
-      'import/no-unresolved',
-      'n/no-missing-import'
+      'import/namespace'
     ]);
   });
 });

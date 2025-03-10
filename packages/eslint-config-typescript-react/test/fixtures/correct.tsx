@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const Component = ({ bar, foo }: Props) => {
-  const [baz, setBaz] = React.useState<number>(bar);
+  const [baz, setBaz] = React.useState(bar);
 
   React.useEffect(() => {
     setBaz(baz + 1);

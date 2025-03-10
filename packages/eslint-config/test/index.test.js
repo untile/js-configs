@@ -4,7 +4,6 @@
 
 const { ESLint } = require('eslint');
 const path = require('node:path');
-const config = require('../src/index.js');
 
 /**
  * Test suite.
@@ -15,7 +14,7 @@ describe('@untile/eslint-config', () => {
 
   beforeAll(() => {
     linter = new ESLint({
-      overrideConfig: config,
+      overrideConfig: require('../src/index.js'),
       overrideConfigFile: true
     });
   });
@@ -40,7 +39,6 @@ describe('@untile/eslint-config', () => {
       'perfectionist/sort-objects',
       'perfectionist/sort-objects',
       'import/no-unresolved',
-      'n/no-missing-import',
       'switch-case/no-case-curly',
       'switch-case/newline-between-switch-case',
       'switch-case/no-case-curly',
@@ -62,7 +60,6 @@ describe('@untile/eslint-config', () => {
       'no-relative-import-paths/no-relative-import-paths',
       'no-unused-vars',
       'import/no-unresolved',
-      'n/no-missing-import',
       'no-console',
       'no-unused-vars',
       'no-unused-vars',
@@ -70,7 +67,6 @@ describe('@untile/eslint-config', () => {
       'no-restricted-imports',
       'no-unused-vars',
       'import/no-unresolved',
-      'n/no-missing-import',
       'no-unused-vars',
       'quotes',
       'keyword-spacing',
