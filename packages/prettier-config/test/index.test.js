@@ -5,13 +5,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { check } = require('prettier');
-const config = require('../src/index.js');
 
 /**
  * Test suite.
  */
 
 describe('@untile/prettier-config', () => {
+  const config = require('../src/index.js');
+
   it('should not generate any violation for correct code', async () => {
     const source = path.resolve(__dirname, 'fixtures', 'correct.js');
     const content = fs.readFileSync(source, 'utf8');

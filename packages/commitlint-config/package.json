@@ -34,16 +34,16 @@
     "moment": "^2.29.4"
   },
   "dependencies": {
-    "@commitlint/config-conventional": "^19.7.1",
+    "@commitlint/config-conventional": "^19.8.0",
     "commitlint-plugin-function-rules": "^4.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.7.1",
-    "@commitlint/lint": "^19.7.1",
-    "@commitlint/load": "^19.6.1",
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/lint": "^19.8.0",
+    "@commitlint/load": "^19.8.0",
     "@untile/eslint-config": "^3.1.0",
     "cross-env": "^7.0.3",
-    "eslint": "^9.20.1",
+    "eslint": "^9.22.0",
     "jest": "^29.7.0"
   },
   "peerDependencies": {

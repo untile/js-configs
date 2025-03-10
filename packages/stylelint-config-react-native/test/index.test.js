@@ -3,13 +3,14 @@
  */
 
 const stylelint = require('stylelint');
-const config = require('../src/index.js');
 
 /**
  * `Test suite.
  */
 
 describe('@untile/stylelint-config', () => {
+  const config = require('../src/index.js');
+
   it('correct', async () => {
     const result = await stylelint.lint({
       config,
