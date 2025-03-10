@@ -29,7 +29,7 @@
     "package.json": "sort-package-json"
   },
   "dependencies": {
-    "@untile/stylelint-config-react": "^3.1.0",
+    "@untile/stylelint-config-react": "^3.1.1",
     "stylelint-react-native": "^2.7.0"
   },
   "devDependencies": {

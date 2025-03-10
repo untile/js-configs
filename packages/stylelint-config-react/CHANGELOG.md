@@ -1,6 +1,9 @@
 # Changelog
 
-## [stylelint-config-react 3.1.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/3.1.0) (2025-03-05)
+## [stylelint-config-react 3.1.1](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/3.1.1) (2025-03-10)
+- Update dependencies [\#97](https://github.com/untile/js-configs/pull/97) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [stylelint-config-react/v3.1.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/v3.1.0) (2025-03-05)
 - Update perfectionist to use recommended rules [\#95](https://github.com/untile/js-configs/pull/95) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 
 ## [stylelint-config-react/v3.0.0](https://github.com/untile/js-configs/releases/tag/stylelint-config-react/v3.0.0) (2025-02-20)

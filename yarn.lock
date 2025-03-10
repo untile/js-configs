@@ -2998,7 +2998,7 @@ __metadata:
   resolution: "@untile/stylelint-config-react-native@workspace:packages/stylelint-config-react-native"
   dependencies:
     "@untile/eslint-config": "npm:3.1.1"
-    "@untile/stylelint-config-react": "npm:^3.1.0"
+    "@untile/stylelint-config-react": "npm:^3.1.1"
     cross-env: "npm:^7.0.3"
     eslint: "npm:^9.22.0"
     jest: "npm:^29.7.0"
@@ -3007,7 +3007,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@untile/stylelint-config-react@npm:^3.1.0, @untile/stylelint-config-react@workspace:packages/stylelint-config-react":
+"@untile/stylelint-config-react@npm:^3.1.1, @untile/stylelint-config-react@workspace:packages/stylelint-config-react":
   version: 0.0.0-use.local
   resolution: "@untile/stylelint-config-react@workspace:packages/stylelint-config-react"
   dependencies:
