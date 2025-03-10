@@ -29,7 +29,7 @@
     "package.json": "sort-package-json"
   },
   "dependencies": {
-    "@untile/eslint-config": "^3.1.0",
+    "@untile/eslint-config": "^3.1.1",
     "typescript-eslint": "^8.26.0"
   },
   "devDependencies": {

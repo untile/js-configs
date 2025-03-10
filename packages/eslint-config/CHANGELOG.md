@@ -1,6 +1,10 @@
 # Changelog
 
-## [eslint-config 3.1.0](https://github.com/untile/js-configs/releases/tag/eslint-config/3.1.0) (2025-03-05)
+## [eslint-config 3.1.1](https://github.com/untile/js-configs/releases/tag/eslint-config/3.1.1) (2025-03-10)
+- Update dependencies [\#97](https://github.com/untile/js-configs/pull/97) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update ESLint configuration [\#96](https://github.com/untile/js-configs/pull/96) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [eslint-config/v3.1.0](https://github.com/untile/js-configs/releases/tag/eslint-config/v3.1.0) (2025-03-05)
 - Update perfectionist to use recommended rules [\#95](https://github.com/untile/js-configs/pull/95) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update n/no-missing-import rule [\#94](https://github.com/untile/js-configs/pull/94) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 
