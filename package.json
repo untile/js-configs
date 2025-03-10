@@ -47,7 +47,7 @@
     "@untile/github-changelog-generator": "^3.0.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
-    "sort-package-json": "^2.14.0",
+    "sort-package-json": "^3.0.0",
     "yarn-deduplicate": "^6.0.2"
   },
   "packageManager": "yarn@4.5.0",
