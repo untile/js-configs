@@ -4,7 +4,6 @@
 
 const { ESLint } = require('eslint');
 const path = require('node:path');
-const config = require('../src');
 
 /**
  * Test suite.
@@ -15,7 +14,7 @@ describe('@untile/eslint-config-typescript', () => {
 
   beforeAll(() => {
     linter = new ESLint({
-      overrideConfig: config,
+      overrideConfig: require('../src'),
       overrideConfigFile: true
     });
   });

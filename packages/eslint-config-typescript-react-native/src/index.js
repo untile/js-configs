@@ -33,6 +33,7 @@ module.exports = tseslint.config(
           name: 'styled-components'
         }
       ],
+      'react-native/no-inline-styles': 'off',
       'react-native/no-raw-text': 'off',
       'react-native/no-unused-styles': 'error',
       'react-native/split-platform-components': 'error',

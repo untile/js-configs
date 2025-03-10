@@ -7,9 +7,22 @@ const nodePlugin = require('eslint-plugin-n');
 const newWithErrorPlugin = require('eslint-plugin-new-with-error');
 const noRelativeImportPathsPlugin = require('eslint-plugin-no-relative-import-paths');
 const perfectionistPlugin = require('eslint-plugin-perfectionist');
+const { Alphabet } = require('eslint-plugin-perfectionist/alphabet');
 const promisePlugin = require('eslint-plugin-promise');
 const securityPlugin = require('eslint-plugin-security');
 const switchCasePlugin = require('eslint-plugin-switch-case');
+
+/**
+ * `alphabet` constant.
+ *
+ * Returns a custom natural alphabet with uppercase letters prioritized.
+ */
+
+const alphabet = Alphabet
+  .generateRecommendedAlphabet()
+  .sortByLocaleCompare('en-US')
+  .placeAllWithCaseBeforeAllWithOtherCase('uppercase')
+  .getCharacters();
 
 /**
  * Export `@untile/eslint-config` configuration preset.
@@ -18,8 +31,8 @@ const switchCasePlugin = require('eslint-plugin-switch-case');
 module.exports = [
   importPlugin.flatConfigs.recommended,
   nodePlugin.configs['flat/recommended-script'],
+  perfectionistPlugin.configs['recommended-custom'],
   promisePlugin.configs['flat/recommended'],
-  perfectionistPlugin.configs['recommended-natural'],
   {
     languageOptions: {
       ecmaVersion: 2022,
@@ -108,13 +121,7 @@ module.exports = [
       'max-depth': ['error', 4],
       'max-nested-callbacks': ['error', 3],
       'max-params': ['error', 4],
-      'n/no-missing-import': [
-        'error',
-        {
-          ignoreTypeImport: true,
-          tryExtensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
-        }
-      ],
+      'n/no-missing-import': 'off',
       'n/no-unpublished-import': 'off',
       'n/no-unpublished-require': 'off',
       'new-cap': ['error', { capIsNew: true, newIsCap: true }],
@@ -234,10 +241,7 @@ module.exports = [
           prev: '*'
         }
       ],
-      'perfectionist/sort-imports': ['error', {
-        newlinesBetween: 'never',
-        type: 'natural'
-      }],
+      'perfectionist/sort-modules': 'off',
       'prefer-arrow-callback': 'error',
       'prefer-const': 'error',
       'prefer-rest-params': 'error',
@@ -267,6 +271,19 @@ module.exports = [
       'vars-on-top': 'error',
       'wrap-iife': ['error', 'inside'],
       'yield-star-spacing': 'error'
+    },
+    settings: {
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs']
+        }
+      },
+      perfectionist: {
+        alphabet,
+        ignoreCase: false,
+        partitionByComment: false,
+        partitionByNewLine: false
+      }
     }
   }
 ];
