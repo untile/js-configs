@@ -24,6 +24,7 @@
     "lint": "yarn workspaces foreach --since run lint",
     "pre-commit": "yarn lint-staged",
     "prepare": "husky",
+    "release:biome-config": "yarn workspace @untile/biome-config run release",
     "release:commitlint-config": "yarn workspace @untile/commitlint-config run release",
     "release:eslint-config": "yarn workspace @untile/eslint-config run release",
     "release:eslint-config-react": "yarn workspace @untile/eslint-config-react run release",
