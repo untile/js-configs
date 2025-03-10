@@ -29,7 +29,7 @@
     "package.json": "sort-package-json"
   },
   "dependencies": {
-    "@untile/eslint-config-typescript-react": "^3.1.0",
+    "@untile/eslint-config-typescript-react": "^3.1.1",
     "eslint-plugin-react-native": "^5.0.0",
     "typescript-eslint": "^8.26.0"
   },

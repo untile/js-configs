@@ -1,6 +1,6 @@
 {
   "name": "@untile/eslint-config-typescript-react",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Untile-flavored ESLint config typescript react",
   "keywords": [
     "config",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@untile/eslint-config-react": "^3.1.1",
-    "@untile/eslint-config-typescript": "^3.1.0",
+    "@untile/eslint-config-typescript": "^3.1.1",
     "typescript-eslint": "^8.26.0"
   },
   "devDependencies": {
