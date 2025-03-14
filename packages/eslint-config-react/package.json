@@ -42,6 +42,7 @@
     "react": "^19.0.0"
   },
   "peerDependencies": {
+    "@babel/core": "^7.0.0",
     "eslint": "9"
   },
   "engines": {

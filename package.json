@@ -42,7 +42,8 @@
     ]
   },
   "resolutions": {
-    "json5": "^2.2.1"
+    "json5": "^2.2.1",
+    "typescript": "^5.8.2"
   },
   "devDependencies": {
     "@untile/github-changelog-generator": "^3.0.0",

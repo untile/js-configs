@@ -1,0 +1,75 @@
+/* alpha-value-notation */
+.alpha-value {
+  background-color: rgb(0 0 0 / 0.5);
+  opacity: 0.5;
+}
+
+.declaration-no-important {
+  color: red;
+}
+
+.font-family-name-quotes {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.font-weight-notation {
+  font-weight: 700;
+}
+
+.function-name-case {
+  width: calc(5% - 10em);
+}
+
+.function-url-quotes {
+  background-image: url("image.jpg");
+}
+
+.length-zero-no-unit {
+  width: 0;
+}
+
+.no-descending-specificity {
+  color: red;
+}
+
+.order-order {
+  --text-color: red;
+  --alpha-color: var(--text-color, white);
+
+  background-color: var(--alpha-color);
+  color: var(--text-color);
+
+  &:hover {
+    color: blue;
+  }
+
+  @media (width >= 768px) {
+    font-size: 16px;
+  }
+}
+
+.order-properties-alphabetical-order {
+  color: var(--text-color);
+  display: block;
+}
+
+.rule-empty-line-before {
+  display: block;
+}
+
+.selector-attribute-quotes[attr="value"] {
+  color: red;
+}
+
+.selector-pseudo-element-colon-notation::before {
+  content: "";
+}
+
+div.selector-type-case {
+  color: red;
+}
+
+.shorthand-property-no-redundant-values {
+  margin: 1px 2px 3px 4px;
+  padding: 1px 2px;
+}
