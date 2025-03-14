@@ -37,7 +37,7 @@
     "jest": "^29.7.0",
     "react": "^19.0.0",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "peerDependencies": {
     "@biomejs/biome": "^1.9"
