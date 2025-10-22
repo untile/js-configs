@@ -29,7 +29,7 @@
     "!(test/fixtures/**/*)*.js": "eslint",
     "package.json": "sort-package-json"
   },
-  "resolutions": {
+  "overrides": {
     "json5": "^2.2.1",
     "minimatch": "^3.0.5",
     "moment": "^2.29.4"

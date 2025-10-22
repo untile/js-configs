@@ -12,32 +12,24 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Enable yarn
-        run: corepack enable
-
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
-
-      - name: Setup module dependencies cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+          cache: 'npm'
 
       - name: Install module dependencies
-        run: yarn --immutable
+        run: npm ci
 
       - name: Lint
-        run: yarn lint
+        run: npm run lint
 
       - name: Tests
-        run: yarn test
+        run: npm test
 
       - name: Lint commits
         uses: wagoid/commitlint-github-action@v6

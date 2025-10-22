@@ -28,7 +28,7 @@
     "*.js": "eslint",
     "package.json": "sort-package-json"
   },
-  "resolutions": {
+  "overrides": {
     "decode-uri-component": "^0.2.1",
     "json5": "^2.2.1",
     "moment": "^2.29.4"
