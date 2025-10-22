@@ -4,10 +4,10 @@ release() {
   local tag_prefix=$(echo "${1}" | sed 's/^@[^/]*\///')
 
   # Install dependencies.
-  yarn
+  npm install
 
   # Bump version.
-  yarn version ${2:-patch}
+  npm version ${2:-patch} --no-git-tag-version
 
   # Get the new version number.
   local version=`grep -m1 "\"version\"" package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g'`
@@ -19,7 +19,7 @@ release() {
   git add .
 
   # Get package name.
-  local packageName=$(tr '[:lower:]' '[:upper:]' <<< ${tag_prefix:0:tag_prefix})${tag_prefix:tag_prefix}
+  local packageName=$(tr '[:lower:]' '[:upper:]' <<< ${tag_prefix:0:1})${tag_prefix:1}
 
   # Commit release with new version.
   git commit -m "Release ${packageName} v${version}"

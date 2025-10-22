@@ -17,28 +17,27 @@
 
 ## Setup
 
-This project uses [yarn workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/) to manage multiple packages.
+This project uses [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces) to manage multiple packages.
 
 - Node.js 20 or higher
-- Yarn 4.5.x
-- Corepack enabled (run `corepack enable` if you haven't already)
+- npm 10.x or higher
 
 ### Install dependencies
 
 ```sh
-yarn
+npm install
 ```
 
 ### Run lint
 
 ```sh
-yarn lint
+npm run lint
 ```
 
 ### Run full test suite
 
 ```sh
-yarn test
+npm test
 ```
 
 ## Adding new packages
@@ -50,7 +49,7 @@ To ensure that every part of the monorepo infrastructure works as intended, ever
 After creating a package, add a release script to the `./packages/<new-package-name>/package.json` file, and another one to the main `./package.json` file with:
 
 ```json
-  "release:<new-package-name>": "yarn workspace @untile/<new-package-name> release",
+  "release:<new-package-name>": "npm run release --workspace=@untile/<new-package-name>",
 ```
 
 ### Changelog setup
@@ -67,6 +66,6 @@ Make sure that you have configured `GITHUB_TOKEN` in your globals.
 This will also publish your packages that have changes to [NPM](https://www.npmjs.com/~untile).
 
 ```sh
-yarn release:[<package-name>] [<new version> | major | minor | patch]
+npm run release:[<package-name>] [<new version> | major | minor | patch]
 git push origin master && git push --tags
 ```
