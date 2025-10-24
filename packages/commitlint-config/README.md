@@ -24,7 +24,7 @@
 
 ## Requirements
 
-- Node.js >= 20
+- Node.js >= 20.19.4
 
 ## Installation
 

@@ -11,6 +11,7 @@ import path from 'node:path';
 
 const runBiomeLint = (file: string) => {
   const filePath = path.resolve(__dirname, 'fixtures', file);
+
   const result = spawnSync(
     'npx',
     [
@@ -27,7 +28,9 @@ const runBiomeLint = (file: string) => {
     }
   );
 
-  const errors = (result.stderr || result.stdout || '')
+  const output = result.stderr || result.stdout || '';
+
+  const errors = output
     .split('\n')
     .filter(line => line.includes('lint/'))
     .map(line => {

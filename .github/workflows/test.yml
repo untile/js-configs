@@ -19,11 +19,14 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 20.19.4
           cache: 'npm'
 
       - name: Install module dependencies
-        run: npm ci
+        run: |
+          npm ci
+          # Ensure Biome binary for Linux is installed
+          npm install @biomejs/cli-linux-x64 --no-save --force
 
       - name: Lint
         run: npm run lint
