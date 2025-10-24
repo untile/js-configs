@@ -57,4 +57,4 @@ commit-msg:
   commands:
     # Validate commit message with commitlint
     commitlint:
-      run: npx --no -- commitlint --edit {1}
+      run: npm exec -- commitlint --edit {1}

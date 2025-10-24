@@ -1,0 +1,67 @@
+# Basic valid commits with whitelisted verbs
+Add new feature
+Fix authentication bug
+Update dependencies
+Remove deprecated code
+Improve performance metrics
+Migrate to new API
+Move files to new location
+Release version 2.0.0
+Replace old implementation
+Revert previous commit
+Disable feature flag
+Enable new functionality
+
+# With issue references - flexible format (anything in square brackets)
+[PROJ-123] Add new feature
+[NOTION-456] Fix authentication bug
+[BUG-1] Fix critical error
+[TASK-9999] Update documentation
+[STORY-42] Add user management feature
+[EPIC-100] Migrate to new architecture
+[UI-7] Improve user interface
+[API-2000] Update endpoints
+
+# With flexible reference formats
+[notion-456] Update documentation
+[bug-1] Fix critical error
+[feature/auth] Add authentication system
+[#123] Fix reported issue
+[WIP] Add new component
+[hotfix/security] Fix vulnerability
+[2024-Q1] Update quarterly report
+[v2.0.0] Release new version
+
+# Special ignored patterns - WIP
+wip
+WIP
+wip: working on feature
+WIP: implementing feature
+
+# Git interactive rebase commands
+fixup! Add new feature
+squash! Fix bug
+drop Add old feature
+pick Add something
+reword Fix typo
+fixup! Update dependencies
+squash! Remove deprecated method
+
+# Dependabot commits
+Bump @babel/traverse from 7.22.10 to 7.23.2
+Bump @babel/traverse from 7.22.10 to 7.26.9 in the npm_and_yarn group
+Bump @babel/traverse from 7.22.10 to 7.26.9 in the dependencies
+Bump eslint from 8.43.0 to 8.44.0
+Bump @types/react from 18.0.0 to 18.0.1
+Bump prettier from 2.8.8 to 3.0.0
+Bump the npm_and_yarn group across 1 directory with 3 updates
+
+# Merge commits
+Merge pull request #123 from feature-branch
+Merge branch 'master' into development
+Merge remote-tracking branch 'origin/main'
+
+# Multi-line commit with body (separated by blank line)
+Add foobar
+
+This commit also adds foobar.
