@@ -20,3 +20,6 @@ tsconfig.tsbuildinfo
 
 # vscode
 .vscode
+
+# lefthook
+lefthook-local.yml

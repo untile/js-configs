@@ -22,10 +22,6 @@
     "release": "../../bin/release.sh @untile/prettier-config",
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest"
   },
-  "lint-staged": {
-    "!(test/fixtures/**/*)*.js": "eslint",
-    "package.json": "sort-package-json"
-  },
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "^9.22.0",

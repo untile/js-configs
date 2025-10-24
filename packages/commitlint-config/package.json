@@ -24,10 +24,6 @@
     "test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules --no-warnings\" jest --runInBand",
     "test:watch": "jest --watch --notify"
   },
-  "lint-staged": {
-    "*.js": "eslint",
-    "package.json": "sort-package-json"
-  },
   "overrides": {
     "decode-uri-component": "^0.2.1",
     "json5": "^2.2.1",

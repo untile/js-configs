@@ -25,10 +25,6 @@
     "test": "jest",
     "test:watch": "jest --watch --notify"
   },
-  "lint-staged": {
-    "!(test/fixtures/**/*)*.js": "eslint",
-    "package.json": "sort-package-json"
-  },
   "dependencies": {
     "@babel/eslint-parser": "^7.26.8",
     "@babel/preset-react": "^7.26.3",

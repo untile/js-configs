@@ -25,10 +25,6 @@
     "test": "jest",
     "test:watch": "jest --watch --notify"
   },
-  "lint-staged": {
-    "!(test/fixtures/**/*)*.(ts|js)": "eslint",
-    "package.json": "sort-package-json"
-  },
   "dependencies": {
     "@untile/eslint-config-react": "^3.1.1",
     "@untile/eslint-config-typescript": "^3.1.1",
