@@ -27,7 +27,7 @@
 - Node.js >= 20.19.4
 - ESLint >= 9
 - TypeScript >= 4.9.0
-- Biome >= 1.9
+- Biome >= 2.3
 
 ## Installation
 
@@ -49,10 +49,46 @@ Create a `biome.json` file in your project root and extend this configuration:
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
   "extends": ["@untile/biome-config"]
 }
 ```
+
+## Features
+
+This configuration includes comprehensive linting and formatting rules optimized for modern JavaScript/TypeScript projects.
+
+### Biome v2 Features
+
+- **Domains**: Automatically enables framework-specific rules based on your `package.json` dependencies
+  - `react`: React-specific rules (hooks, JSX, etc.)
+  - `next`: Next.js optimizations (Image component, etc.)
+  - `test`: Testing framework rules (Jest, Vitest, etc.)
+- **CSS Linting & Formatting**: Full support for CSS files (useful for Tailwind projects)
+- **JSON Linting**: Validation for JSON configuration files
+- **Assist Actions**: Code improvements like `organizeImports`, `useSortedKeys`, and `useSortedAttributes`
+
+### Linter Rules
+
+Comprehensive rule coverage across all categories:
+
+- **Accessibility (a11y)**: `useAltText`, `useValidAnchor`, `useKeyWithClickEvents`, `useValidAriaRole`, `noAccessKey`
+- **Performance**: `noAwaitInLoops`, `noAccumulatingSpread`, `noBarrelFile`, `useTopLevelRegex`
+- **Security**: `noBlankTarget`, `noGlobalEval`, `noDangerouslySetInnerHtml`
+- **Correctness**: `noUnusedImports`, `noUnusedVariables`, `useExhaustiveDependencies`, `useHookAtTopLevel`
+- **Style**: `noImplicitBoolean`, and more
+- **Suspicious**: `noConsole`, `noExplicitAny`, `noSkippedTests`, and more
+- **Complexity**: `noBannedTypes`, and more
+
+### Formatter Options
+
+- **Indent**: 2 spaces
+- **Line width**: 120 characters
+- **Quote style**: Single quotes
+- **Semicolons**: Always
+- **Trailing commas**: None
+- **Arrow parentheses**: As needed
+- **EditorConfig**: Supported
 
 ## Usage
 
@@ -78,3 +114,123 @@ or using as a formatter:
 }
 
 read more about the `biome:format` script [here](https://biomejs.dev/formatter/).
+
+## Customizing for Your Project
+
+This shared configuration is designed to be generic and reusable across projects. You can customize it for your specific needs by extending the base configuration and adding project-specific settings.
+
+### Excluding Build Directories
+
+Add project-specific ignore patterns to your `biome.json`:
+
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "extends": ["@untile/biome-config"],
+  "files": {
+    "ignore": [
+      "dist/**",        // Build output
+      ".next/**",       // Next.js
+      "build/**",       // Create React App / Vite
+      "coverage/**",    // Test coverage reports
+      "out/**"          // Other build directories
+    ]
+  }
+}
+```
+
+**Note:** `node_modules/` is automatically ignored by Biome regardless of any `includes` or `ignore` settings, so you don't need to exclude it explicitly.
+
+### Adding Custom Overrides
+
+Biome uses deep merge when extending configurations, so your overrides will be merged with the base configuration rather than replacing it:
+
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "extends": ["@untile/biome-config"],
+  "overrides": [
+    {
+      "includes": ["scripts/**/*.js"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noConsole": "off"  // Allow console in scripts
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.config.js"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredDependencies": "off"  // Config files may reference devDependencies
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### Framework-Specific Configuration
+
+The `domains` feature automatically enables rules based on your `package.json` dependencies. If you need to manually control domain rules:
+
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "extends": ["@untile/biome-config"],
+  "linter": {
+    "domains": {
+      "react": "off",         // Disable React rules if not using React
+      "next": "recommended",  // Explicitly enable Next.js rules
+      "test": "recommended"   // Keep test framework rules enabled
+    }
+  }
+}
+```
+
+### Adjusting Rule Severity
+
+You can override specific rule severities in your project:
+
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "extends": ["@untile/biome-config"],
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noConsole": "off"  // Disable console warnings globally
+      },
+      "style": {
+        "useFilenamingConvention": "off"  // Disable filename convention checks
+      }
+    }
+  }
+}
+```
+
+### VCS Configuration
+
+Biome automatically detects your Git root directory by traversing up from your project. In most cases, you don't need to configure VCS settings manually.
+
+**When you might need to configure `vcs.root`:**
+- Your project has a non-standard Git structure
+- You're in a monorepo and need to reference a different VCS root
+- You're using Git worktrees or submodules
+
+**Example:**
+
+```json
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "extends": ["@untile/biome-config"],
+  "vcs": {
+    "root": "."           // Current directory (default auto-detect)
+    // or "../.." for monorepo packages pointing to repository root
+  }
+}
+```

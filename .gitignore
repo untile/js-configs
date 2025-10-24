@@ -1,6 +1,9 @@
 # build
 dist
 
+# claude
+.claude/settings.local.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*

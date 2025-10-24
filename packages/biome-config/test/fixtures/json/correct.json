@@ -1,0 +1,15 @@
+{
+  "author": "John Doe",
+  "config": {
+    "debug": false,
+    "timeout": 3000
+  },
+  "description": "A sample configuration file",
+  "keywords": [
+    "zebra",
+    "apple",
+    "banana"
+  ],
+  "name": "my-config",
+  "version": "1.0.0"
+}
