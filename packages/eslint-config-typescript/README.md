@@ -24,7 +24,7 @@
 
 ## Requirements
 
-- Node.js >= 20
+- Node.js >= 20.19.4
 - ESLint >= 9
 - TypeScript >= 4.9.0
 
