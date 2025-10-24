@@ -1,0 +1,95 @@
+/**
+ * CSS violations fixture.
+ *
+ * Tests CSS linting capabilities including:
+ * - Duplicate selectors
+ * - Empty blocks
+ * - Invalid properties
+ * - Missing generic font families
+ */
+
+/* Duplicate selector - suspicious/noDuplicateSelectors */
+.button {
+  color: red;
+  padding: 10px;
+}
+
+.button {
+  color: blue;
+  margin: 5px;
+}
+
+/* Empty block - suspicious/noEmptyBlock */
+.empty-class {
+}
+
+/* Unknown CSS property - correctness/noUnknownProperty */
+.invalid-property {
+  colr: red; /* typo: should be 'color' */
+  bckground: blue; /* typo: should be 'background' */
+}
+
+/* Missing generic font family - a11y/useGenericFontNames */
+body {
+  font-family: 'Arial';
+}
+
+/* Correct usage with generic family */
+.correct-font {
+  font-family: 'Arial', sans-serif;
+}
+
+/* !important usage - complexity/noImportantStyles */
+.important-style {
+  color: red !important;
+  background: blue !important;
+}
+
+/* Irregular whitespace - suspicious/noIrregularWhitespace */
+.whitespace-issue {
+  color:​ red; /* Contains zero-width space */
+}
+
+/* Descending specificity - style/noDescendingSpecificity */
+.parent .child {
+  color: blue;
+}
+
+.parent {
+  color: red;
+}
+
+/**
+ * ❌ Incorrect: Using @value from CSS modules instead of custom properties (noValueAtRule).
+ */
+@value primaryColor: #007bff;
+@value secondaryColor: #6c757d;
+@value spacingUnit: 8px;
+@value borderRadius: 4px;
+@value fontSizeLarge: 18px;
+
+.button-value {
+  background-color: primaryColor;
+  color: white;
+  padding: spacingUnit;
+  border-radius: borderRadius;
+  font-size: fontSizeLarge;
+}
+
+/* ❌ Incorrect: Importing @value from another file */
+@value colors: './colors.css';
+@value primaryColor, secondaryColor from colors;
+
+.card-value {
+  border: 1px solid secondaryColor;
+  padding: calc(spacingUnit * 2);
+  border-radius: borderRadius;
+}
+
+/* ❌ Incorrect: @value with default values */
+@value maxWidth: 1200px;
+
+.container-value {
+  max-width: maxWidth;
+  margin: 0 auto;
+}

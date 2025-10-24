@@ -27,7 +27,7 @@
 - Node.js >= 20.19.4
 - ESLint >= 9
 - TypeScript >= 4.9.0
-- Biome >= 1.9
+- Biome >= 2.3
 
 ## Installation
 
@@ -49,10 +49,46 @@ Create a `biome.json` file in your project root and extend this configuration:
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.0/schema.json",
   "extends": ["@untile/biome-config"]
 }
 ```
+
+## Features
+
+This configuration includes comprehensive linting and formatting rules optimized for modern JavaScript/TypeScript projects.
+
+### Biome v2 Features
+
+- **Domains**: Automatically enables framework-specific rules based on your `package.json` dependencies
+  - `react`: React-specific rules (hooks, JSX, etc.)
+  - `next`: Next.js optimizations (Image component, etc.)
+  - `test`: Testing framework rules (Jest, Vitest, etc.)
+- **CSS Linting & Formatting**: Full support for CSS files (useful for Tailwind projects)
+- **JSON Linting**: Validation for JSON configuration files
+- **Assist Actions**: Code improvements like `organizeImports`, `useSortedKeys`, and `useSortedAttributes`
+
+### Linter Rules
+
+Comprehensive rule coverage across all categories:
+
+- **Accessibility (a11y)**: `useAltText`, `useValidAnchor`, `useKeyWithClickEvents`, `useValidAriaRole`, `noAccessKey`
+- **Performance**: `noAwaitInLoops`, `noAccumulatingSpread`, `noBarrelFile`, `useTopLevelRegex`
+- **Security**: `noBlankTarget`, `noGlobalEval`, `noDangerouslySetInnerHtml`
+- **Correctness**: `noUnusedImports`, `noUnusedVariables`, `useExhaustiveDependencies`, `useHookAtTopLevel`
+- **Style**: `noImplicitBoolean`, and more
+- **Suspicious**: `noConsole`, `noExplicitAny`, `noSkippedTests`, and more
+- **Complexity**: `noBannedTypes`, and more
+
+### Formatter Options
+
+- **Indent**: 2 spaces
+- **Line width**: 120 characters
+- **Quote style**: Single quotes
+- **Semicolons**: Always
+- **Trailing commas**: None
+- **Arrow parentheses**: As needed
+- **EditorConfig**: Supported
 
 ## Usage
 
