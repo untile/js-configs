@@ -39,6 +39,7 @@
     "json5": "^2.2.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
     "@untile/github-changelog-generator": "^3.0.0",
     "lefthook": "^2.0.0",
     "sort-package-json": "^3.4.0",
