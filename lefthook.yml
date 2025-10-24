@@ -1,0 +1,47 @@
+# lefthook.yml
+# Git hooks configuration using Lefthook v2.0.0
+# https://github.com/evilmartians/lefthook
+
+# Require minimum Lefthook version
+min_version: 2.0.0
+
+# Pre-commit hook
+pre-commit:
+  commands:
+    # 1️⃣ Sort package.json files first (priority 1 = highest)
+    sort-package-json:
+      priority: 1
+      glob: "**/package.json"
+      run: npx sort-package-json {staged_files}
+      stage_fixed: true
+
+    # 2️⃣ Lint JS/TS files in their respective packages (priority 2)
+    eslint:
+      priority: 2
+      glob: "**/*.{js,ts,tsx}"
+      exclude: "test/fixtures/**/*"
+      run: |
+        for file in {staged_files}; do
+          # Skip config files
+          if [[ "$file" =~ (jest.config|eslint.config|tsconfig) ]]; then
+            continue
+          fi
+          pkg_dir=$(echo "$file" | sed 's|packages/\([^/]*\).*|packages/\1|')
+          if [ -f "$pkg_dir/eslint.config.js" ]; then
+            relative_file=$(echo "$file" | sed "s|$pkg_dir/||")
+            cd "$pkg_dir" && npx eslint "$relative_file" || exit 1
+          fi
+        done
+      stage_fixed: true
+
+    # 3️⃣ Validate branch name last (priority 3 = lowest)
+    validate-branch:
+      priority: 3
+      run: npx validate-branch-name
+
+# Commit message hook
+commit-msg:
+  commands:
+    # Validate commit message with commitlint
+    commitlint:
+      run: npx --no -- commitlint --edit {1}

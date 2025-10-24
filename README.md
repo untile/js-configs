@@ -40,6 +40,40 @@ npm run lint
 npm test
 ```
 
+## Git Hooks
+
+This project uses [Lefthook](https://github.com/evilmartians/lefthook) v2.0.0 to manage Git hooks.
+
+### Hooks configured:
+- **pre-commit**: 
+  - Sorts all `package.json` files (priority 1)
+  - Runs ESLint on staged `.js`, `.ts`, `.tsx` files in parallel (priority 2)
+  - Validates branch names (priority 3)
+- **commit-msg**: 
+  - Validates commit messages with commitlint
+
+### Setup
+Hooks are automatically installed when you run `npm install` (via the `prepare` script).
+
+To manually reinstall hooks:
+```sh
+npx lefthook install
+```
+
+### Skip hooks temporarily
+```sh
+# Skip all hooks
+LEFTHOOK=0 git commit -m "message"
+
+# Skip specific command
+LEFTHOOK_EXCLUDE=validate-branch git commit -m "message"
+```
+
+### Debug hooks
+```sh
+npx lefthook run pre-commit --verbose
+```
+
 ## Adding new packages
 
 To ensure that every part of the monorepo infrastructure works as intended, every package must be located within the `./packages/<new-package-name>` folder.

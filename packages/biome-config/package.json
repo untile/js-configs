@@ -27,9 +27,6 @@
     "test": "jest",
     "test:watch": "jest --watch --notify"
   },
-  "lint-staged": {
-    "package.json": "sort-package-json"
-  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/jest": "^29.5.14",
