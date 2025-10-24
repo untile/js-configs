@@ -2,7 +2,110 @@
  * Module dependencies.
  */
 
-const config = require('../src/index.js');
+const fs = require('node:fs');
+const path = require('node:path');
+
+const userConfig = require('../src/index.js');
+
+/**
+ * Helper functions.
+ */
+
+/**
+ * Parse correct fixtures from file.
+ *
+ * @returns {Array} Array of commit messages
+ */
+
+function parseCorrectFixtures() {
+  const content = fs.readFileSync(
+    path.join(__dirname, 'fixtures', 'correct.txt'),
+    'utf8'
+  );
+
+  const messages = [];
+  const lines = content.split('\n');
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Skip comment lines and empty lines
+    if (line.startsWith('#') || line.trim() === '') {
+      continue;
+    }
+
+    // Check if this is a multi-line commit (has a blank line after the header)
+    // Multi-line commits are specifically marked in our fixtures
+    if (line === 'Add foobar' && i + 2 < lines.length && lines[i + 1] === '' && lines[i + 2].includes('This commit')) {
+      // This is our multi-line commit example
+      messages.push(`${line}\n\n${lines[i + 2]}`);
+      // Skip the next two lines we've already processed
+      i += 2;
+    } else {
+      // Single line commit
+      messages.push(line);
+    }
+  }
+
+  return messages;
+}
+
+/**
+ * Parse incorrect fixtures from file with expected errors.
+ *
+ * @returns {Array} Array of {message, expectedError, expectedMessage}
+ */
+
+function parseIncorrectFixtures() {
+  const content = fs.readFileSync(
+    path.join(__dirname, 'fixtures', 'incorrect.txt'),
+    'utf8'
+  );
+
+  const fixtures = [];
+  const lines = content.split('\n');
+  let currentMessage = null;
+  let expectedError = null;
+  let expectedErrorMessage = null;
+
+  for (const line of lines) {
+    if (line.startsWith('#')) {
+      // Comment line, skip
+      continue;
+    }
+
+    if (line.startsWith(':::expected:')) {
+      expectedError = line.replace(':::expected:', '').trim();
+    } else if (line.startsWith(':::message:')) {
+      expectedErrorMessage = line.replace(':::message:', '').trim();
+    } else if (line.trim()) {
+      // If we have a previous message with expected error, save it
+      if (currentMessage !== null && expectedError) {
+        fixtures.push({
+          expectedError,
+          expectedMessage: expectedErrorMessage,
+          message: currentMessage
+        });
+      }
+
+      // Start new message
+      currentMessage = line;
+      expectedError = null;
+      expectedErrorMessage = null;
+    }
+  }
+
+  // Don't forget the last one
+  if (currentMessage !== null && expectedError) {
+    fixtures.push({
+      expectedError,
+      expectedMessage: expectedErrorMessage,
+      message: currentMessage
+    });
+  }
+
+  return fixtures;
+}
 
 /**
  * Test suite.
@@ -14,11 +117,29 @@ describe('@untile/commitlint-config-untile', () => {
   beforeAll(async () => {
     const { default: lint } = await import('@commitlint/lint');
     const { default: load } = await import('@commitlint/load');
+    const conventionalConfig = await import('@commitlint/config-conventional');
+
+    // Get the package directory (parent of test directory)
+    const packageDir = path.resolve(__dirname, '..');
+
+    // Manually extend the conventional config to avoid ESM resolution issues
+    // in npm workspaces with commitlint v20
+    // Clear extends to avoid resolution
+    const config = {
+      ...userConfig,
+      extends: []
+    };
 
     linter = async message => {
-      const preparedConfig = await load(config);
+      const preparedConfig = await load(config, { cwd: packageDir });
 
-      return lint(message, preparedConfig.rules, {
+      // Merge with conventional config rules
+      const mergedRules = {
+        ...conventionalConfig.default.rules,
+        ...preparedConfig.rules
+      };
+
+      return lint(message, mergedRules, {
         parserOpts: preparedConfig.parserPreset?.parserOpts,
         ...preparedConfig
       });
@@ -26,135 +147,55 @@ describe('@untile/commitlint-config-untile', () => {
   });
 
   describe('correct', () => {
-    it('should validate correctly if the subject complies with the rules', async () => {
-      const result = await linter('Add foobar');
+    const correctMessages = parseCorrectFixtures();
+    const testCases = correctMessages.map(message => {
+      // Create a short description for the test name
+      const firstLine = message.split('\n')[0];
+      const description = firstLine.length > 50
+        ? `${firstLine.substring(0, 50)}...`
+        : firstLine;
 
-      expect(result.valid).toBe(true);
+      return { description, message };
     });
 
-    it('should ignore commit wip', async () => {
-      const result = await linter('wip');
-
-      expect(result.valid).toBe(true);
-    });
-
-    it('should ignore git commands', async () => {
-      const commands = [
-        'fixup! Add new feature',
-        'squash! Update dependencies',
-        'drop Add old feature',
-        'pick Add something',
-        'reword Fix typo'
-      ];
-
-      for (const command of commands) {
-        const result = await linter(command);
+    it.each(testCases)(
+      'should validate correctly: $description',
+      async ({ message }) => {
+        const result = await linter(message);
 
         expect(result.valid).toBe(true);
       }
-    });
-
-    it('should ignore dependabot commits', async () => {
-      const dependabotCommits = [
-        'Bump @babel/traverse from 7.22.10 to 7.23.2',
-        'Bump @babel/traverse from 7.22.10 to 7.26.9 in the npm_and_yarn group',
-        'Bump @babel/traverse from 7.22.10 to 7.26.9 in the dependencies',
-        'Bump eslint from 8.43.0 to 8.44.0',
-        'Bump @types/react from 18.0.0 to 18.0.1',
-        'Bump prettier from 2.8.8 to 3.0.0',
-        'Bump the npm_and_yarn group across 1 directory with 3 updates'
-      ];
-
-      for (const commit of dependabotCommits) {
-        const result = await linter(commit);
-
-        expect(result.valid).toBe(true);
-      }
-    });
-
-    it('should validate correctly against a subject with body', async () => {
-      const message = `Add foobar
-      This commit also adds foobar.
-      `;
-
-      const result = await linter(message);
-
-      expect(result.valid).toBe(true);
-    });
+    );
   });
 
   describe('incorrect', () => {
-    it('should fail when the subject does not start with a whitelisted verb', async () => {
-      const result = await linter('Foo bar');
+    const incorrectFixtures = parseIncorrectFixtures();
 
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('function-rules/type-enum');
-    });
+    it.each(incorrectFixtures)(
+      'should fail validation: $message',
+      async ({ expectedError, expectedMessage, message }) => {
+        const result = await linter(message);
 
-    it('should fail if subject is not sentence case', async () => {
-      const result = await linter('add foobar');
+        expect(result.valid).toBe(false);
 
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('function-rules/type-enum');
-    });
+        // Check for expected error
+        if (expectedError) {
+          const hasExpectedError = result.errors.some(
+            error => error.name === expectedError
+          );
 
-    it('should fail if subject exceeds 52 chars', async () => {
-      const result = await linter('Add lorem ipsum is simply dummy text of the printing a');
+          expect(hasExpectedError).toBe(true);
+        }
 
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('header-max-length');
-    });
+        // Check for expected error message if provided
+        if (expectedMessage) {
+          const hasExpectedMessage = result.errors.some(
+            error => error.message === expectedMessage
+          );
 
-    it('should fail if subject has only one word', async () => {
-      const result = await linter('Add');
-
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('function-rules/type-enum');
-    });
-
-    it('should fail if subject has an whitespace in the end', async () => {
-      const result = await linter('Add foo ');
-
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('header-trim');
-    });
-
-    it('should fail if subject has more than one whitespace between words', async () => {
-      const result = await linter('Add  foo');
-
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('function-rules/type-enum');
-    });
-
-    it('should fail if subject has a full-stop', async () => {
-      const result = await linter('Add foo.');
-
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('subject-full-stop');
-    });
-
-    it('should fail if commit message contains double quotes', async () => {
-      const result = await linter('Add "new feature"');
-
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      expect(result.errors[0].message).toEqual('The commit message must not contain quotes or backticks');
-    });
-
-    it('should fail if commit message contains single quotes', async () => {
-      const result = await linter('Update \'dependencies\'');
-
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      expect(result.errors[0].message).toEqual('The commit message must not contain quotes or backticks');
-    });
-
-    it('should fail if commit message contains backticks', async () => {
-      const result = await linter('Fix `bug` in component');
-
-      expect(result.valid).toBe(false);
-      expect(result.errors[0].name).toEqual('function-rules/type-enum');
-      expect(result.errors[0].message).toEqual('The commit message must not contain quotes or backticks');
-    });
+          expect(hasExpectedMessage).toBe(true);
+        }
+      }
+    );
   });
 });

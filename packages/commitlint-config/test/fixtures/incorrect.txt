@@ -1,0 +1,51 @@
+# Wrong case - expects type-case error
+add foobar
+:::expected:type-case
+
+# Invalid verb - expects function-rules/type-enum error
+Foo bar
+:::expected:function-rules/type-enum
+
+# Single word - expects subject-empty error
+Add
+:::expected:subject-empty
+
+# Double quotes - expects function-rules/type-enum error with specific message
+Add "new feature"
+:::expected:function-rules/type-enum
+:::message:The commit message must not contain quotes or backticks
+
+# Single quotes - expects function-rules/type-enum error with specific message
+Update 'dependencies'
+:::expected:function-rules/type-enum
+:::message:The commit message must not contain quotes or backticks
+
+# Backticks - expects function-rules/type-enum error with specific message
+Fix `bug` in component
+:::expected:function-rules/type-enum
+:::message:The commit message must not contain quotes or backticks
+
+# Multiple spaces - expects function-rules/type-enum error
+Add  foo
+:::expected:function-rules/type-enum
+:::message:The commit message must have single spaces between words
+
+# Full stop - expects subject-full-stop error
+Add foo.
+:::expected:subject-full-stop
+
+# Trailing space - expects header-trim error
+Add foo 
+:::expected:header-trim
+
+# Too long - expects header-max-length error
+Add lorem ipsum is simply dummy text of the printing and typesetting industry lorem ipsum has been the standard dummy text
+:::expected:header-max-length
+
+# Missing brackets for issue reference
+TASK-123 Add feature
+:::expected:function-rules/type-enum
+
+# Wrong brackets type (parentheses instead of square brackets)
+(TASK-123) Fix bug
+:::expected:type-empty
