@@ -5,8 +5,17 @@
 # Require minimum Lefthook version
 min_version: 2.0.0
 
+# Shared configuration using YAML anchors
+__shared__:
+  eslint: &eslint
+    priority: 2
+    glob: "*.{js,ts,tsx}"
+    run: npx eslint --ignore-pattern 'test/fixtures/*' --no-warn-ignored {staged_files}
+    stage_fixed: true
+
 # Pre-commit hook
 pre-commit:
+  parallel: true
   commands:
     # 1️⃣ Sort package.json files first (priority 1 = highest)
     sort-package-json:
@@ -22,6 +31,10 @@ pre-commit:
       exclude: "test/fixtures/**/*"
       run: |
         for file in {staged_files}; do
+          # Skip test fixtures
+          if [[ "$file" =~ test/fixtures/ ]]; then
+            continue
+          fi
           # Skip config files
           if [[ "$file" =~ (jest.config|eslint.config|tsconfig) ]]; then
             continue

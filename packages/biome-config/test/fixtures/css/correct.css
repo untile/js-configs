@@ -1,0 +1,206 @@
+/**
+ * CSS correct examples.
+ *
+ * Demonstrates proper CSS patterns that should pass all CSS linting rules.
+ */
+
+/* ✅ Correct: Unique selectors */
+.button-primary {
+  background-color: blue;
+  color: white;
+  padding: 10px 20px;
+}
+
+.button-secondary {
+  background-color: gray;
+  color: white;
+  padding: 10px 20px;
+}
+
+/* ✅ Correct: Non-empty blocks */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+/* ✅ Correct: Valid CSS properties */
+.text-content {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.layout {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* ✅ Correct: Generic font family included */
+body {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.monospace-text {
+  font-family: 'Courier New', 'Monaco', monospace;
+}
+
+/* ✅ Correct: Minimal use of !important (ideally none) */
+.special-case {
+  color: red;
+  font-weight: bold;
+}
+
+/* ✅ Correct: Proper specificity order */
+.parent {
+  color: red;
+}
+
+.parent .child {
+  color: blue;
+}
+
+/* ✅ Correct: No irregular whitespace */
+.clean-formatting {
+  color: red;
+  margin: 10px;
+  padding: 5px;
+}
+
+/* ✅ Correct: Proper media queries */
+@media (min-width: 768px) {
+  .responsive-container {
+    max-width: 1200px;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .responsive-container {
+    padding: 1rem;
+  }
+}
+
+/* ✅ Correct: Valid color values */
+.colors {
+  background-color: #ffffff;
+  border-color: rgb(0, 0, 0);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* ✅ Correct: Proper animation definitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animated {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* ✅ Correct: Valid pseudo-classes and pseudo-elements */
+a:hover {
+  color: darkblue;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: purple;
+}
+
+.element::before {
+  content: '→ ';
+}
+
+.element::after {
+  content: ' ←';
+}
+
+/* ✅ Correct: Proper flexbox usage */
+.flex-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-item {
+  flex: 1 1 auto;
+}
+
+/* ✅ Correct: Proper grid usage */
+.grid-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-areas:
+    'header header header'
+    'sidebar main main'
+    'footer footer footer';
+  grid-template-columns: 200px 1fr 1fr;
+}
+
+.grid-header {
+  grid-area: header;
+}
+
+.grid-sidebar {
+  grid-area: sidebar;
+}
+
+.grid-main {
+  grid-area: main;
+}
+
+.grid-footer {
+  grid-area: footer;
+}
+
+/**
+ * ✅ Correct: Using CSS custom properties instead of @value (noValueAtRule).
+ */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --spacing-unit: 8px;
+  --border-radius: 4px;
+  --font-size-large: 18px;
+}
+
+.button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: var(--spacing-unit);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-large);
+}
+
+.card {
+  border: 1px solid var(--secondary-color);
+  padding: calc(var(--spacing-unit) * 2);
+  border-radius: var(--border-radius);
+}
+
+/* ✅ Correct: Scoped custom properties */
+.theme-dark {
+  --primary-color: #0056b3;
+  --secondary-color: #495057;
+}

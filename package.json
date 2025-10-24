@@ -47,9 +47,5 @@
   "engines": {
     "node": ">=20.19.4",
     "npm": ">=10.0.0"
-  },
-  "validate-branch-name": {
-    "pattern": "^master{1}$|^(bugfix|dependabot|enhancement|feature|hotfix|release|support)/.+$",
-    "errorMsg": "Only the following prefixes are allowed: bugfix|dependabot|enhancement|feature|hotfix|release|support"
   }
 }
