@@ -1,6 +1,12 @@
 # Changelog
 
-## [commitlint-config 3.1.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/3.1.1) (2025-03-10)
+## [commitlint-config 4.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/4.0.0) (2025-10-30)
+- Migrate commitlint to version 20 [\#106](https://github.com/untile/js-configs/pull/106) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Update outdated dependencies [\#104](https://github.com/untile/js-configs/pull/104) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Migrate from Husky+Lint-Staged to Lefthook [\#103](https://github.com/untile/js-configs/pull/103) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+- Migrate from Yarn to npm workspaces [\#102](https://github.com/untile/js-configs/pull/102) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
+
+## [commitlint-config/v3.1.1](https://github.com/untile/js-configs/releases/tag/commitlint-config/v3.1.1) (2025-03-10)
 - Update dependencies [\#97](https://github.com/untile/js-configs/pull/97) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 
 ## [commitlint-config/v3.1.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/v3.1.0) (2025-03-05)
