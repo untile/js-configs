@@ -5,21 +5,19 @@ on:
     types: [created]
 
 jobs:
-  publish:
+  publish-npm:
     runs-on: ubuntu-latest
 
     steps:
       - name: Get version from tag
         id: tag_name
-        run: |
-          echo ::set-output name=current_version::${GITHUB_REF_NAME}
-        shell: bash
+        run: echo "current_version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
 
       - name: Get package and version name
         uses: jungwinter/split@v2
         id: split
         with:
-          msg: ${{steps.tag_name.outputs.current_version}}
+          msg: ${{ steps.tag_name.outputs.current_version }}
           separator: "/"
 
       - name: Checkout code
@@ -29,10 +27,35 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 20.19.4
-          registry-url: https://registry.npmjs.com
+          registry-url: https://registry.npmjs.org
 
-      - name: Publish
+      - name: Publish to npm
         working-directory: packages/${{ steps.split.outputs._0 }}
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    outputs:
+      package_name: ${{ steps.split.outputs._0 }}
+
+  publish-github:
+    needs: publish-npm
+    runs-on: ubuntu-latest
+    if: contains(fromJSON('["biome-config", "commitlint-config"]'), needs.publish-npm.outputs.package_name)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup node for GitHub Packages
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20.19.4
+          registry-url: https://npm.pkg.github.com
+          scope: '@untile'
+
+      - name: Publish to GitHub Packages
+        working-directory: packages/${{ needs.publish-npm.outputs.package_name }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
