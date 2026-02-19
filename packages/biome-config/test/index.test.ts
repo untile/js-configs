@@ -11,7 +11,6 @@ import path from 'node:path';
 
 const runBiomeLint = (file: string, expectErrors = false) => {
   const filePath = path.resolve(__dirname, 'fixtures', file);
-
   const result = spawnSync(
     'npx',
     [
@@ -34,7 +33,8 @@ const runBiomeLint = (file: string, expectErrors = false) => {
     .split('\n')
     .filter(line => line.includes('lint/'))
     .map(line => {
-      const match = line.match(/lint\/([^/]+\/[^/\s]+)/);
+      // Match both 'lint/category/rule' and 'lint/rule' formats
+      const match = line.match(/lint\/([a-zA-Z0-9]+(?:\/[a-zA-Z0-9]+)?)/);
 
       return match ? `lint/${match[1]}` : '';
     })
