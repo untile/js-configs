@@ -3,6 +3,7 @@
  *
  * Demonstrates patterns that pass suspicious rules:
  * - noEmptyBlockStatements: All blocks have content or comments
+ * - noImportCycles: No circular dependencies
  */
 
 /**

@@ -4,8 +4,6 @@
  * Demonstrates patterns that pass all nursery rules:
  * - noFloatingPromises: All promises properly handled
  * - noMisusedPromises: Promises used correctly
- * - noUnresolvedImports: All imports valid
- * - noImportCycles: No circular dependencies
  */
 
 import { readFile } from 'node:fs/promises';
