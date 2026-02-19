@@ -49,7 +49,7 @@ Create a `biome.json` file in your project root and extend this configuration:
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
   "extends": ["@untile/biome-config"]
 }
 ```
@@ -106,7 +106,7 @@ read more about the `biome:lint` script [here](https://biomejs.dev/linter/).
 
 or using as a formatter:
 
-```json
+````json
 {
   "scripts": {
     "biome:format": "biome format ."
@@ -125,7 +125,7 @@ Add project-specific ignore patterns to your `biome.json`:
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
   "extends": ["@untile/biome-config"],
   "files": {
     "ignore": [
@@ -147,7 +147,7 @@ Biome uses deep merge when extending configurations, so your overrides will be m
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
   "extends": ["@untile/biome-config"],
   "overrides": [
     {
@@ -155,7 +155,7 @@ Biome uses deep merge when extending configurations, so your overrides will be m
       "linter": {
         "rules": {
           "suspicious": {
-            "noConsole": "off"  // Allow console in scripts
+            "noConsole": "off" // Allow console in scripts
           }
         }
       }
@@ -165,7 +165,7 @@ Biome uses deep merge when extending configurations, so your overrides will be m
       "linter": {
         "rules": {
           "correctness": {
-            "noUndeclaredDependencies": "off"  // Config files may reference devDependencies
+            "noUndeclaredDependencies": "off" // Config files may reference devDependencies
           }
         }
       }
@@ -180,13 +180,13 @@ The `domains` feature automatically enables rules based on your `package.json` d
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
   "extends": ["@untile/biome-config"],
   "linter": {
     "domains": {
-      "react": "off",         // Disable React rules if not using React
-      "next": "recommended",  // Explicitly enable Next.js rules
-      "test": "recommended"   // Keep test framework rules enabled
+      "react": "off", // Disable React rules if not using React
+      "next": "recommended", // Explicitly enable Next.js rules
+      "test": "recommended" // Keep test framework rules enabled
     }
   }
 }
@@ -198,15 +198,15 @@ You can override specific rule severities in your project:
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
   "extends": ["@untile/biome-config"],
   "linter": {
     "rules": {
       "suspicious": {
-        "noConsole": "off"  // Disable console warnings globally
+        "noConsole": "off" // Disable console warnings globally
       },
       "style": {
-        "useFilenamingConvention": "off"  // Disable filename convention checks
+        "useFilenamingConvention": "off" // Disable filename convention checks
       }
     }
   }
@@ -218,6 +218,7 @@ You can override specific rule severities in your project:
 Biome automatically detects your Git root directory by traversing up from your project. In most cases, you don't need to configure VCS settings manually.
 
 **When you might need to configure `vcs.root`:**
+
 - Your project has a non-standard Git structure
 - You're in a monorepo and need to reference a different VCS root
 - You're using Git worktrees or submodules
@@ -226,10 +227,10 @@ Biome automatically detects your Git root directory by traversing up from your p
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
   "extends": ["@untile/biome-config"],
   "vcs": {
-    "root": "."           // Current directory (default auto-detect)
+    "root": "." // Current directory (default auto-detect)
     // or "../.." for monorepo packages pointing to repository root
   }
 }
