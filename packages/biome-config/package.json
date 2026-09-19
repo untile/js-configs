@@ -28,16 +28,16 @@
     "test:watch": "jest --watch --notify"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.2",
+    "@biomejs/biome": "^2.5.14",
     "@types/jest": "^30.0.0",
-    "eslint": "^9.38.0",
-    "jest": "^30.2.0",
-    "react": "^19.2.0",
-    "ts-jest": "^29.4.5",
+    "eslint": "^9.39.5",
+    "jest": "^30.5.2",
+    "react": "^19.3.0",
+    "ts-jest": "^29.4.12",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@biomejs/biome": "^2.4.2"
+    "@biomejs/biome": "^2.5.14"
   },
   "engines": {
     "node": ">=20.19.4"

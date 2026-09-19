@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
   "assist": {
     "actions": {
       "source": {
@@ -49,16 +49,7 @@
       "semicolons": "always",
       "trailingCommas": "none"
     },
-    "globals": [
-      "node",
-      "es6",
-      "exports",
-      "require",
-      "__dirname",
-      "__filename",
-      "browser",
-      "module"
-    ]
+    "globals": ["node", "es6", "exports", "require", "__dirname", "__filename", "browser", "module"]
   },
   "json": {
     "linter": {
@@ -114,7 +105,7 @@
         "noBarrelFile": "warn",
         "useTopLevelRegex": "error"
       },
-      "recommended": true,
+      "preset": "recommended",
       "security": {
         "noBlankTarget": "error",
         "noGlobalEval": "error",

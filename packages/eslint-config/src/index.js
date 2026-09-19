@@ -268,7 +268,7 @@ module.exports = [
       'space-unary-ops': 'error',
       'spaced-comment': 'error',
       strict: 'off',
-      'switch-case/newline-between-switch-case': 'error',
+      'switch-case/newline-between-switch-case': ['error', 'never'],
       'switch-case/no-case-curly': 'error',
       'template-curly-spacing': 'error',
       'vars-on-top': 'error',

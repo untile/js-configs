@@ -28,17 +28,17 @@
   "dependencies": {
     "@untile/eslint-config-typescript-react": "^3.1.1",
     "eslint-plugin-react-native": "^5.0.0",
-    "typescript-eslint": "^8.46.2"
+    "typescript-eslint": "^8.70.0"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.4.0",
+    "@eslint/compat": "^2.1.1",
     "@types/jest": "^30.0.0",
     "cross-env": "^10.1.0",
-    "eslint": "^9.38.0",
-    "jest": "^30.2.0",
-    "react": "^19.2.0",
-    "react-native": "^0.82.1",
-    "ts-jest": "^29.4.5",
+    "eslint": "^9.39.5",
+    "jest": "^30.5.2",
+    "react": "^19.3.0",
+    "react-native": "^0.87.1",
+    "ts-jest": "^29.4.12",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

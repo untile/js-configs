@@ -27,7 +27,7 @@ describe('@untile/stylelint-config', () => {
       files: './test/fixtures/incorrect.js'
     });
 
-    const warnings = JSON.parse(result?.output)[0].warnings;
+    const warnings = JSON.parse(result.report)[0].warnings;
 
     expect(result.errored).toBeTruthy();
     expect(warnings.map(({ rule }) => rule)).toMatchObject([

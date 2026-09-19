@@ -26,13 +26,14 @@
   },
   "dependencies": {
     "@untile/eslint-config": "^3.1.1",
-    "typescript-eslint": "^8.46.2"
+    "eslint-import-resolver-typescript": "^3.10.1",
+    "typescript-eslint": "^8.70.0"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "eslint": "^9.38.0",
-    "jest": "^30.2.0",
-    "ts-jest": "^29.4.5",
+    "eslint": "^9.39.5",
+    "jest": "^30.5.2",
+    "ts-jest": "^29.4.12",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

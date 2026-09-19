@@ -30,20 +30,20 @@
     "moment": "^2.29.4"
   },
   "dependencies": {
-    "@commitlint/config-conventional": "^20.0.0",
-    "commitlint-plugin-function-rules": "^4.1.0"
+    "@commitlint/config-conventional": "^21.2.2",
+    "commitlint-plugin-function-rules": "^5.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.1.0",
-    "@commitlint/lint": "^20.0.0",
-    "@commitlint/load": "^20.1.0",
+    "@commitlint/cli": "^21.2.2",
+    "@commitlint/lint": "^21.2.2",
+    "@commitlint/load": "^21.2.2",
     "@untile/eslint-config": "^3.1.1",
     "cross-env": "^10.1.0",
-    "eslint": "^9.38.0",
-    "jest": "^30.2.0"
+    "eslint": "^9.39.5",
+    "jest": "^30.5.2"
   },
   "peerDependencies": {
-    "@commitlint/cli": "^20"
+    "@commitlint/cli": "^21"
   },
   "engines": {
     "node": ">=20.19.4"

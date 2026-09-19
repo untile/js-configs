@@ -26,16 +26,16 @@
     "test:watch": "jest --watch --notify"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.28.5",
-    "@babel/preset-react": "^7.28.5",
+    "@babel/eslint-parser": "^7.29.9",
+    "@babel/preset-react": "^7.29.7",
     "@untile/eslint-config": "^3.1.1",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.0"
+    "eslint-plugin-react-hooks": "^7.1.1"
   },
   "devDependencies": {
-    "eslint": "^9.38.0",
-    "jest": "^30.2.0",
-    "react": "^19.2.0"
+    "eslint": "^9.39.5",
+    "jest": "^30.5.2",
+    "react": "^19.3.0"
   },
   "peerDependencies": {
     "eslint": "9"
