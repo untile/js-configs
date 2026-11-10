@@ -36,8 +36,8 @@ New projects use `@untile/biome-config`, which replaces the ESLint, Prettier and
 
 This project uses [npm workspaces](https://docs.npmjs.com/cli/v11/using-npm/workspaces) to manage multiple packages.
 
-- Node.js 22.12 or higher
-- npm 10.x or higher
+- Node.js 24 or higher
+- npm 11 or higher
 
 ### Install dependencies
 
