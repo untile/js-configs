@@ -49,3 +49,19 @@ TASK-123 Add feature
 # Wrong brackets type (parentheses instead of square brackets)
 (TASK-123) Fix bug
 :::expected:type-empty
+
+# Prefix of an ignored keyword, but not a rebase command - expects function-rules/type-enum error
+Drop support for Node 18
+:::expected:function-rules/type-enum
+
+# Starts with wip, but is a word - expects function-rules/type-enum error
+Wipe local cache on logout
+:::expected:function-rules/type-enum
+
+# Not a real merge commit - expects function-rules/type-enum error
+Merge everything
+:::expected:function-rules/type-enum
+
+# Not a Dependabot commit - expects function-rules/type-enum error
+Bump version to 2.0.0
+:::expected:function-rules/type-enum
