@@ -8,8 +8,8 @@ This is a **monorepo** containing shared configuration packages for JavaScript/T
 
 ## Environment Requirements
 
-- Node.js >= 22.12.0 (CI and publishing use Node 24)
-- npm >= 10.0.0
+- Node.js >= 24.0.0 (`.nvmrc`)
+- npm >= 11.0.0
 
 ## Monorepo Structure
 

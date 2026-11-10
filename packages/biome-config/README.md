@@ -21,6 +21,7 @@
 
 ## Requirements
 
+- Node.js >= 24.0.0
 - Biome `>=2.6.6 <2.7.0` (the peer range follows one Biome minor at a time, see [Biome upgrades](#biome-upgrades))
 
 ## Installation
