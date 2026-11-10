@@ -5,6 +5,7 @@
   "keywords": [
     "biome",
     "config",
+    "format",
     "lint"
   ],
   "homepage": "https://github.com/untile/js-configs/tree/master/packages/biome-config/#readme",
@@ -18,26 +19,25 @@
   "license": "MIT",
   "main": "biome.json",
   "files": [
-    "biome.json"
+    "biome.json",
+    "plugins"
   ],
   "scripts": {
-    "lint": "eslint . --ignore-pattern 'test/fixtures/*'",
-    "migrate": "sh ./migrate.sh",
+    "lint": "biome check biome.json jest.config.js test/*.ts scripts/*.js",
     "release": "../../bin/release.sh @untile/biome-config",
     "test": "jest",
-    "test:watch": "jest --watch --notify"
+    "test:watch": "jest --watch --notify",
+    "upgrade-biome": "node scripts/upgrade-biome.js"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.2",
+    "@biomejs/biome": "2.6.6",
     "@types/jest": "^30.0.0",
-    "eslint": "^9.38.0",
     "jest": "^30.2.0",
-    "react": "^19.2.0",
     "ts-jest": "^29.4.5",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@biomejs/biome": "^2.4.2"
+    "@biomejs/biome": ">=2.6.6 <2.7.0"
   },
   "engines": {
     "node": ">=20.19.4"

@@ -21,6 +21,7 @@ pre-commit:
     sort-package-json:
       priority: 1
       glob: "**/package.json"
+      exclude: "**/test/fixtures/**"
       run: npx sort-package-json {staged_files}
       stage_fixed: true
 

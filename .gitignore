@@ -26,3 +26,6 @@ tsconfig.tsbuildinfo
 
 # lefthook
 lefthook-local.yml
+
+# biome-config test fixtures (copied at test time)
+.fixtures-run
