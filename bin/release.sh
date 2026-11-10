@@ -1,31 +1,69 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-release() {
-  local tag_prefix=$(echo "${1}" | sed 's/^@[^/]*\///')
+# Release a workspace package: bump its version, add the merged pull requests labelled with the
+# package (`.github/labeler.yml`) to its `CHANGELOG.md`, commit and tag `<package>/v<version>`.
+#
+# Usage (from the package directory, through `npm run release:<package> [major|minor|patch|<version>]`).
+# Requires the GitHub CLI (`gh`), authenticated with access to the repository.
 
-  # Install dependencies.
-  npm install
+set -euo pipefail
 
-  # Bump version.
-  npm version ${2:-patch} --no-git-tag-version
+package=$1
+bump=${2:-patch}
+name=${package#@*/}
 
-  # Get the new version number.
-  local version=`grep -m1 "\"version\"" package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g'`
+# Fail early (before any change) when `gh` is missing or not authenticated.
+repository=$(gh repo view --json nameWithOwner --jq .nameWithOwner)
 
-  # Generate changelog.
-  github-changelog-generator --future-release ${version} --package-name ${1} --rebuild
+# Install dependencies.
+npm install
 
-  # Add modified files.
-  git add .
+# Pull requests merged since the previous release of this package (all of them on the first release).
+previous_tag=$(git tag --list "${name}/v*" --sort=-v:refname | awk 'NR == 1')
+search=''
 
-  # Get package name.
-  local packageName=$(tr '[:lower:]' '[:upper:]' <<< ${tag_prefix:0:1})${tag_prefix:1}
+if [ -n "${previous_tag}" ]; then
+  search="merged:>$(git log -1 --format=%cI "${previous_tag}")"
+fi
 
-  # Commit release with new version.
-  git commit -m "Release ${packageName} v${version}"
+entries=$(gh pr list \
+  --repo "${repository}" \
+  --state merged \
+  --base master \
+  --label "${name}" \
+  --search "${search}" \
+  --limit 1000 \
+  --json number,title,url,author,mergedAt \
+  --jq 'sort_by(.mergedAt) | reverse | .[] |
+    (.author.login | sub("^app/"; "")) as $login |
+    (if .author.is_bot then "https://github.com/apps/\($login)" else "https://github.com/\($login)" end) as $profile |
+    "- \(.title) [\\#\(.number)](\(.url)) ([\($login)](\($profile)))"')
 
-  # Create tag.
-  git tag ${tag_prefix}/v${version}
-}
+# Bump version.
+npm version "${bump}" --no-git-tag-version
 
-release $1 $2
+version=$(node -p "require('./package.json').version")
+tag="${name}/v${version}"
+
+# Add the release to the top of the changelog.
+section="## [${tag}](https://github.com/${repository}/releases/tag/${tag}) ($(date +%Y-%m-%d))"
+
+if [ -n "${entries}" ]; then
+  section="${section}"$'\n'"${entries}"
+fi
+
+{
+  printf '# Changelog\n\n%s\n' "${section}"
+
+  if [ -f CHANGELOG.md ]; then
+    printf '\n'
+    tail -n +3 CHANGELOG.md
+  fi
+} > CHANGELOG.md.tmp
+
+mv CHANGELOG.md.tmp CHANGELOG.md
+
+# Commit release with new version and create the tag.
+git add package.json CHANGELOG.md "$(git rev-parse --show-toplevel)/package-lock.json"
+git commit -m "Release $(tr '[:lower:]' '[:upper:]' <<< "${name:0:1}")${name:1} v${version}"
+git tag "${tag}"

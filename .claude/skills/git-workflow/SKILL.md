@@ -112,9 +112,11 @@ npm run release:<package> [major|minor|patch]   # e.g. npm run release:biome-con
 git push origin master && git push origin <package>/v<version>
 ```
 
-`bin/release.sh` bumps the version, regenerates the package `CHANGELOG.md` (needs `GITHUB_TOKEN`), commits `Release <Package> v<version>` and tags `<package>/v<version>`.
+`bin/release.sh` bumps the version, adds the merged PRs labelled with the package since its previous tag to the package `CHANGELOG.md` (needs an authenticated `gh`), commits `Release <Package> v<version>` and tags `<package>/v<version>`.
 
-Pushing the tag runs `.github/workflows/release.yml` (GitHub release from the changelog), which triggers `.github/workflows/publish.yml`: npm publish with Trusted Publishing (OIDC) and, for `biome-config` and `commitlint-config`, GitHub Packages.
+Pushing the tag runs `.github/workflows/publish.yml`: npm publish with Trusted Publishing (OIDC), GitHub Packages for `biome-config` and `commitlint-config`, and the GitHub release from the new changelog section.
+
+A PR only appears in a package changelog if it has the package label, added by the labeler from the changed paths.
 
 Push only the new tag (not `git push --tags`): GitHub creates no events when more than three tags are pushed at once.
 

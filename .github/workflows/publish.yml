@@ -1,8 +1,11 @@
 name: Publish
 
+# Pushing a `<package>/v<version>` tag (created by bin/release.sh) publishes that package to npm,
+# then to GitHub Packages and creates the GitHub release from the package `CHANGELOG.md`.
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - '*/v*'
 
 jobs:
   publish-npm:
@@ -15,7 +18,6 @@ jobs:
       package_name: ${{ steps.package.outputs.name }}
 
     steps:
-      # Tags follow `<package>/v<version>` (see bin/release.sh).
       - name: Get package name from tag
         id: package
         run: echo "name=${GITHUB_REF_NAME%%/*}" >> "$GITHUB_OUTPUT"
@@ -71,3 +73,24 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  github-release:
+    needs: publish-npm
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      # Body of the first `## ` section (the release added by bin/release.sh).
+      - name: Create GitHub release from changelog
+        run: |
+          awk '/^## /{ section++; next } section == 1' "packages/${PACKAGE_NAME}/CHANGELOG.md" > release-notes.md
+          gh release create "${GITHUB_REF_NAME}" --title "${GITHUB_REF_NAME}" --notes-file release-notes.md --verify-tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_NAME: ${{ needs.publish-npm.outputs.package_name }}
