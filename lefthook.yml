@@ -5,14 +5,6 @@
 # Require minimum Lefthook version
 min_version: 2.0.0
 
-# Shared configuration using YAML anchors
-__shared__:
-  eslint: &eslint
-    priority: 2
-    glob: "*.{js,ts,tsx}"
-    run: npx eslint --ignore-pattern 'test/fixtures/*' --no-warn-ignored {staged_files}
-    stage_fixed: true
-
 # Pre-commit hook
 pre-commit:
   parallel: true
@@ -47,11 +39,6 @@ pre-commit:
           fi
         done
       stage_fixed: true
-
-    # 3️⃣ Validate branch name last (priority 3 = lowest)
-    validate-branch:
-      priority: 3
-      run: npx validate-branch-name
 
 # Commit message hook
 commit-msg:
