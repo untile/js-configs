@@ -19,7 +19,7 @@
 
 This project uses [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces) to manage multiple packages.
 
-- Node.js 20 or higher
+- Node.js 22.12 or higher
 - npm 10.x or higher
 
 ### Install dependencies
@@ -100,5 +100,5 @@ This will also publish your packages that have changes to [NPM](https://www.npmj
 
 ```sh
 npm run release:[<package-name>] [<new version> | major | minor | patch]
-git push origin master && git push --tags
+git push origin master && git push origin <package-name>/v<version>
 ```
