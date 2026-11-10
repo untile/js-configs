@@ -19,8 +19,8 @@
 
 This project uses [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces) to manage multiple packages.
 
-- Node.js 22.12 or higher
-- npm 10.x or higher
+- Node.js 24 or higher
+- npm 11 or higher
 
 ### Install dependencies
 
