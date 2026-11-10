@@ -55,6 +55,8 @@ Bump eslint from 8.43.0 to 8.44.0
 Bump @types/react from 18.0.0 to 18.0.1
 Bump prettier from 2.8.8 to 3.0.0
 Bump the npm_and_yarn group across 1 directory with 3 updates
+Bump @commitlint/cli and @commitlint/load
+Bump eslint, prettier and stylelint in /packages/eslint-config
 
 # Merge commits
 Merge pull request #123 from feature-branch

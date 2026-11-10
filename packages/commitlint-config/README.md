@@ -24,7 +24,8 @@
 
 ## Requirements
 
-- Node.js >= 20.19.4
+- Node.js >= 22.12.0
+- commitlint 21
 
 ## Installation
 
@@ -52,10 +53,15 @@ module.exports = {
 
 ## Rules
 
-- Commit header should start to: **Add|Bump|Disable|Enable|Fix|Improve|Migrate|Move|Release|Remove|Replace|Revert|Update**.
-- Commit header must not be longer than **52** characters.
-- Commit header must have **more than 1 word**.
-- Commit body should be in sentence-case.
+Format: `[OPTIONAL-REFERENCE] Verb subject`, with an optional body separated by a blank line.
+
+- The header starts with one of: **Add**, **Disable**, **Enable**, **Fix**, **Improve**, **Migrate**, **Move**, **Release**, **Remove**, **Replace**, **Revert**, **Update**.
+- An optional reference in square brackets may come first: `[PROJ-123] Fix login`.
+- The header has at most **100** characters, no trailing full stop or whitespace, no quotes or backticks, and single spaces between words.
+- The subject has at least 3 characters.
+- The body starts after a blank line, is in sentence case, and its lines have at most **100** characters (the same applies to the footer).
+
+Ignored commits: work in progress (`wip`, `WIP: ...`), interactive rebase commands (`drop`, `pick`, `reword`), Dependabot (`Bump <dep> from <a> to <b>`, `Bump the <group> group ...`), and commitlint's defaults (merges, reverts, `fixup!`, `squash!`, `amend!`).
 
 **NOTE**
 Follow the [commitlint.js.org](https://commitlint.js.org/#/guides-local-setup?id=install-husky)
