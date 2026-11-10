@@ -7,7 +7,7 @@
 </h4>
 
 <p align="center">
-  <a href="https://github.com/untile/js-configs/blob/main/LICENSE">
+  <a href="https://github.com/untile/js-configs/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Untile js-config is released under the MIT license." />
   </a>
   <a href="https://twitter.com/intent/follow?screen_name=untiledigital">
@@ -15,11 +15,28 @@
   </a>
 </p>
 
+## Packages
+
+| Package | Status |
+|---|---|
+| [`@untile/biome-config`](packages/biome-config) | Maintained |
+| [`@untile/commitlint-config`](packages/commitlint-config) | Maintained |
+| [`@untile/eslint-config`](packages/eslint-config) | Deprecated |
+| [`@untile/eslint-config-react`](packages/eslint-config-react) | Deprecated |
+| [`@untile/eslint-config-typescript`](packages/eslint-config-typescript) | Deprecated |
+| [`@untile/eslint-config-typescript-react`](packages/eslint-config-typescript-react) | Deprecated |
+| [`@untile/eslint-config-typescript-react-native`](packages/eslint-config-typescript-react-native) | Deprecated |
+| [`@untile/prettier-config`](packages/prettier-config) | Deprecated |
+| [`@untile/stylelint-config-react`](packages/stylelint-config-react) | Deprecated |
+| [`@untile/stylelint-config-react-native`](packages/stylelint-config-react-native) | Deprecated |
+
+New projects use `@untile/biome-config`, which replaces the ESLint, Prettier and Stylelint configs. The deprecated packages only take fixes.
+
 ## Setup
 
-This project uses [npm workspaces](https://docs.npmjs.com/cli/v10/using-npm/workspaces) to manage multiple packages.
+This project uses [npm workspaces](https://docs.npmjs.com/cli/v11/using-npm/workspaces) to manage multiple packages.
 
-- Node.js 20 or higher
+- Node.js 22.12 or higher
 - npm 10.x or higher
 
 ### Install dependencies
@@ -87,7 +104,7 @@ After creating a package, add a release script to the `./packages/<new-package-n
 
 ### Changelog setup
 
-When creating new packages, keep in mind that the **auto labeler** must have the new package added in `.github/labeler`, so that it can label its pull requests accordingly and they are included in the correct `CHANGELOG.md`. To add new packages to auto labeler run:
+When creating new packages, keep in mind that the **auto labeler** must have the new package added in `.github/labeler.yml`, so that it can label its pull requests accordingly and they are included in the correct `CHANGELOG.md`. To add new packages to auto labeler run:
 
 ```sh
 sh bin/auto-labeler.sh
@@ -100,5 +117,5 @@ This will also publish your packages that have changes to [NPM](https://www.npmj
 
 ```sh
 npm run release:[<package-name>] [<new version> | major | minor | patch]
-git push origin master && git push --tags
+git push origin master && git push origin <package-name>/v<version>
 ```
