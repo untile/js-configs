@@ -1,0 +1,51 @@
+name: Biome upgrade
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  align-config:
+    if: github.actor == 'dependabot[bot]' && contains(github.head_ref, 'biomejs')
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Setup node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      - name: Install module dependencies
+        run: npm ci
+
+      - name: Align config with the new Biome version
+        run: npm run upgrade-biome --workspace=@untile/biome-config
+
+      - name: Lint
+        run: npm run lint --workspace=@untile/biome-config
+
+      - name: Tests
+        run: npm test --workspace=@untile/biome-config
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet; then
+            echo "Config already aligned."
+            exit 0
+          fi
+
+          version=$(node -p "require('@biomejs/biome/package.json').version")
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -am "Update biome config for Biome ${version}"
+          git push

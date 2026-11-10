@@ -1,0 +1,13 @@
+version: 2
+
+updates:
+  # Biome is pinned in `@untile/biome-config` (peer range limited to one minor).
+  # Each Biome release opens a PR; `.github/workflows/biome-upgrade.yml` then runs
+  # `biome migrate`, moves the peer range and runs the config tests on that PR.
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    allow:
+      - dependency-name: '@biomejs/biome'
+    open-pull-requests-limit: 2
