@@ -90,13 +90,14 @@ After creating a package, add a release script to the `./packages/<new-package-n
 When creating new packages, keep in mind that the **auto labeler** must have the new package added in `.github/labeler`, so that it can label its pull requests accordingly and they are included in the correct `CHANGELOG.md`. To add new packages to auto labeler run:
 
 ```sh
-sh bin/auto-labeler.sh
+sh bin/github-labeler.sh
 ```
 
 ## Release & Publish
 
-Make sure that you have configured `GITHUB_TOKEN` in your globals.
-This will also publish your packages that have changes to [NPM](https://www.npmjs.com/~untile).
+Requires the [GitHub CLI](https://cli.github.com) (`gh`), authenticated with access to this repository.
+
+The release script bumps the package version, adds the merged pull requests labelled with the package to its `CHANGELOG.md`, commits `Release <Package> v<version>` and tags `<package-name>/v<version>`. Pushing the tag publishes the package to [npm](https://www.npmjs.com/~untile) (Trusted Publishing) and creates the GitHub release from the changelog.
 
 ```sh
 npm run release:[<package-name>] [<new version> | major | minor | patch]
