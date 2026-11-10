@@ -12,7 +12,9 @@ pre-commit:
     # 1️⃣ Sort package.json files first (priority 1 = highest)
     sort-package-json:
       priority: 1
-      glob: "**/package.json"
+      glob:
+        - "package.json"
+        - "**/package.json"
       exclude: "**/test/fixtures/**"
       run: npx sort-package-json {staged_files}
       stage_fixed: true
@@ -35,7 +37,7 @@ pre-commit:
           pkg_dir=$(echo "$file" | sed 's|packages/\([^/]*\).*|packages/\1|')
           if [ -f "$pkg_dir/eslint.config.js" ]; then
             relative_file=$(echo "$file" | sed "s|$pkg_dir/||")
-            cd "$pkg_dir" && npx eslint "$relative_file" || exit 1
+            (cd "$pkg_dir" && npx eslint "$relative_file") || exit 1
           fi
         done
       stage_fixed: true
