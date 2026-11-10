@@ -2,315 +2,197 @@
  * Module dependencies.
  */
 
-import { spawnSync } from 'child_process';
+import { spawnSync } from 'node:child_process';
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 /**
- * Run biome lint.
+ * Types.
  */
 
-const runBiomeLint = (file: string, expectErrors = false) => {
-  const filePath = path.resolve(__dirname, 'fixtures', file);
-  const result = spawnSync(
-    'npx',
-    [
-      '@biomejs/biome',
-      'lint',
-      '--files-ignore-unknown=true',
-      '--verbose',
-      filePath
-    ],
-    {
-      encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'pipe']
-    }
-  );
-
-  const output = result.stderr || result.stdout || '';
-
-  // Extract all lint issues (errors and warnings)
-  const issues = output
-    .split('\n')
-    .filter(line => line.includes('lint/'))
-    .map(line => {
-      // Match both 'lint/category/rule' and 'lint/rule' formats
-      const match = line.match(/lint\/([a-zA-Z0-9]+(?:\/[a-zA-Z0-9]+)?)/);
-
-      return match ? `lint/${match[1]}` : '';
-    })
-    .filter(Boolean);
-
-  // Check for parse errors
-  const hasParseErrors = output.includes('parse ━');
-
-  return {
-    exitCode: result.status,
-    hasParseErrors,
-    issues: [...new Set(issues)],
-    // Success means no errors (warnings are ok for "correct" files)
-    success: expectErrors
-      ? result.status !== 0 || issues.length > 0 || hasParseErrors
-      : result.status === 0 && !hasParseErrors
-  };
+type Diagnostic = {
+  category: string;
+  location: { path: string };
 };
+
+type Report = {
+  diagnostics: Diagnostic[];
+  summary: { changed: number; unchanged: number };
+};
+
+/**
+ * Constants.
+ *
+ * Fixtures live in `test/fixtures`, but the config relaxes rules for anything
+ * under a `test/` folder. They are copied to `.fixtures-run` (outside `test/`)
+ * so Biome evaluates them with the full rule set.
+ */
+
+const packageDir = path.resolve(__dirname, '..');
+const fixturesDir = path.join(__dirname, 'fixtures');
+const runDir = path.join(packageDir, '.fixtures-run');
+const biomeBin = require.resolve('@biomejs/biome/bin/biome', { paths: [packageDir] });
+
+/**
+ * Run Biome and return the parsed JSON report.
+ */
+
+function runBiome(args: string[]): { report: Report; status: number | null } {
+  const result = spawnSync(process.execPath, [biomeBin, ...args, '--reporter=json', '--max-diagnostics=none'], {
+    cwd: packageDir,
+    encoding: 'utf8'
+  });
+
+  return { report: JSON.parse(result.stdout) as Report, status: result.status };
+}
+
+/**
+ * Group diagnostics by file, as a sorted list of unique categories.
+ */
+
+function categoriesByFile(diagnostics: Diagnostic[]): Record<string, string[]> {
+  const files: Record<string, string[]> = {};
+
+  for (const { category, location } of diagnostics) {
+    files[location.path] = [...new Set([...(files[location.path] ?? []), category])].sort();
+  }
+
+  return files;
+}
 
 /**
  * Test suite.
  */
 
-describe('biome configuration', () => {
-  describe('general rules', () => {
-    it('correct.tsx should pass linting', () => {
-      const result = runBiomeLint('general/correct.tsx');
+describe('@untile/biome-config', () => {
+  beforeAll(() => {
+    fs.rmSync(runDir, { force: true, recursive: true });
+    fs.cpSync(fixturesDir, runDir, { recursive: true });
+  });
 
-      expect(result.success).toBe(true);
-      expect(result.hasParseErrors).toBe(false);
-    });
+  afterAll(() => {
+    fs.rmSync(runDir, { force: true, recursive: true });
+  });
 
-    it('incorrect.tsx should fail with lint errors', () => {
-      const result = runBiomeLint('general/incorrect.tsx', true);
+  it('loads on the pinned Biome version without errors or deprecations', () => {
+    const { report, status } = runBiome(['check', 'biome.json']);
 
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
+    expect(report.diagnostics).toEqual([]);
+    expect(status).toBe(0);
+  });
+
+  it('declares a peer range limited to the installed Biome minor', () => {
+    const { peerDependencies } = JSON.parse(fs.readFileSync(path.join(packageDir, 'package.json'), 'utf8'));
+    const biomePackage = require.resolve('@biomejs/biome/package.json', { paths: [packageDir] });
+    const { version } = JSON.parse(fs.readFileSync(biomePackage, 'utf8')) as { version: string };
+    const [major, minor, patch] = version.split('.').map(Number);
+    const [, lower = '', upper = ''] =
+      /^>=(\d+\.\d+\.\d+) <(\d+\.\d+\.\d+)$/.exec(peerDependencies['@biomejs/biome']) ?? [];
+    const [lowerMajor, lowerMinor, lowerPatch] = lower.split('.').map(Number);
+
+    expect(upper).toBe(`${major}.${minor + 1}.0`);
+    expect([lowerMajor, lowerMinor]).toEqual([major, minor]);
+    expect(lowerPatch).toBeLessThanOrEqual(patch);
+  });
+
+  it('accepts idiomatic code (lint, format and assists)', () => {
+    const { report, status } = runBiome(['check', '.fixtures-run/valid']);
+
+    expect(report.diagnostics).toEqual([]);
+    expect(status).toBe(0);
+  });
+
+  it('reports exactly the expected rules on invalid code', () => {
+    const { report } = runBiome(['lint', '.fixtures-run/invalid']);
+
+    expect(categoriesByFile(report.diagnostics)).toEqual({
+      '.fixtures-run/invalid/BadFileName.ts': ['lint/style/useFilenamingConvention'],
+      '.fixtures-run/invalid/bug-detectors.ts': [
+        'lint/correctness/noUnsafeFinally',
+        'lint/correctness/noUnusedInstantiation',
+        'lint/nursery/noFloatingPromises',
+        'lint/nursery/noImpliedEval',
+        'lint/nursery/noMissingThrow',
+        'lint/nursery/noMisusedPromises',
+        'lint/nursery/noObjectLiteralComparison',
+        'lint/nursery/noXorAsExponentiation',
+        'lint/security/noSecrets',
+        'lint/suspicious/noBitwiseOperators',
+        'lint/suspicious/noConstantBinaryExpressions',
+        'lint/suspicious/noEmptyBlockStatements'
+      ],
+      '.fixtures-run/invalid/duplicates.css': ['lint/suspicious/noDuplicateSelectors'],
+      '.fixtures-run/invalid/eslint-parity.ts': [
+        'lint/complexity/useMaxParams',
+        'lint/correctness/noUnusedVariables',
+        'lint/style/noNegationElse',
+        'lint/style/noParameterAssign',
+        'lint/style/noUselessElse',
+        'lint/style/useConsistentArrayType',
+        'lint/style/useShorthandAssign',
+        'lint/style/useTemplate',
+        'lint/style/useThrowOnlyError',
+        'lint/suspicious/noAlert',
+        'lint/suspicious/noShadow',
+        'lint/suspicious/noVar'
+      ],
+      '.fixtures-run/invalid/lodash-import.ts': ['plugin'],
+      '.fixtures-run/invalid/performance.ts': [
+        'lint/performance/noAccumulatingSpread',
+        'lint/performance/noAwaitInLoops',
+        'lint/performance/useTopLevelRegex',
+        'lint/suspicious/noConsole'
+      ],
+      '.fixtures-run/invalid/react-rules.tsx': [
+        'lint/correctness/noComponentHookFactories',
+        'lint/correctness/noNestedComponentDefinitions',
+        'lint/correctness/useExhaustiveDependencies',
+        'lint/correctness/useHookAtTopLevel',
+        'lint/security/noDangerouslySetInnerHtml',
+        'lint/style/noImplicitBoolean',
+        'lint/style/noJsxLiterals',
+        'lint/style/useSelfClosingElements'
+      ],
+      '.fixtures-run/invalid/tailwind-order.tsx': ['lint/nursery/useTailwindSortedClasses']
     });
   });
 
-  describe('a11y (accessibility) rules', () => {
-    it('correct.tsx should pass linting', () => {
-      const result = runBiomeLint('a11y/correct.tsx');
+  it('relaxes rules in tests, scripts, migrations and shadcn components', () => {
+    const { report } = runBiome(['lint', '.fixtures-run/overrides']);
 
-      expect(result.success).toBe(true);
-    });
+    expect(report.summary.unchanged + report.summary.changed).toBe(4);
+    expect(report.diagnostics).toEqual([]);
+  });
 
-    it('incorrect.tsx should fail with lint errors', () => {
-      const result = runBiomeLint('a11y/incorrect.tsx', true);
+  it('enables the sorting assist actions', () => {
+    const { report } = runBiome([
+      'check',
+      '--linter-enabled=false',
+      '--formatter-enabled=false',
+      '.fixtures-run/assist'
+    ]);
 
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
+    expect(categoriesByFile(report.diagnostics)).toEqual({
+      '.fixtures-run/assist/manifest/package.json': ['assist/source/useSortedPackageJson'],
+      '.fixtures-run/assist/unorganized-imports.ts': ['assist/source/organizeImports'],
+      '.fixtures-run/assist/unsorted-attributes.tsx': ['assist/source/useSortedAttributes'],
+      '.fixtures-run/assist/unsorted-interface.ts': ['assist/source/useSortedInterfaceMembers'],
+      '.fixtures-run/assist/unsorted-keys.ts': ['assist/source/useSortedKeys'],
+      '.fixtures-run/assist/unsorted-properties.css': ['assist/source/useSortedProperties']
     });
   });
 
-  describe('complexity rules', () => {
-    it('correct.ts should pass linting', () => {
-      const result = runBiomeLint('complexity/correct.ts');
+  it('formats code with the Untile style', () => {
+    const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'untile-biome-'));
+    const file = path.join(directory, 'unformatted.ts');
 
-      expect(result.success).toBe(true);
+    fs.copyFileSync(path.join(fixturesDir, 'format/unformatted.ts'), file);
+    spawnSync(process.execPath, [biomeBin, 'format', '--write', `--config-path=${packageDir}`, file], {
+      cwd: packageDir
     });
 
-    it('incorrect.ts should fail with lint errors', () => {
-      const result = runBiomeLint('complexity/incorrect.ts', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('css rules', () => {
-    it('correct.css should pass linting', () => {
-      const result = runBiomeLint('css/correct.css');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.css should fail with lint errors', () => {
-      const result = runBiomeLint('css/incorrect.css', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('hooks rules', () => {
-    it('correct.tsx should pass linting', () => {
-      const result = runBiomeLint('hooks/correct.tsx');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.tsx should fail with lint errors', () => {
-      const result = runBiomeLint('hooks/incorrect.tsx', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('json rules', () => {
-    it('correct.json should pass linting', () => {
-      const result = runBiomeLint('json/correct.json');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.json should fail with lint errors', () => {
-      const result = runBiomeLint('json/incorrect.json', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('nursery rules', () => {
-    it('correct.ts should pass linting', () => {
-      const result = runBiomeLint('nursery/correct.ts');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.ts should fail with lint errors', () => {
-      const result = runBiomeLint('nursery/incorrect.ts', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-
-    it('sorted-classes.tsx should pass linting', () => {
-      const result = runBiomeLint('nursery/sorted-classes.tsx');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('unsorted-classes.tsx should fail with useSortedClasses warnings', () => {
-      const result = runBiomeLint('nursery/unsorted-classes.tsx', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('performance rules', () => {
-    it('correct.ts should pass linting', () => {
-      const result = runBiomeLint('performance/correct.ts');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.ts should fail with lint errors', () => {
-      const result = runBiomeLint('performance/incorrect.ts', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-
-    it('barrel-file.ts should fail with barrel file warning', () => {
-      const result = runBiomeLint('performance/barrel-file.ts', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('security rules', () => {
-    it('correct.tsx should pass linting', () => {
-      const result = runBiomeLint('security/correct.tsx');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.tsx should fail with lint errors', () => {
-      const result = runBiomeLint('security/incorrect.tsx', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('style rules', () => {
-    it('correct.tsx should pass linting', () => {
-      const result = runBiomeLint('style/correct.tsx');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('correct.ts should pass linting or have parse errors for JSX', () => {
-      const result = runBiomeLint('style/correct.ts');
-
-      // This file has JSX with .ts extension, causing parse errors
-      if (result.hasParseErrors) {
-        expect(result.hasParseErrors).toBe(true);
-      } else {
-        expect(result.success).toBe(true);
-      }
-    });
-
-    it('incorrect.tsx should fail with lint errors', () => {
-      const result = runBiomeLint('style/incorrect.tsx', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-
-    it('incorrect.ts should fail with lint errors or parse errors', () => {
-      const result = runBiomeLint('style/incorrect.ts', true);
-
-      // This file has JSX with .ts extension, causing parse errors
-      if (result.hasParseErrors) {
-        expect(result.hasParseErrors).toBe(true);
-      } else {
-        expect(result.success).toBe(true);
-        expect(result.issues.length).toBeGreaterThan(0);
-      }
-    });
-  });
-
-  describe('suspicious rules', () => {
-    it('correct.ts should pass linting', () => {
-      const result = runBiomeLint('suspicious/correct.ts');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.ts should fail with lint errors', () => {
-      const result = runBiomeLint('suspicious/incorrect.ts', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('test rules', () => {
-    it('correct.test.ts should pass linting', () => {
-      const result = runBiomeLint('test/correct.test.ts');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.test.ts should fail with lint errors', () => {
-      const result = runBiomeLint('test/incorrect.test.ts', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('typescript rules', () => {
-    it('correct.ts should pass linting', () => {
-      const result = runBiomeLint('typescript/correct.ts');
-
-      expect(result.success).toBe(true);
-    });
-
-    it('incorrect.ts should fail with lint errors', () => {
-      const result = runBiomeLint('typescript/incorrect.ts', true);
-
-      expect(result.success).toBe(true);
-      expect(result.issues.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('assist actions', () => {
-    it('unsorted-keys.ts should be handled', () => {
-      const result = runBiomeLint('assist/unsorted-keys.ts');
-
-      // Assist actions are not errors, just available actions
-      expect(result).toBeDefined();
-    });
-
-    it('unsorted-attributes.tsx should be handled', () => {
-      const result = runBiomeLint('assist/unsorted-attributes.tsx');
-
-      // Assist actions are not errors, just available actions
-      expect(result).toBeDefined();
-    });
+    expect(fs.readFileSync(file, 'utf8')).toBe(fs.readFileSync(path.join(fixturesDir, 'format/formatted.ts'), 'utf8'));
+    fs.rmSync(directory, { force: true, recursive: true });
   });
 });
