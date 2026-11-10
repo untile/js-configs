@@ -48,7 +48,6 @@ This project uses [Lefthook](https://github.com/evilmartians/lefthook) v2.0.0 to
 - **pre-commit**: 
   - Sorts all `package.json` files (priority 1)
   - Runs ESLint on staged `.js`, `.ts`, `.tsx` files in parallel (priority 2)
-  - Validates branch names (priority 3)
 - **commit-msg**: 
   - Validates commit messages with commitlint
 
@@ -66,7 +65,7 @@ npx lefthook install
 LEFTHOOK=0 git commit -m "message"
 
 # Skip specific command
-LEFTHOOK_EXCLUDE=validate-branch git commit -m "message"
+LEFTHOOK_EXCLUDE=eslint git commit -m "message"
 ```
 
 ### Debug hooks
