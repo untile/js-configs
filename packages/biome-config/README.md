@@ -7,231 +7,122 @@
 </h1>
 
 <h4 align="center">
-  A shareable Biome configuration that enforces Untile's code style. Based on our TypeScript React ESLint configuration, this package provides a modern, fast, and unified formatter and linter using [Biome](https://biomejs.dev).
+  Untile's shared <a href="https://biomejs.dev">Biome</a> configuration: strict, readable and error-preventing code for TypeScript, React, Next.js, React Native and Node.js projects.
 </h4>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@untile/biome-config">
     <img src="https://img.shields.io/npm/v/@untile/biome-config.svg?style=for-the-badge" alt="NPM version" />
   </a>
-  <a href="https://github.com/untile/js-configs/blob/main/LICENSE">
+  <a href="https://github.com/untile/js-configs/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg?style=for-the-badge" alt="Untile js-config is released under the MIT license." />
-  </a>
-  <a href="https://twitter.com/intent/follow?screen_name=untiledigital">
-    <img src="https://img.shields.io/twitter/follow/untiledigital.svg?label=Follow%20@untiledigital&style=for-the-badge" alt="Follow @untiledigital" />
   </a>
 </p>
 
 ## Requirements
 
-- Node.js >= 20.19.4
-- ESLint >= 9
-- TypeScript >= 4.9.0
-- Biome >= 2.3
+- Biome `>=2.6.6 <2.7.0` (the peer range follows one Biome minor at a time, see [Biome upgrades](#biome-upgrades))
 
 ## Installation
 
-With `npm`:
-
 ```sh
-npm install @biomejs/biome @untile/biome-config --save-dev
-```
-
-Or using `yarn`:
-
-```sh
-yarn add @biomejs/biome @untile/biome-config -D
+npm install @biomejs/biome@~2.6.6 @untile/biome-config --save-dev
 ```
 
 ## Setup
 
-Create a `biome.json` file in your project root and extend this configuration:
+Create a `biome.json` in the project root:
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
-  "extends": ["@untile/biome-config"]
-}
-```
-
-## Features
-
-This configuration includes comprehensive linting and formatting rules optimized for modern JavaScript/TypeScript projects.
-
-### Biome v2 Features
-
-- **Domains**: Automatically enables framework-specific rules based on your `package.json` dependencies
-  - `react`: React-specific rules (hooks, JSX, etc.)
-  - `next`: Next.js optimizations (Image component, etc.)
-  - `test`: Testing framework rules (Jest, Vitest, etc.)
-- **CSS Linting & Formatting**: Full support for CSS files (useful for Tailwind projects)
-- **JSON Linting**: Validation for JSON configuration files
-- **Assist Actions**: Code improvements like `organizeImports`, `useSortedKeys`, and `useSortedAttributes`
-
-### Linter Rules
-
-Comprehensive rule coverage across all categories:
-
-- **Accessibility (a11y)**: `useAltText`, `useValidAnchor`, `useKeyWithClickEvents`, `useValidAriaRole`, `noAccessKey`
-- **Performance**: `noAwaitInLoops`, `noAccumulatingSpread`, `noBarrelFile`, `useTopLevelRegex`
-- **Security**: `noBlankTarget`, `noGlobalEval`, `noDangerouslySetInnerHtml`
-- **Correctness**: `noUnusedImports`, `noUnusedVariables`, `useExhaustiveDependencies`, `useHookAtTopLevel`
-- **Style**: `noImplicitBoolean`, and more
-- **Suspicious**: `noConsole`, `noExplicitAny`, `noSkippedTests`, and more
-- **Complexity**: `noBannedTypes`, and more
-
-### Formatter Options
-
-- **Indent**: 2 spaces
-- **Line width**: 120 characters
-- **Quote style**: Single quotes
-- **Semicolons**: Always
-- **Trailing commas**: None
-- **Arrow parentheses**: As needed
-- **EditorConfig**: Supported
-
-## Usage
-
-Add the following `script` to your `package.json`:
-
-```json
-{
-  "scripts": {
-    "biome:lint": "biome lint --error-on-warnings ."
-  }
-}
-```
-
-read more about the `biome:lint` script [here](https://biomejs.dev/linter/).
-
-or using as a formatter:
-
-````json
-{
-  "scripts": {
-    "biome:format": "biome format ."
-  }
-}
-
-read more about the `biome:format` script [here](https://biomejs.dev/formatter/).
-
-## Customizing for Your Project
-
-This shared configuration is designed to be generic and reusable across projects. You can customize it for your specific needs by extending the base configuration and adding project-specific settings.
-
-### Excluding Build Directories
-
-Add project-specific ignore patterns to your `biome.json`:
-
-```json
-{
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
-  "extends": ["@untile/biome-config"],
-  "files": {
-    "ignore": [
-      "dist/**",        // Build output
-      ".next/**",       // Next.js
-      "build/**",       // Create React App / Vite
-      "coverage/**",    // Test coverage reports
-      "out/**"          // Other build directories
-    ]
-  }
-}
-```
-
-**Note:** `node_modules/` is automatically ignored by Biome regardless of any `includes` or `ignore` settings, so you don't need to exclude it explicitly.
-
-### Adding Custom Overrides
-
-Biome uses deep merge when extending configurations, so your overrides will be merged with the base configuration rather than replacing it:
-
-```json
-{
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
-  "extends": ["@untile/biome-config"],
-  "overrides": [
-    {
-      "includes": ["scripts/**/*.js"],
-      "linter": {
-        "rules": {
-          "suspicious": {
-            "noConsole": "off" // Allow console in scripts
-          }
-        }
-      }
-    },
-    {
-      "includes": ["**/*.config.js"],
-      "linter": {
-        "rules": {
-          "correctness": {
-            "noUndeclaredDependencies": "off" // Config files may reference devDependencies
-          }
-        }
-      }
-    }
-  ]
-}
-```
-
-### Framework-Specific Configuration
-
-The `domains` feature automatically enables rules based on your `package.json` dependencies. If you need to manually control domain rules:
-
-```json
-{
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
-  "extends": ["@untile/biome-config"],
-  "linter": {
-    "domains": {
-      "react": "off", // Disable React rules if not using React
-      "next": "recommended", // Explicitly enable Next.js rules
-      "test": "recommended" // Keep test framework rules enabled
-    }
-  }
-}
-```
-
-### Adjusting Rule Severity
-
-You can override specific rule severities in your project:
-
-```json
-{
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
-  "extends": ["@untile/biome-config"],
-  "linter": {
-    "rules": {
-      "suspicious": {
-        "noConsole": "off" // Disable console warnings globally
-      },
-      "style": {
-        "useFilenamingConvention": "off" // Disable filename convention checks
-      }
-    }
-  }
-}
-```
-
-### VCS Configuration
-
-Biome automatically detects your Git root directory by traversing up from your project. In most cases, you don't need to configure VCS settings manually.
-
-**When you might need to configure `vcs.root`:**
-
-- Your project has a non-standard Git structure
-- You're in a monorepo and need to reference a different VCS root
-- You're using Git worktrees or submodules
-
-**Example:**
-
-```json
-{
-  "$schema": "https://biomejs.dev/schemas/2.4.2/schema.json",
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "extends": ["@untile/biome-config"],
   "vcs": {
-    "root": "." // Current directory (default auto-detect)
-    // or "../.." for monorepo packages pointing to repository root
+    "clientKind": "git",
+    "defaultBranch": "master",
+    "enabled": true,
+    "useIgnoreFile": true
   }
 }
 ```
+
+Recommended scripts:
+
+```json
+{
+  "scripts": {
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
+  }
+}
+```
+
+In CI use `biome ci --error-on-warnings .` so warnings also fail the build.
+
+In monorepos run Biome from the repository root (it picks up nested `biome.json` files with `"root": false` and `"extends": "//"`). Running it only per workspace leaves root folders such as `scripts/` or `tools/` unchecked.
+
+## What the config includes
+
+- **Formatter**: 2 spaces, 120 columns, single quotes (JS, JSX, CSS, YAML), semicolons, no trailing commas, arrow parentheses only when needed. Markdown is formatted with frontmatter support; `CHANGELOG.md` is left untouched.
+- **Linter**: Biome's recommended rules plus ~130 explicit rules. Everything enforced is an `error`; only `noBarrelFile`, `noImportCycles` and `noSkippedTests` are warnings.
+- **Domains**: `react`, `test` and `drizzle` are enabled explicitly. Biome only auto-detects domains when no rule is configured, so a shared config must declare them.
+- **Assist actions**: organize imports and sort object keys, interface members, JSX attributes, CSS properties and `package.json` fields.
+- **Overrides**: relaxed rules for tests and stories, `scripts/`, `migrations/` and `shadcn/` components.
+- **Plugins**: `no-lodash-root-import` (GritQL) forbids `import … from 'lodash'`. It is a plugin, not a `noRestrictedImports` option, so it keeps working when a project defines its own restricted imports.
+
+## What each project defines
+
+Biome replaces (does not merge) rule options and `files.includes` across `extends`, and `vcs` paths depend on the project layout. Keep these in the project config:
+
+| Setting | When |
+|---|---|
+| `vcs` | Always: `useIgnoreFile: true` and the project's `defaultBranch`. |
+| `linter.domains.next: "recommended"` | Next.js projects. |
+| `linter.domains.reactNative: "recommended"` | React Native packages. Add `skip` to `correctness/noReactNativeRawText` for custom text components. |
+| `linter.domains.playwright: "recommended"` | Projects with Playwright e2e tests. |
+| `tailwind.stylesheet` | Tailwind v4 projects, pointing to the CSS file with `@theme`. |
+| `files.includes` | Generated files and folders not covered by `.gitignore` (e.g. `"!src/payload-types.ts"`, Helm `templates/`). Start the list with `"**"`. |
+| `style.noRestrictedImports` | Project-specific import restrictions. |
+
+Example for a nested package in a monorepo:
+
+```json
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": "//",
+  "root": false,
+  "files": {
+    "includes": ["**", "!dist", "!src/types/openapi.d.ts"]
+  },
+  "linter": {
+    "domains": {
+      "next": "recommended"
+    }
+  }
+}
+```
+
+## Adopting the stricter rules in an existing project
+
+1. `npx @biomejs/biome migrate --write`
+2. Re-sort Tailwind classes in a dedicated commit (Biome 2.6 uses the Tailwind v4 order):
+   `npx @biomejs/biome lint --write --unsafe --only=nursery/useTailwindSortedClasses .`
+3. Apply the safe fixes: `npx @biomejs/biome check --write .`
+4. For rules without an automatic fix (e.g. `noShadow`, `useMaxParams`), record the existing violations so only new code fails:
+   `npx @biomejs/biome lint --only=suspicious/noShadow --suppress --reason="Pre-existing, fix when touching the code" .`
+
+Avoid a blind `--unsafe` on the whole project: the `noConsole` fix removes `console` calls.
+
+## Biome upgrades
+
+The peer range covers a single Biome minor because Biome can rename rules between minors (nursery rules in particular), and an unknown rule makes Biome exit with a configuration error.
+
+When Biome releases a new version:
+
+1. Dependabot opens a pull request in this repository.
+2. The `Biome upgrade` workflow runs `npm run upgrade-biome --workspace=@untile/biome-config` (`biome migrate`, peer range update), the lint and the tests, and pushes the result to the pull request.
+3. Review the pull request (a failing test names the rule that changed), merge it and release a new minor of this package.
+
+## License
+
+MIT
