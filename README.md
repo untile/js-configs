@@ -64,7 +64,7 @@ This project uses [Lefthook](https://github.com/evilmartians/lefthook) v2.0.0 to
 ### Hooks configured:
 - **pre-commit**: 
   - Sorts all `package.json` files (priority 1)
-  - Runs ESLint on staged `.js`, `.ts`, `.tsx` files in parallel (priority 2)
+  - Lints staged `.js`, `.ts`, `.tsx` files in parallel (priority 2): ESLint in packages with an `eslint.config.js`, Biome in packages with a `biome.json`
 - **commit-msg**: 
   - Validates commit messages with commitlint
 

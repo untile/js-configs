@@ -42,6 +42,21 @@ pre-commit:
         done
       stage_fixed: true
 
+    # 2️⃣ Check JS/TS files with Biome in the packages linted by Biome (priority 2)
+    biome:
+      priority: 2
+      glob: "packages/**/*.{js,ts,tsx}"
+      exclude: "**/test/fixtures/**"
+      run: |
+        for file in {staged_files}; do
+          pkg_dir=$(echo "$file" | sed 's|packages/\([^/]*\).*|packages/\1|')
+          if [ -f "$pkg_dir/biome.json" ]; then
+            relative_file=$(echo "$file" | sed "s|$pkg_dir/||")
+            (cd "$pkg_dir" && npx biome check --write --no-errors-on-unmatched "$relative_file") || exit 1
+          fi
+        done
+      stage_fixed: true
+
 # Commit message hook
 commit-msg:
   commands:

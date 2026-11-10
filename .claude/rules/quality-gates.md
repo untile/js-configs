@@ -22,7 +22,7 @@ When `package.json`, `package-lock.json`, `lefthook.yml` or `.github/` change, r
 ## Package specifics
 
 - **biome-config**: the tests assert the exact rules reported per fixture. After changing `biome.json`, update the expectations in `test/index.test.ts` on purpose; never loosen them to make a test pass. After a Biome upgrade run `npm run upgrade-biome --workspace=@untile/biome-config` first.
-- **commitlint-config**: add a fixture to `test/fixtures/correct.txt` or `incorrect.txt` for every rule or ignore change.
+- **commitlint-config**: linted with Biome, using `biome-config` (`packages/commitlint-config/biome.json`). Add a fixture to `test/fixtures/correct.txt` or `incorrect.txt` for every rule or ignore change.
 - **Lockfile**: after `npm install`, check that `package-lock.json` only changes the packages you touched. If unrelated versions move, restore the lockfile from `master` and reinstall.
 
 ## When to skip

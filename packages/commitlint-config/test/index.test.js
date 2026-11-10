@@ -18,10 +18,7 @@ const userConfig = require('../src/index.js');
  */
 
 function parseCorrectFixtures() {
-  const content = fs.readFileSync(
-    path.join(__dirname, 'fixtures', 'correct.txt'),
-    'utf8'
-  );
+  const content = fs.readFileSync(path.join(__dirname, 'fixtures', 'correct.txt'), 'utf8');
 
   const messages = [];
   const lines = content.split('\n');
@@ -57,10 +54,7 @@ function parseCorrectFixtures() {
  */
 
 function parseIncorrectFixtures() {
-  const content = fs.readFileSync(
-    path.join(__dirname, 'fixtures', 'incorrect.txt'),
-    'utf8'
-  );
+  const content = fs.readFileSync(path.join(__dirname, 'fixtures', 'incorrect.txt'), 'utf8');
 
   const fixtures = [];
   const lines = content.split('\n');
@@ -121,10 +115,11 @@ describe('@untile/commitlint-config-untile', () => {
     // Load the published config as a consumer would (no rules added by the test)
     const preparedConfig = await load(userConfig, { cwd: path.resolve(__dirname, '..') });
 
-    linter = message => lint(message, preparedConfig.rules, {
-      parserOpts: preparedConfig.parserPreset?.parserOpts,
-      ...preparedConfig
-    });
+    linter = message =>
+      lint(message, preparedConfig.rules, {
+        parserOpts: preparedConfig.parserPreset?.parserOpts,
+        ...preparedConfig
+      });
   });
 
   it('should reject body lines longer than 100 characters', async () => {
@@ -139,21 +134,16 @@ describe('@untile/commitlint-config-untile', () => {
     const testCases = correctMessages.map(message => {
       // Create a short description for the test name
       const firstLine = message.split('\n')[0];
-      const description = firstLine.length > 50
-        ? `${firstLine.substring(0, 50)}...`
-        : firstLine;
+      const description = firstLine.length > 50 ? `${firstLine.slice(0, 50)}...` : firstLine;
 
       return { description, message };
     });
 
-    it.each(testCases)(
-      'should validate correctly: $description',
-      async ({ message }) => {
-        const result = await linter(message);
+    it.each(testCases)('should validate correctly: $description', async ({ message }) => {
+      const result = await linter(message);
 
-        expect(result.valid).toBe(true);
-      }
-    );
+      expect(result.valid).toBe(true);
+    });
   });
 
   describe('incorrect', () => {
@@ -168,18 +158,14 @@ describe('@untile/commitlint-config-untile', () => {
 
         // Check for expected error
         if (expectedError) {
-          const hasExpectedError = result.errors.some(
-            error => error.name === expectedError
-          );
+          const hasExpectedError = result.errors.some(error => error.name === expectedError);
 
           expect(hasExpectedError).toBe(true);
         }
 
         // Check for expected error message if provided
         if (expectedMessage) {
-          const hasExpectedMessage = result.errors.some(
-            error => error.message === expectedMessage
-          );
+          const hasExpectedMessage = result.errors.some(error => error.message === expectedMessage);
 
           expect(hasExpectedMessage).toBe(true);
         }
