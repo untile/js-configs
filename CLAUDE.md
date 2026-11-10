@@ -125,7 +125,7 @@ Hooks are automatically installed via `npm install` (through the `prepare` scrip
 ### Pre-commit Hook (runs in priority order)
 
 1. **Priority 1**: Sorts all `package.json` files
-2. **Priority 2**: Runs ESLint on staged `.js`, `.ts`, `.tsx` files (parallel)
+2. **Priority 2**: Lints staged `.js`, `.ts`, `.tsx` files (parallel), each in its package: ESLint in packages with an `eslint.config.js`, Biome (`check --write`) in packages with a `biome.json` (`biome-config`, `commitlint-config`)
 
 ### Commit Message Hook
 
