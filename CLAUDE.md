@@ -180,6 +180,8 @@ Key pattern: TypeScript configs import and extend the base JavaScript config usi
 
 `@untile/biome-config` pins `@biomejs/biome` and declares a peer range for a single minor (`>=2.6.6 <2.7.0`), because Biome renames nursery rules between minors and an unknown rule breaks the config. Dependabot (`.github/dependabot.yml`) opens a PR for each Biome release and `.github/workflows/biome-upgrade.yml` runs `npm run upgrade-biome --workspace=@untile/biome-config` (`biome migrate` + peer range update), the lint and the tests on it. After merging, release a new minor of `biome-config`.
 
+Other dependencies: Dependabot opens one weekly PR (`minor-and-patch` group) with every patch and minor update. Majors are only proposed for Biome and commitlint; the rest are ignored in `.github/dependabot.yml` and upgraded by hand (new dependencies must be added to that list).
+
 ## Scripts Reference
 
 ```sh

@@ -1,13 +1,69 @@
 version: 2
 
 updates:
-  # Biome is pinned in `@untile/biome-config` (peer range limited to one minor).
-  # Each Biome release opens a PR; `.github/workflows/biome-upgrade.yml` then runs
-  # `biome migrate`, moves the peer range and runs the config tests on that PR.
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'weekly'
-    allow:
-      - dependency-name: '@biomejs/biome'
-    open-pull-requests-limit: 2
+    # In-range updates only touch the lockfile; an exact pin (Biome) moves to the new version.
+    versioning-strategy: 'increase-if-necessary'
+    open-pull-requests-limit: 5
+    groups:
+      # One weekly PR with every patch and minor update.
+      minor-and-patch:
+        patterns:
+          - '*'
+        # Biome keeps its own PR: `.github/workflows/biome-upgrade.yml` runs `biome migrate`
+        # and moves the peer range (pinned to one minor) on it.
+        exclude-patterns:
+          - '@biomejs/biome'
+        update-types:
+          - 'minor'
+          - 'patch'
+    ignore:
+      # Workspace packages.
+      - dependency-name: '@untile/*'
+      # Majors are only proposed for Biome and commitlint, the toolchains of the maintained configs.
+      # The rest belongs to the deprecated packages or to the test setup and is upgraded by hand.
+      # Add new dependencies here unless their majors should open a PR.
+      - dependency-name: '@babel/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@eslint/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@types/*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'cross-env'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'eslint'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'eslint-plugin-*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'jest'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'lefthook'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'postcss'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'postcss-*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'prettier'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'react'
+        update-types: ['version-update:semver-major']
+      # 0.x: a minor is a breaking change.
+      - dependency-name: 'react-native'
+        update-types: ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'postcss-styled-syntax'
+        update-types: ['version-update:semver-major', 'version-update:semver-minor']
+      - dependency-name: 'sort-package-json'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'stylelint'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'stylelint-*'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'ts-jest'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+      - dependency-name: 'typescript-eslint'
+        update-types: ['version-update:semver-major']
