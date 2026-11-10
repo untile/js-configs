@@ -117,33 +117,21 @@ describe('@untile/commitlint-config-untile', () => {
   beforeAll(async () => {
     const { default: lint } = await import('@commitlint/lint');
     const { default: load } = await import('@commitlint/load');
-    const conventionalConfig = await import('@commitlint/config-conventional');
 
-    // Get the package directory (parent of test directory)
-    const packageDir = path.resolve(__dirname, '..');
+    // Load the published config as a consumer would (no rules added by the test)
+    const preparedConfig = await load(userConfig, { cwd: path.resolve(__dirname, '..') });
 
-    // Manually extend the conventional config to avoid ESM resolution issues
-    // in npm workspaces with commitlint v20
-    // Clear extends to avoid resolution
-    const config = {
-      ...userConfig,
-      extends: []
-    };
+    linter = message => lint(message, preparedConfig.rules, {
+      parserOpts: preparedConfig.parserPreset?.parserOpts,
+      ...preparedConfig
+    });
+  });
 
-    linter = async message => {
-      const preparedConfig = await load(config, { cwd: packageDir });
+  it('should reject body lines longer than 100 characters', async () => {
+    const result = await linter(`Add foobar\n\nThis body line is too long ${'x'.repeat(100)}`);
 
-      // Merge with conventional config rules
-      const mergedRules = {
-        ...conventionalConfig.default.rules,
-        ...preparedConfig.rules
-      };
-
-      return lint(message, mergedRules, {
-        parserOpts: preparedConfig.parserPreset?.parserOpts,
-        ...preparedConfig
-      });
-    };
+    expect(result.valid).toBe(false);
+    expect(result.errors.map(({ name }) => name)).toContain('body-max-line-length');
   });
 
   describe('correct', () => {

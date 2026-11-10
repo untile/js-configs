@@ -22,20 +22,15 @@ const verbs = [
  */
 
 module.exports = {
-  // Ignore patterns for special commits
+  // Ignore patterns for special commits. Merge, revert, `fixup!`, `squash!`
+  // and `amend!` commits are already covered by commitlint's default ignores.
   ignores: [
-    message => /^fixup! /i.test(message),
-    message => /^squash! /i.test(message),
-    message => message.toLowerCase().startsWith('wip'),
-    message => {
-      return ['drop', 'pick', 'reword'].some(keyword =>
-        message.toLowerCase().startsWith(keyword)
-      );
-    },
-    // Dependabot check
-    message => message.split('\n')[0].startsWith('Bump '),
-    // Merge commits
-    message => message.startsWith('Merge ')
+    // Work in progress (`wip`, `WIP: ...`), but not words such as `Wipe`
+    message => /^wip\b/i.test(message),
+    // Interactive rebase commands
+    message => /^(drop|pick|reword) /.test(message),
+    // Dependabot (`Bump <dep> from <a> to <b>` and `Bump the <name> group ...`)
+    message => /^Bump (\S+ from \S+ to \S+|the \S+ group)/.test(message.split('\n')[0])
   ],
 
   // Use custom parser preset for handling optional issue references
@@ -49,9 +44,11 @@ module.exports = {
     'body-case': [2, 'always', 'sentence-case'],
     'body-full-stop': [0],
     'body-leading-blank': [2, 'always'],
+    'body-max-line-length': [2, 'always', 100],
 
     // Footer rules
     'footer-leading-blank': [2, 'always'],
+    'footer-max-line-length': [2, 'always', 100],
 
     // Custom validation rule using function-rules plugin
     // Override type-enum to also check for quotes and spacing
@@ -97,7 +94,7 @@ module.exports = {
     'subject-full-stop': [2, 'never'],
     'subject-min-length': [2, 'always', 3],
 
-    // Disabled rules from conventional config
+    // Trailers are not required
     'trailer-exists': [0],
 
     // Type rules - using standard commitlint rules with parser preset
