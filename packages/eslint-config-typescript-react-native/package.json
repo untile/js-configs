@@ -26,12 +26,12 @@
     "test:watch": "jest --watch --notify"
   },
   "dependencies": {
+    "@eslint/compat": "^2.1.1",
     "@untile/eslint-config-typescript-react": "^3.1.1",
     "eslint-plugin-react-native": "^5.0.0",
     "typescript-eslint": "^8.46.2"
   },
   "devDependencies": {
-    "@eslint/compat": "^2.1.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.19.2",
     "cross-env": "^10.1.0",
