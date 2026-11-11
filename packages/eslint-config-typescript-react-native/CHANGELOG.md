@@ -1,5 +1,10 @@
 # Changelog
 
+## [eslint-config-typescript-react-native/v3.1.2](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react-native/v3.1.2) (2026-11-11)
+- Update biome and commitlint configs [\#112](https://github.com/untile/js-configs/pull/112) ([rafazsh](https://github.com/rafazsh))
+- Update outdated dependencies [\#104](https://github.com/untile/js-configs/pull/104) ([rafazsh](https://github.com/rafazsh))
+- Migrate from Husky+Lint-Staged to Lefthook [\#103](https://github.com/untile/js-configs/pull/103) ([rafazsh](https://github.com/rafazsh))
+
 ## [eslint-config-typescript-react-native 3.1.1](https://github.com/untile/js-configs/releases/tag/eslint-config-typescript-react-native/3.1.1) (2025-03-10)
 - Update dependencies [\#97](https://github.com/untile/js-configs/pull/97) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update ESLint configuration [\#96](https://github.com/untile/js-configs/pull/96) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
