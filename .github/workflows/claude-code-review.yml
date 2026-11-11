@@ -1,0 +1,429 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - ready_for_review
+      - reopened
+      - synchronize
+  # The escape hatch for the draft guard below: a draft that wants a review before
+  # it is ready is reviewed by dispatching this workflow with its number. Run it
+  # from the `Actions` tab, or `gh workflow run claude-code-review.yml -f pr_number=N`.
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: 'Pull request number to review (e.g. "112")'
+        required: true
+        type: string
+
+# A dispatched run shares its pull request's group, so pushing while a manual
+# review is in flight cancels it — the review was reading the superseded commit.
+# On a draft the replacement run is then skipped by the guard below, so the push
+# leaves no review at all: dispatch again once the branch settles.
+concurrency:
+  group: claude-code-review-${{ github.event.pull_request.number || inputs.pr_number }}
+  cancel-in-progress: true
+
+jobs:
+  # Reviewing a draft spends tokens on a revision the author is still rewriting.
+  # `ready_for_review` above is what triggers the first review of a pull request
+  # that opened as a draft; one opened ready is still reviewed on `opened`.
+  #
+  # The `event_name` clause is what lets `workflow_dispatch` through the guard: a
+  # manual run carries no `pull_request` payload, so the draft state is never
+  # consulted and the review runs regardless. It also keeps the condition correct
+  # if a `push:` trigger is ever added, where `draft` would be unset and the short
+  # form of this guard would go silently false forever.
+  claude-review:
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+
+    steps:
+      # A manual run knows only the number, so the head SHA is read from the API
+      # before checkout. Every later step reads the pull request through these two
+      # outputs rather than the event payload, which is empty on a dispatch.
+      - name: Resolve pull request context
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number || inputs.pr_number }}
+        run: |
+          if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "::error::'${PR_NUMBER}' is not a pull request number"
+            exit 1
+          fi
+
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          BASE_REF="${{ github.event.pull_request.base.ref }}"
+
+          # `|| true` so a 404 falls through to the message below rather than
+          # aborting on the shell's `-e` with only gh's raw error.
+          if [ -z "$HEAD_SHA" ]; then
+            HEAD_SHA=$(gh api "repos/${{ github.repository }}/pulls/${PR_NUMBER}" --jq '.head.sha' || true)
+            BASE_REF=$(gh api "repos/${{ github.repository }}/pulls/${PR_NUMBER}" --jq '.base.ref' || true)
+          fi
+
+          if [ -z "$HEAD_SHA" ]; then
+            echo "::error::pull request ${PR_NUMBER} has no head commit — does it exist in ${{ github.repository }}?"
+            exit 1
+          fi
+
+          echo "number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+          echo "head_sha=${HEAD_SHA}" >> "$GITHUB_OUTPUT"
+          echo "base_ref=${BASE_REF:-master}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.pr.outputs.head_sha }}
+          fetch-depth: 0
+
+      - name: Gather prior review context
+        id: prior-reviews
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=${{ steps.pr.outputs.number }}
+          REPO="${{ github.repository }}"
+          OWNER=$(echo "${REPO}" | cut -d/ -f1)
+          REPO_NAME=$(echo "${REPO}" | cut -d/ -f2)
+
+          ALL_COMMENTS=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}/comments" \
+            --paginate 2>/dev/null || echo "[]")
+
+          COMMENTS=$(echo "$ALL_COMMENTS" | jq -r --arg repo "$REPO" --arg pr "$PR_NUMBER" '
+            [.[] | select(.user.login == "claude[bot]")] |
+            map("- [comment \(.id)](https://github.com/\($repo)/pull/\($pr)#discussion_r\(.id)) at \(.path):\(.line // .original_line // "file") — \(.body[:250])") |
+            join("\n")
+          ' 2>/dev/null || echo "")
+
+          REPLIES=$(echo "$ALL_COMMENTS" | jq -r --arg repo "$REPO" --arg pr "$PR_NUMBER" '
+            [.[] | select(.in_reply_to_id != null and .user.login != "claude[bot]")] |
+            map("- reply to [comment \(.in_reply_to_id)](https://github.com/\($repo)/pull/\($pr)#discussion_r\(.in_reply_to_id)): \(.body[:200])") |
+            join("\n")
+          ' 2>/dev/null || echo "")
+
+          ALL_REVIEWS=$(gh api "repos/${REPO}/pulls/${PR_NUMBER}/reviews" \
+            --paginate 2>/dev/null || echo "[]")
+
+          REVIEW_COUNT=$(echo "$ALL_REVIEWS" | jq '
+            [.[] | select(.user.login == "claude[bot]" and (.body | startswith("## Code Review")))] | length
+          ' 2>/dev/null || echo "0")
+
+          REVIEWS=$(echo "$ALL_REVIEWS" | jq -r '
+            [.[] | select(.user.login == "claude[bot]" and .body != "")] |
+            map("--- Review (\(.state), \(.submitted_at // "unknown")) ---\n\(.body[:500])") |
+            join("\n\n")
+          ' 2>/dev/null || echo "")
+
+          RESOLVED=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!, $pr: Int!) {
+              repository(owner: $owner, name: $repo) {
+                pullRequest(number: $pr) {
+                  reviewThreads(first: 100) {
+                    nodes {
+                      isResolved
+                      comments(first: 1) {
+                        nodes { body path }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ' -f owner="${OWNER}" -f repo="${REPO_NAME}" -F pr="${PR_NUMBER}" \
+            --jq '
+            [.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved)] |
+            map("- RESOLVED: \(.comments.nodes[0].path // "unknown") — \(.comments.nodes[0].body[:150])") |
+            join("\n")
+          ' 2>/dev/null || echo "")
+
+          echo "count=${REVIEW_COUNT}" >> "$GITHUB_OUTPUT"
+
+          DELIM_CTX="PRIOR_EOF_$(openssl rand -hex 8)"
+          {
+            echo "context<<${DELIM_CTX}"
+            echo "PRIOR_REVIEW_COUNT: ${REVIEW_COUNT}"
+            if [ -n "$COMMENTS" ]; then
+              echo ""
+              echo "EXISTING REVIEW COMMENTS (from claude[bot]):"
+              echo "$COMMENTS"
+            fi
+            if [ -n "$REPLIES" ]; then
+              echo ""
+              echo "DEVELOPER REPLIES:"
+              echo "$REPLIES"
+            fi
+            if [ -n "$REVIEWS" ]; then
+              echo ""
+              echo "PRIOR REVIEW SUMMARIES (from claude[bot]):"
+              echo "$REVIEWS"
+            fi
+            if [ -n "$RESOLVED" ]; then
+              echo ""
+              echo "RESOLVED THREADS (developer marked as resolved — do NOT re-raise):"
+              echo "$RESOLVED"
+            fi
+            echo "${DELIM_CTX}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Compute incremental diff info
+        id: incremental
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ACTION="${{ github.event.action }}"
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.event.after }}"
+          REPO="${{ github.repository }}"
+          FULL_RESCAN="false"
+          FILES=""
+          STAT=""
+
+          # Only `synchronize` carries a before/after pair; a manual dispatch and a
+          # draft marked ready both arrive with neither. Flagging a full rescan
+          # sends a follow-up down the re-review path — verify the prior comments,
+          # then scan everything — instead of the incremental path, whose empty file
+          # list would leave it nothing to review. That case is reachable: a review
+          # dispatched on a draft leaves a prior review behind, so the later
+          # `ready_for_review` run is a follow-up, and the commits pushed while the
+          # draft guard was skipping `synchronize` are only in the full diff.
+          if [ "$ACTION" != "synchronize" ]; then
+            echo "full_rescan=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # Step 1: try local diff (works for normal pushes)
+          LOCAL_REACHABLE="false"
+          if git cat-file -e "$BEFORE" 2>/dev/null && git cat-file -e "$AFTER" 2>/dev/null; then
+            LOCAL_REACHABLE="true"
+            FILES=$(git diff "$BEFORE".."$AFTER" --name-only 2>/dev/null || echo "")
+            STAT=$(git diff "$BEFORE".."$AFTER" --stat 2>/dev/null || echo "")
+          fi
+
+          # Step 2: if local objects unreachable (force push), try GitHub Compare API
+          # (GitHub retains unreachable objects server-side)
+          if [ -z "$FILES" ] && [ "$LOCAL_REACHABLE" = "false" ]; then
+            COMPARE_JSON=$(gh api "repos/${REPO}/compare/${BEFORE}...${AFTER}" 2>/dev/null || echo "")
+            if [ -n "$COMPARE_JSON" ]; then
+              FILES=$(echo "$COMPARE_JSON" | jq -r '.files[].filename' 2>/dev/null || echo "")
+              if [ -n "$FILES" ]; then
+                STAT=$(echo "$COMPARE_JSON" | jq -r '.files[] | "\(.filename) | +\(.additions) -\(.deletions)"' 2>/dev/null || echo "")
+              fi
+            fi
+          fi
+
+          # Step 3: if still empty, flag full rescan
+          if [ -z "$FILES" ]; then
+            FULL_RESCAN="true"
+          fi
+
+          echo "full_rescan=${FULL_RESCAN}" >> "$GITHUB_OUTPUT"
+
+          DELIM_DIFF="DIFF_EOF_$(openssl rand -hex 8)"
+          {
+            echo "diff_info<<${DELIM_DIFF}"
+            if [ "$FULL_RESCAN" = "true" ]; then
+              echo ""
+              echo "FULL RESCAN — incremental diff unavailable (force push or unreachable commits). Review all PR files."
+            elif [ -n "$FILES" ]; then
+              echo ""
+              echo "FILES CHANGED IN NEW COMMITS ($BEFORE..$AFTER):"
+              echo "$FILES"
+              echo ""
+              echo "CHANGE STATS:"
+              echo "$STAT"
+            fi
+            echo "${DELIM_DIFF}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Determine review mode
+        id: review-mode
+        run: |
+          PRIOR="${{ steps.prior-reviews.outputs.count }}"
+          ACTION="${{ github.event.action }}"
+
+          if [ "$ACTION" = "reopened" ] || [ "${PRIOR:-0}" -eq 0 ]; then
+            echo "mode=FIRST_REVIEW" >> "$GITHUB_OUTPUT"
+          else
+            echo "mode=FOLLOW_UP" >> "$GITHUB_OUTPUT"
+          fi
+
+      # REVIEW.md comes from the base branch, so a pull request cannot change the
+      # review guidelines it is reviewed against. CLAUDE.md and the package rules
+      # still come from the pull request's checkout.
+      - name: Load review guidelines
+        env:
+          BASE_REF: ${{ steps.pr.outputs.base_ref }}
+        run: |
+          if ! git show "origin/${BASE_REF}:REVIEW.md" > "${RUNNER_TEMP}/REVIEW.md" 2>/dev/null; then
+            echo "::warning::REVIEW.md is not on ${BASE_REF} yet; reviewing without it"
+            : > "${RUNNER_TEMP}/REVIEW.md"
+          fi
+
+      - name: Run Claude Code Review
+        id: claude-review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # The log lists every tool call and the permission denials, without which a
+          # review that is never posted still shows as a green run.
+          show_full_output: true
+          allowed_bots: "dependabot[bot]"
+          # `gh api:*`, not the exact submit command: the action reports success when the
+          # submit is denied, and no review is posted.
+          claude_args: |
+            --model claude-sonnet-5-5 --max-turns 100
+            --append-system-prompt-file ${{ runner.temp }}/REVIEW.md
+            --allowedTools "Read,Write,Glob,Grep,Bash(gh api:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh issue view:*),Bash(jq:*)"
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ steps.pr.outputs.number }}
+            HEAD_SHA: ${{ steps.pr.outputs.head_sha }}
+            REVIEW MODE: ${{ steps.review-mode.outputs.mode }}
+            FULL_RESCAN: ${{ steps.incremental.outputs.full_rescan || 'false' }}
+
+            ${{ steps.prior-reviews.outputs.context }}
+            ${{ steps.incremental.outputs.diff_info }}
+
+            DEDUPLICATION RULES:
+            - Do NOT re-raise an issue that already appears in EXISTING REVIEW COMMENTS above.
+              If a concern was already flagged on the same file (even if the line shifted), skip it.
+              Reference prior comments using the `[comment <id>](<url>)` markdown links provided above
+              (the anchors go directly to the inline comment).
+            - If a developer replied acknowledging or dismissing a concern, do not raise it again.
+            - Issues listed under RESOLVED THREADS have been explicitly resolved by the developer —
+              never re-raise them.
+            - If PRIOR_REVIEW_COUNT > 0 and you find no NEW issues beyond what was already flagged,
+              submit a short review body with no inline comments:
+              "No new issues found beyond prior review comments."
+
+            Review this pull request applying the project conventions from CLAUDE.md, the package rules that load when you Read a file, and the review guidelines from REVIEW.md in your system prompt.
+
+            EFFICIENCY: Do not re-read files you already have in context. Do not search for
+            patterns unless evaluating new code.
+
+            REVIEW MODE BEHAVIOR:
+            Follow EXACTLY ONE of the blocks below based on REVIEW MODE. If FOLLOW_UP and FULL_RESCAN is true,
+            follow the FOLLOW_UP (full rescan) block instead of the regular FOLLOW_UP block.
+
+            IF REVIEW MODE IS FIRST_REVIEW:
+            - Cover every file within the limits defined in Step 2 in this one pass: an issue missed
+              now surfaces on the next push as a comment on code the developer didn't change.
+
+            IF REVIEW MODE IS FOLLOW_UP:
+            - ONLY review files listed in FILES CHANGED IN NEW COMMITS.
+            - Use CHANGE STATS to prioritize which changed files to review first.
+            - Check which EXISTING REVIEW COMMENTS were addressed by the new changes.
+            - Report: which prior issues are resolved, and any new issues in changed files.
+            - If all prior comments were addressed and no new issues found:
+              "All prior comments addressed. No new issues found."
+            - Do NOT comment on files that did not change since the last review.
+            - Reference PRIOR REVIEW SUMMARIES to maintain assessment continuity.
+            - Pick `event` per the dispatch rules below — a follow-up can be the one that APPROVEs.
+
+            IF REVIEW MODE IS FOLLOW_UP AND FULL RESCAN is indicated:
+            - The incremental diff could not be computed (force push detected, old commit unreachable).
+            - You still have FULL CONTEXT from the prior review: EXISTING REVIEW COMMENTS,
+              DEVELOPER REPLIES, RESOLVED THREADS, and PRIOR REVIEW SUMMARIES.
+            - This is a RE-REVIEW, not a fresh review. Your primary job is accountability:
+              1. For each issue raised in EXISTING REVIEW COMMENTS, verify whether it was
+                 addressed in the current code. Report status: resolved, partially addressed,
+                 or still present.
+              2. Check DEVELOPER REPLIES for context — if the developer explained why they
+                 kept a pattern, respect their reasoning unless it introduces a clear bug.
+              3. After verifying prior issues, scan for NEW issues not caught in the prior review.
+            - The deduplication rules above apply, and `event` follows the dispatch rules below.
+
+            Steps:
+            0. Gather context: run `gh pr view ${{ steps.pr.outputs.number }}` and `gh pr view ${{ steps.pr.outputs.number }} --json additions,deletions,changedFiles` to get the PR description, linked issues, and diff size.
+            1. If the PR references an issue (GitHub #N), run `gh issue view <N>` to understand the requirements.
+            2. Get the changes — approach depends on REVIEW MODE:
+               **FIRST_REVIEW**:
+               - **≤1000 lines changed**: Run `gh pr diff ${{ steps.pr.outputs.number }}` to see all changes.
+               - **>1000 lines changed**: Do NOT run `gh pr diff`. Instead run `gh api repos/${{ github.repository }}/pulls/${{ steps.pr.outputs.number }}/files --paginate --jq '.[] | "\(.filename) +\(.additions) -\(.deletions)"'` to get per-file stats. Then use the Read tool to read files by risk priority (package `src/` and `biome.json`, `package.json`, workflows, `bin/` scripts; skip `package-lock.json` and test fixtures). Aim for ≤20 files. Explicitly list any unreviewed files in the summary so the developer knows what was skipped.
+               **FOLLOW_UP**:
+               - Do NOT run `gh pr diff`. Read ONLY files listed in FILES CHANGED IN NEW COMMITS using the Read tool. Then verify whether prior inline comments on those files were addressed.
+               **FOLLOW_UP (full rescan)**:
+               - Get the changes using the same mechanics as FIRST_REVIEW (gh pr diff for ≤1000 lines, per-file stats + Read for larger PRs).
+               - Start by reading files mentioned in EXISTING REVIEW COMMENTS to verify if prior issues were addressed.
+               - Then review ALL remaining changed files for new issues — treat unreviewed files as a fresh review.
+               - Before posting any inline comment, check EXISTING REVIEW COMMENTS: if the same issue was already raised on any file, skip it. This prevents drip-feed re-raises when reviewing the full diff.
+            3. Identify which packages are affected (the `packages/*` folders, and whether each one is maintained or deprecated).
+            4. For **new** resources or patterns, search for ONE similar implementation to compare against. Skip for modifications to existing code.
+            5. Read each changed file you review with the Read tool, so the rules for its package load, and apply those rules.
+
+            Focus areas (highest to lowest priority):
+            1. Issue alignment — does the implementation match the linked issue requirements?
+            2. Bugs and logic errors (a rule that breaks consumers, a runtime module missing from `dependencies`, workflow permissions)
+            3. Convention violations specific to the affected packages
+            4. Release impact (which version bump each package needs)
+            5. Security implications
+            6. Test coverage gaps
+
+            Do NOT comment on anything REVIEW.md lists under Do NOT Comment On.
+
+            The PR branch is already checked out in the current working directory.
+
+            Title and cross-reference rules:
+            - FIRST_REVIEW body title: "## Code Review"
+            - FOLLOW_UP body title: "## Code Review — follow-up N"
+            - Never write `#<digits>` (e.g. `#8`, `#42`) in the body, title, or inline comments:
+              GitHub auto-links it to that issue/PR and pollutes unrelated PR timelines with false
+              cross-references. Reference PRs as `pull/<num>` URLs or `PR <num>`, and prior comments
+              via the `[comment <id>](<url>)` links above.
+
+            Output format:
+            Submit a SINGLE GitHub PR review. Use the Write tool to create review.json, then submit with `gh api repos/${{ github.repository }}/pulls/${{ steps.pr.outputs.number }}/reviews --input review.json`.
+
+            review.json structure:
+            ```json
+            {
+              "commit_id": "${{ steps.pr.outputs.head_sha }}",
+              "event": "<EVENT>",
+              "body": "## Code Review\n\n**What this PR does**\n...\n\n**Packages affected**\n...\n\n**Issues found**\n- ...\n\n**Merge assessment**\n...",
+              "comments": [
+                {"path": "relative/file.ts", "line": 42, "side": "RIGHT", "body": "bug: description..."}
+              ]
+            }
+            ```
+
+            Set `event` based on findings and review mode:
+            - `"APPROVE"` — REVIEW MODE is FOLLOW_UP, at least one prior review was
+              CHANGES_REQUESTED, all prior `bug:`/`violation:` comments are resolved,
+              and this pass found no new `bug:`/`violation:` issues. An APPROVE is
+              required to clear GitHub's CHANGES_REQUESTED block — a COMMENT does not.
+              Do NOT use APPROVE on FIRST_REVIEW.
+            - `"COMMENT"` — no issues found (and no prior CHANGES_REQUESTED to clear),
+              or only `suggestion:` level comments.
+            - `"REQUEST_CHANGES"` — any `bug:` or `violation:` level comments found.
+
+            An inline comment goes only on a line inside the diff: take its number from the `@@` hunk headers (`+N` side). A finding on a line outside the diff goes in the body, or in a file-level comment with no `line`/`side` and `"subject_type": "file"`. If `gh api` returns a 422 about line numbers, rewrite review.json with the Write tool, removing `line`/`side` from ALL comments and adding `"subject_type": "file"` to each, then resubmit. Write is the only tool that can change review.json: Edit and shell edits such as `sed` are denied.
+            If no issues found, submit with just the body and an empty comments array.
+            Do NOT post individual comments — everything must be in the single review submission.
+
+      # The action reports success when the submit never went through, as when a
+      # 422 could not be recovered from, so the run checks the review reached the
+      # pull request and fails when it did not. A run the action skips, on a pull
+      # request that changes this workflow, writes no execution file and is not
+      # checked.
+      - name: Verify the review was posted
+        if: steps.claude-review.outputs.execution_file != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          REVIEW_IDS=$(gh api "repos/${{ github.repository }}/pulls/${{ steps.pr.outputs.number }}/reviews" \
+            --paginate \
+            --jq '.[] | select(.user.login == "claude[bot]" and .commit_id == "${{ steps.pr.outputs.head_sha }}") | .id')
+
+          if [ -z "$REVIEW_IDS" ]; then
+            echo "::error::claude[bot] posted no review on ${{ steps.pr.outputs.head_sha }}; the Run Claude Code Review log shows why"
+            exit 1
+          fi
