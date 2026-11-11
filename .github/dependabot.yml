@@ -67,3 +67,13 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: 'typescript-eslint'
         update-types: ['version-update:semver-major']
+
+  # Actions used by the workflows, all in one weekly PR (majors included).
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
