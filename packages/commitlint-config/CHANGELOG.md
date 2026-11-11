@@ -1,5 +1,8 @@
 # Changelog
 
+## [commitlint-config/v5.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/v5.0.0) (2026-11-11)
+- Update biome and commitlint configs [\#112](https://github.com/untile/js-configs/pull/112) ([rafazsh](https://github.com/rafazsh))
+
 ## [commitlint-config 4.0.0](https://github.com/untile/js-configs/releases/tag/commitlint-config/4.0.0) (2025-10-30)
 - Migrate commitlint to version 20 [\#106](https://github.com/untile/js-configs/pull/106) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
 - Update outdated dependencies [\#104](https://github.com/untile/js-configs/pull/104) ([rafaelcruzazevedo](https://github.com/rafaelcruzazevedo))
