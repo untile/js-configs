@@ -39,7 +39,7 @@
     "cross-env": "^10.1.0",
     "eslint": "^9.38.0",
     "jest": "^30.2.0",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.33",
     "postcss-styled-syntax": "^0.7.1",
     "stylelint": "^16.25.0"
   },
