@@ -28,7 +28,7 @@
   "dependencies": {
     "@untile/eslint-config-react": "^3.1.1",
     "@untile/eslint-config-typescript": "^3.1.1",
-    "typescript-eslint": "^8.46.2"
+    "typescript-eslint": "^8.73.0"
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
